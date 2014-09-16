@@ -25,6 +25,14 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.requestAlwaysAuthorization()
             locationManager.startUpdatingLocation()
+            var homeLati:CLLocationDegrees = 42.367545
+            var homelong:CLLocationDegrees = -71.258492
+            var myHome:CLLocationCoordinate2D = CLLocationCoordinate2DMake(homeLati, homelong)
+            var myHomePin = MKPointAnnotation()
+            myHomePin.coordinate = myHome
+            myHomePin.title = "Home"
+            myHomePin.subtitle = "David's Home"
+            self.mapView.addAnnotation(myHomePin)
         }
     }
     
