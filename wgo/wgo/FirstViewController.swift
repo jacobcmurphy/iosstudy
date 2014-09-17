@@ -8,19 +8,24 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Foundation
 
 class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate{
     
       @IBOutlet var mapView: MKMapView!
      var myPin = MKPointAnnotation()
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
+    var data = NSMutableData()
+    
     var locationManager = CLLocationManager()
+    
   //  func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!)
   
     override func viewDidLoad() {
-        super.viewDidLoad()
         
-//        let singleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "didTapMap:")
+        super.viewDidLoad()
+        parseJSON(getJSON("http://54.68.252.13/loctest"))
+        //        let singleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "didTapMap:")
 //        singleTap.delegate = self
 //        singleTap.numberOfTapsRequired = 1
 //        singleTap.numberOfTouchesRequired = 1
@@ -73,15 +78,19 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         */
     }
     
-    func updatePin(location: CLLocationManager!){
-        let location = locationManager.location
+    /*
+    func updatePin(location: CLLocationManager!, didUpdateLocations locations: [AnyObject]!){
+        let location = locations.last as CLLocation
         var currentLat:CLLocationDegrees = location.coordinate.latitude
         var currentLng:CLLocationDegrees = location.coordinate.longitude
         currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
     }
-    
+    */
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        updatePin(manager)
+        let location = locations.last as CLLocation
+        var currentLat:CLLocationDegrees = location.coordinate.latitude
+        var currentLng:CLLocationDegrees = location.coordinate.longitude
+        currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
     }
     
     
@@ -103,6 +112,28 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         
         return cell
     }
+    
+    /* Parsing Stuff */
+    
+    func getJSON(urlToRequest: String) -> NSData{
+        return NSData(contentsOfURL: NSURL(string: urlToRequest))
+    }
+
+    
+    func parseJSON(inputData: NSData) -> NSDictionary{
+        var error: NSError?
+        var boardsDictionary: NSDictionary = NSJSONSerialization.JSONObjectWithData(inputData, options: NSJSONReadingOptions.MutableContainers, error: &error) as NSDictionary
+        var dat:String = "data"
+     
+   
+        
+        println(boardsDictionary.valueForKey("data"))
+        
+        return boardsDictionary
+    }
+
+    
+    /* End Of Parsing Stuff*/
     
 }
 
