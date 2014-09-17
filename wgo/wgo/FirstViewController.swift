@@ -12,6 +12,8 @@ import CoreLocation
 class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate{
     
       @IBOutlet var mapView: MKMapView!
+     var myPin = MKPointAnnotation()
+    var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var locationManager = CLLocationManager()
   //  func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!)
   
@@ -42,30 +44,44 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             myHomePin.title = "Home"
             myHomePin.subtitle = "David's Home"
             self.mapView.addAnnotation(myHomePin)
+            addInitialPin(locationManager)
+            
+        
         }
         
     }
-    
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+   
+    func addInitialPin(location: CLLocationManager!){
         /*
         Making a Pin here...
         */
         var name = "Name"
-        let location = locations.last as CLLocation
+        let location = locationManager.location
         var currentLat:CLLocationDegrees = location.coordinate.latitude
         var currentLng:CLLocationDegrees = location.coordinate.longitude
-        var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(currentLat, currentLng)
+        currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
         var myPin = MKPointAnnotation()
+        self.mapView.addAnnotation(myPin)
         myPin.coordinate = currLoc
         myPin.title = name
         myPin.subtitle = "Name's Place"
-        myPin.pinColor = MKPinAnnotationColor.Purple
-        /* End Of Pin Code
-        */
+        /* Makes The Initial Center Start Up at Pin */
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
-        
         self.mapView.setRegion(region, animated: true)
+        /* End Of Pin Code
+        */
+    }
+    
+    func updatePin(location: CLLocationManager!){
+        let location = locationManager.location
+        var currentLat:CLLocationDegrees = location.coordinate.latitude
+        var currentLng:CLLocationDegrees = location.coordinate.longitude
+        currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        updatePin(manager)
     }
     
     
