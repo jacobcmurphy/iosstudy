@@ -37,8 +37,21 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        /*
+        Making a Pin here...
+        */
+        var name = "Name"
         let location = locations.last as CLLocation
-        
+        var currentLat:CLLocationDegrees = location.coordinate.latitude
+        var currentLng:CLLocationDegrees = location.coordinate.longitude
+        var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(currentLat, currentLng)
+        var myPin = MKPointAnnotation()
+        myPin.coordinate = currLoc
+        myPin.title = name
+        myPin.subtitle = "Name's Place"
+        myPin.pinColor = MKPinAnnotationColor.Purple
+        /* End Of Pin Code
+        */
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
         
