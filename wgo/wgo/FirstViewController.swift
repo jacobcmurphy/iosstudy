@@ -24,14 +24,9 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        parseJSON(getJSON("http://54.68.252.13/loctest"))
-        //        let singleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "didTapMap:")
-//        singleTap.delegate = self
-//        singleTap.numberOfTapsRequired = 1
-//        singleTap.numberOfTouchesRequired = 1
-//        mapView.addGestureRecognizer(singleTap)
         
-        // Do any additional setup after loading the view, typically from a nib.
+        var markersDictionary: NSArray = parseJSON(getJSON("http://54.68.222.120/users"))
+
         if (CLLocationManager.locationServicesEnabled())
         {
             locationManager = CLLocationManager()
@@ -40,18 +35,34 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             locationManager.requestAlwaysAuthorization()
             locationManager.startUpdatingLocation()
 
-            // test pin
-            var homeLati:CLLocationDegrees = 42.367545
-            var homelong:CLLocationDegrees = -71.258492
-            var myHome:CLLocationCoordinate2D = CLLocationCoordinate2DMake(homeLati, homelong)
-            var myHomePin = MKPointAnnotation()
-            myHomePin.coordinate = myHome
-            myHomePin.title = "Home"
-            myHomePin.subtitle = "David's Home"
-            self.mapView.addAnnotation(myHomePin)
             addInitialPin(locationManager)
             
-        
+            
+            for i in 0...3 {
+                var lnglat:NSArray = markersDictionary[i]["loc"] as NSArray
+                var name: String = markersDictionary[i]["first_name"] as String
+                var subname:String = "subname"
+                var lng:double_t = lnglat[0] as double_t
+                var lat:double_t = lnglat[1] as double_t
+                
+                /*Making a Pin here...
+                */
+                //let location = locationManager.location
+                println(name)
+                println(lat)
+                println(lng)
+                var currentLat:CLLocationDegrees = lat
+                var currentLng:CLLocationDegrees = lng
+                currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
+                var myPin = MKPointAnnotation()
+                self.mapView.addAnnotation(myPin)
+                myPin.coordinate = currLoc
+                myPin.title = name
+                myPin.subtitle = subname
+                /* End Of Pin Code*/
+               // addPin(name, subname, lat, lng)
+            }
+            
         }
         
     }
@@ -74,6 +85,24 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
         self.mapView.setRegion(region, animated: true)
+        /* End Of Pin Code
+      
+        */
+    }
+    
+    func addPin(/*location: CLLocationManager!,*/ name: String, subname: String,  lat: double_t, long: double_t){
+        /*
+        Making a Pin here...
+        */
+        //let location = locationManager.location
+        var currentLat:CLLocationDegrees = lat
+        var currentLng:CLLocationDegrees = long
+        currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
+        var myPin = MKPointAnnotation()
+        self.mapView.addAnnotation(myPin)
+        myPin.coordinate = currLoc
+        myPin.title = name
+        myPin.subtitle = subname
         /* End Of Pin Code
         */
     }
@@ -106,10 +135,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
 
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
-        
         cell.textLabel?.text = "Event #\(indexPath.row)"
         cell.detailTextLabel?.text = "Event Description"
-        
         return cell
     }
     
@@ -119,19 +146,22 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         return NSData(contentsOfURL: NSURL(string: urlToRequest))
     }
 
-    
+    /*
     func parseJSON(inputData: NSData) -> NSDictionary{
         var error: NSError?
         var boardsDictionary: NSDictionary = NSJSONSerialization.JSONObjectWithData(inputData, options: NSJSONReadingOptions.MutableContainers, error: &error) as NSDictionary
-        var dat:String = "data"
-     
-   
-        
-        println(boardsDictionary.valueForKey("data"))
-        
+        //var info:NSArray = boardsDictionary.valueForKey("data") as NSArray
+        println(boardsDictionary)
+        return boardsDictionary
+    }*/
+    
+    func parseJSON(inputData: NSData) -> NSArray{
+        var error: NSError?
+        var boardsDictionary: NSArray = NSJSONSerialization.JSONObjectWithData(inputData, options: NSJSONReadingOptions.MutableContainers, error: &error) as NSArray
+        var latlng:NSArray = boardsDictionary[3]["loc"] as NSArray
+        println(boardsDictionary)
         return boardsDictionary
     }
-
     
     /* End Of Parsing Stuff*/
     
