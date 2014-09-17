@@ -24,7 +24,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        parseJSON(getJSON("http://54.68.252.13/loctest"))
+        parseJSON(getJSON("http://54.68.222.120/loctest"))
         //        let singleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "didTapMap:")
 //        singleTap.delegate = self
 //        singleTap.numberOfTapsRequired = 1
@@ -123,11 +123,11 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     func parseJSON(inputData: NSData) -> NSDictionary{
         var error: NSError?
         var boardsDictionary: NSDictionary = NSJSONSerialization.JSONObjectWithData(inputData, options: NSJSONReadingOptions.MutableContainers, error: &error) as NSDictionary
-        var dat:String = "data"
+       
      
    
-        
-        println(boardsDictionary.valueForKey("data"))
+        var test:NSArray = boardsDictionary.valueForKey("data") as NSArray
+        println(test[0]["first_name"])
         
         return boardsDictionary
     }
