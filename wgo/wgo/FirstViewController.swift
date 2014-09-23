@@ -25,7 +25,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         
         super.viewDidLoad()
         
-        var markersDictionary: NSArray = parseJSON(getJSON("http://54.68.222.120/users"))
+        var markersDictionary: NSArray = parseJSON(getJSON("http://54.69.64.115/users"))
 
         if (CLLocationManager.locationServicesEnabled())
         {
@@ -38,27 +38,29 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             addInitialPin(locationManager)
             
             
-            for i in 0...3 {
+            for i in 0...markersDictionary.count-1 {
                 var lnglat:NSArray = markersDictionary[i]["loc"] as NSArray
-                var name: String = markersDictionary[i]["first_name"] as String
+                var myPin:[MKPointAnnotation] = [MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation()]//fix this with lengths
+                var firstname: String = markersDictionary[i]["first_name"] as String
+                var lastname: String = markersDictionary[i]["last_name"] as String
                 var subname:String = "subname"
                 var lng:double_t = lnglat[0] as double_t
                 var lat:double_t = lnglat[1] as double_t
-                
+            
                 /*Making a Pin here...
                 */
                 //let location = locationManager.location
-                println(name)
+              //  println(firstname+ " " + lastname)
                 println(lat)
                 println(lng)
                 var currentLat:CLLocationDegrees = lat
                 var currentLng:CLLocationDegrees = lng
+                
                 currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
-                var myPin = MKPointAnnotation()
-                self.mapView.addAnnotation(myPin)
-                myPin.coordinate = currLoc
-                myPin.title = name
-                myPin.subtitle = subname
+                //myPin.append(MKPointAnnotation())
+                self.mapView.addAnnotation(myPin[i])
+                myPin[i].coordinate = currLoc
+                myPin[i].title = (firstname + " " + lastname)
                 /* End Of Pin Code*/
                // addPin(name, subname, lat, lng)
             }
@@ -80,7 +82,6 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         self.mapView.addAnnotation(myPin)
         myPin.coordinate = currLoc
         myPin.title = name
-        myPin.subtitle = "Name's Place"
         /* Makes The Initial Center Start Up at Pin */
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
