@@ -36,11 +36,11 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             locationManager.startUpdatingLocation()
 
             addInitialPin(locationManager)
-            
+            var myPin:[MKPointAnnotation] = []
             
             for i in 0...markersDictionary.count-1 {
                 var lnglat:NSArray = markersDictionary[i]["loc"] as NSArray
-                var myPin:[MKPointAnnotation] = [MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation()]//fix this with lengths
+                //fix this with lengths
                 var firstname: String = markersDictionary[i]["first_name"] as String
                 var lastname: String = markersDictionary[i]["last_name"] as String
                 var subname:String = "subname"
@@ -57,7 +57,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
                 var currentLng:CLLocationDegrees = lng
                 
                 currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
-                //myPin.append(MKPointAnnotation())
+                myPin.append(MKPointAnnotation())
                 self.mapView.addAnnotation(myPin[i])
                 myPin[i].coordinate = currLoc
                 myPin[i].title = (firstname + " " + lastname)
