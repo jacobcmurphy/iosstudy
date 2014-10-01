@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		637279E919DBA10800721AD0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637279E819DBA10800721AD0 /* LoginController.swift */; };
 		63DC63F719B9416700F7981C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC63F619B9416700F7981C /* AppDelegate.swift */; };
 		63DC63F919B9416700F7981C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC63F819B9416700F7981C /* FirstViewController.swift */; };
 		63DC63FB19B9416700F7981C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC63FA19B9416700F7981C /* SecondViewController.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		637279E819DBA10800721AD0 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		63DC63F119B9416700F7981C /* wgo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wgo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DC63F519B9416700F7981C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63DC63F619B9416700F7981C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				63DC63F819B9416700F7981C /* FirstViewController.swift */,
 				63DC63FA19B9416700F7981C /* SecondViewController.swift */,
 				63DC63FC19B9416800F7981C /* Main.storyboard */,
+				637279E819DBA10800721AD0 /* LoginController.swift */,
 				63DC63FF19B9416800F7981C /* Images.xcassets */,
 				63DC63F419B9416700F7981C /* Supporting Files */,
 			);
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63DC63FB19B9416700F7981C /* SecondViewController.swift in Sources */,
+				637279E919DBA10800721AD0 /* LoginController.swift in Sources */,
 				63DC63F719B9416700F7981C /* AppDelegate.swift in Sources */,
 				63DC63F919B9416700F7981C /* FirstViewController.swift in Sources */,
 			);
