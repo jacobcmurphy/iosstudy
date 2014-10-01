@@ -12,8 +12,8 @@ import Foundation
 
 class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate{
     
-      @IBOutlet var mapView: MKMapView!
-     var myPin = MKPointAnnotation()
+    @IBOutlet var mapView: MKMapView!
+    var myPin = MKPointAnnotation()
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
     
@@ -36,6 +36,24 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             locationManager.startUpdatingLocation()
 
             addInitialPin(locationManager)
+            
+            
+       /*PIN CODE*//*
+            let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
+            dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
+
+                println("gcd hello")
+                dispatch_async(dispatch_get_main_queue(), {
+                        var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
+                        println("hello from UI thread executed as dispatch")
+                    
+                })
+            })
+            println("hello from UI thread")
+            
+            */
+            
+            
             var myPin:[MKPointAnnotation] = []
             
             for i in 0...markersDictionary.count-1 {
@@ -68,6 +86,16 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         }
         
     }
+    
+    func applicationWillResignActive(application: UIApplication) {
+         var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
+    
+    }
+    
+    func update(){
+        println("David is Sexy")
+    }
+
    
     func addInitialPin(location: CLLocationManager!){
         /*
