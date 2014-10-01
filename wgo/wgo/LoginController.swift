@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class LoginController: UIViewController {
 
@@ -29,7 +30,7 @@ class LoginController: UIViewController {
     func put(params : Dictionary<String, String>) {
         //example self.put(["first_name":"FirstName", "last_name":"LastName"]
         
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://54.69.190.171/login"))
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://54.69.174.192/login"))
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         
@@ -42,6 +43,9 @@ class LoginController: UIViewController {
             println("Response: \(response)")
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
             println("Body: \(strData)")
+            if strData.lowercaseString.rangeOfString("failed") != nil { // check results for failed server authentication
+                println("authentication failed. successfully connected to server.")
+            }
             var err: NSError?
             var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as? NSDictionary
             
@@ -66,9 +70,6 @@ class LoginController: UIViewController {
                 }
             }
         })
-        
-        task.resume()
-        
     }
 
 

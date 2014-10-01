@@ -25,7 +25,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         
         super.viewDidLoad()
         
-        var markersDictionary: NSArray = parseJSON(getJSON("http://54.69.190.171/users"))
+        var markersDictionary: NSArray = parseJSON(getJSON("http://54.69.174.192/users"))
 
         if (CLLocationManager.locationServicesEnabled())
         {
@@ -144,7 +144,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     func put(params : Dictionary<String, String>) {
         //example self.put(["first_name":"FirstName", "last_name":"LastName"]
 
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://54.69.64.115/users"))
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://54.69.174.192/users"))
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "PUT"
         
