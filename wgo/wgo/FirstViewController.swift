@@ -25,7 +25,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         
         super.viewDidLoad()
         
-        var markersDictionary: NSArray = parseJSON(getJSON("http://54.69.64.115/users"))
+        var markersDictionary: NSArray = parseJSON(getJSON("http://54.69.190.171/users"))
 
         if (CLLocationManager.locationServicesEnabled())
         {
