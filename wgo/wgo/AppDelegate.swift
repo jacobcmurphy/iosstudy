@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             
             println("gcd hello")
             dispatch_async(dispatch_get_main_queue(), {
-                var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateBackground"), userInfo: nil, repeats: true)
+                var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: Selector("updateBackground"), userInfo: nil, repeats: true)
                 println("hello from UI thread executed as dispatch")
                 
             })
@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             var curDoubLong:double_t = currentLng as double_t
             let locString = NSString(format: "[%f, %f]", curDoubLong, curDoubLat)
             println(locString)
-            Poster.post(["loc": locString], url: "users/5418fcc9947f56e85137d5bb")
+            Poster.post(["loc" : locString], url: "users/5418fcc9947f56e85137d5bb")
         }
     }
 

@@ -15,6 +15,7 @@ public class Poster {
         
     var fullURL:String = "http://54.69.221.141/"
     fullURL += url
+    println(fullURL)
     var request = NSMutableURLRequest(URL: NSURL(string: fullURL))
     var session = NSURLSession.sharedSession()
     request.HTTPMethod = "POST"
@@ -54,6 +55,7 @@ public class Poster {
             }
         }
     })
+        task.resume()
 }
 
 }
