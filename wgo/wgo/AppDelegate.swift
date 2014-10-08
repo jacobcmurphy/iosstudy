@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
+import Foundation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
                             
     var window: UIWindow?
 
@@ -25,8 +28,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication!) {
+        
+        let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
+        dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
+            
+            println("gcd hello")
+            dispatch_async(dispatch_get_main_queue(), {
+                var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateBackground"), userInfo: nil, repeats: true)
+                println("hello from UI thread executed as dispatch")
+                
+            })
+        })
+        println("hello from UI thread")
+        
+        
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    }
+    
+    
+    func updateBackground(){
+        
+        var locationManager = CLLocationManager()
+        
+        if (CLLocationManager.locationServicesEnabled())
+        {
+            locationManager = CLLocationManager()
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.requestAlwaysAuthorization()
+            locationManager.startUpdatingLocation()
+            let location = locationManager.location
+            var currentLat:CLLocationDegrees = location.coordinate.latitude
+            var currentLng:CLLocationDegrees = location.coordinate.longitude
+            var curDoubLat:double_t = currentLat as double_t
+            var curDoubLong:double_t = currentLng as double_t
+            let locString = NSString(format: "[%f, %f]", curDoubLong, curDoubLat)
+            println(locString)
+            Poster.post(["loc": locString], url: "users/5418fcc9947f56e85137d5bb")
+        }
     }
 
     func applicationWillEnterForeground(application: UIApplication!) {
@@ -40,7 +80,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication!) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 

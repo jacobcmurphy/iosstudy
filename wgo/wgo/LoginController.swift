@@ -21,17 +21,15 @@ class LoginController: UIViewController {
     
     @IBAction func sendLogin(sender: AnyObject) {
         
-        self.put(["email": emailVar.text, "password": passVar.text]);
+        Poster.post(["email": emailVar.text, "password": passVar.text], url: "login");
         
         
     }
     
-    
-    
-    func put(params : Dictionary<String, String>) {
+    func post(params : Dictionary<String, String>) {
         //example self.put(["first_name":"FirstName", "last_name":"LastName"]
         
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://54.69.174.192/login"))
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://54.69.221.141/login"))
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         
