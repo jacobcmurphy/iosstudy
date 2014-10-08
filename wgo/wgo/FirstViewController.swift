@@ -17,8 +17,9 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
     var locationManager = CLLocationManager()
-    
-    @IBOutlet var didTap: UITapGestureRecognizer!
+   // var mapHeight:Double = mapView.frame.size.height
+    @IBOutlet weak var minimizeButton: UIButton!
+
     
         let tapRec = UITapGestureRecognizer()
     
@@ -29,9 +30,11 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         if (CLLocationManager.locationServicesEnabled())
         {
             
-           tapRec.addTarget(didTap, action: "tappedView")
-           //self.addGestureRecognizer(tapRec)
-            //didTap.userInteractionEnabled = true
+            tapRec.addTarget(self, action: "tappedView")
+            minimizeButton.addTarget(self, action: Selector("miniClick"), forControlEvents: .TouchUpInside)
+            mapView.addGestureRecognizer(tapRec)
+            mapView.userInteractionEnabled = true
+            minimizeButton.hidden = true
             
             let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
             dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
@@ -48,11 +51,28 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         
     }
     
+    
     func tappedView(){
         
-        println("Test")
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        let screenHeight = screenSize.height;
+        minimizeButton.hidden = false
+       UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut  , animations: {
+            var frame = self.mapView.frame
+            frame.size.height = screenHeight
+            self.mapView.frame = frame
+            }, completion: nil)
     }
     
+    func miniClick(){
+         minimizeButton.hidden = true
+        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut  , animations: {
+            var frame = self.mapView.frame
+            frame.size.height = 213
+            self.mapView.frame = frame
+            }, completion: nil)
+
+    }
     func update(){
         
         var markersDictionary: NSArray = parseJSON(getJSON("http://54.69.228.195/users"))

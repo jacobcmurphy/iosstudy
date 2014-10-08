@@ -52,6 +52,12 @@
                                     <tabBarItem title="Logout" id="KuZ-eF-vEx"/>
                                 </items>
                             </tabBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHK-ML-ZqW">
+                                <rect key="frame" x="112" y="518" width="96" height="30"/>
+                                <state key="normal" title="Minimize Map">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -68,8 +74,8 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="didTap" destination="fXv-81-pVp" id="vxg-iy-9LG"/>
                         <outlet property="mapView" destination="DkD-yk-28L" id="LRb-u7-M2t"/>
+                        <outlet property="minimizeButton" destination="lHK-ML-ZqW" id="mBQ-tF-ECm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
