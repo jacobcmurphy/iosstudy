@@ -18,13 +18,20 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     var data = NSMutableData()
     var locationManager = CLLocationManager()
     
-  
+    @IBOutlet var didTap: UITapGestureRecognizer!
+    
+        let tapRec = UITapGestureRecognizer()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
         if (CLLocationManager.locationServicesEnabled())
         {
+            
+           tapRec.addTarget(didTap, action: "tappedView")
+           //self.addGestureRecognizer(tapRec)
+            //didTap.userInteractionEnabled = true
             
             let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
             dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
@@ -41,9 +48,14 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         
     }
     
+    func tappedView(){
+        
+        println("Test")
+    }
+    
     func update(){
         
-        var markersDictionary: NSArray = parseJSON(getJSON("http://54.69.221.141/users"))
+        var markersDictionary: NSArray = parseJSON(getJSON("http://54.69.228.195/users"))
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest

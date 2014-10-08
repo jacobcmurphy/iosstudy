@@ -13,7 +13,7 @@ public class Poster {
     class func post(params : Dictionary<String, String>, url : String) {
     //example self.put(["first_name":"FirstName", "last_name":"LastName"]
         
-    var fullURL:String = "http://54.69.221.141/"
+    var fullURL:String = "http://54.69.228.195/"
     fullURL += url
     println(fullURL)
     var request = NSMutableURLRequest(URL: NSURL(string: fullURL))

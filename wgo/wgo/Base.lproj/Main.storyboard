@@ -68,6 +68,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="didTap" destination="fXv-81-pVp" id="vxg-iy-9LG"/>
                         <outlet property="mapView" destination="DkD-yk-28L" id="LRb-u7-M2t"/>
                     </connections>
                 </viewController>
