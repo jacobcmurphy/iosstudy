@@ -75,7 +75,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
     func update(){
         
-        var markersDictionary: NSArray = parseJSON(getJSON("http://54.69.228.195/users"))
+        var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "users"))
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -143,19 +143,5 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         cell.detailTextLabel?.text = "Event Description"
         return cell
     }
-    
-    /* Parsing Stuff */
-    func getJSON(urlToRequest: String) -> NSData{
-        return NSData(contentsOfURL: NSURL(string: urlToRequest))
-    }
-    
-    func parseJSON(inputData: NSData) -> NSArray{
-        var error: NSError?
-        var boardsDictionary: NSArray = NSJSONSerialization.JSONObjectWithData(inputData, options: NSJSONReadingOptions.MutableContainers, error: &error) as NSArray
-        var latlng:NSArray = boardsDictionary[3]["loc"] as NSArray
-        println(boardsDictionary)
-        return boardsDictionary
-    }
-    /* End Of Parsing Stuff*/
     
 }

@@ -10,10 +10,28 @@ import Foundation
 
 public class Poster {
     
+    class func getIP () -> String {
+        return "http://54.69.228.195/"
+    }
+    
+    /* Parsing Stuff */
+    class func getJSON(urlToRequest: String) -> NSData{
+        return NSData(contentsOfURL: NSURL(string: urlToRequest))
+    }
+    
+    class func parseJSON(inputData: NSData) -> NSArray{
+        var error: NSError?
+        var boardsDictionary: NSArray = NSJSONSerialization.JSONObjectWithData(inputData, options: NSJSONReadingOptions.MutableContainers, error: &error) as NSArray
+        var latlng:NSArray = boardsDictionary[3]["loc"] as NSArray
+        println(boardsDictionary)
+        return boardsDictionary
+    }
+    /* End Of Parsing Stuff*/
+    
     class func post(params : Dictionary<String, String>, url : String) {
     //example self.put(["first_name":"FirstName", "last_name":"LastName"]
         
-    var fullURL:String = "http://54.69.228.195/"
+    var fullURL:String = self.getIP()
     fullURL += url
     println(fullURL)
     var request = NSMutableURLRequest(URL: NSURL(string: fullURL))
