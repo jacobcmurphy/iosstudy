@@ -11,18 +11,28 @@ import Foundation
 
 class LoginController: UIViewController {
 
+    @IBOutlet weak var emailVar: UITextField!
+    @IBOutlet weak var passVar: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginButton.addTarget(self, action: Selector("loginClick"), forControlEvents: .TouchUpInside)
 
         // Do any additional setup after loading the view.
     }
-    @IBOutlet weak var emailVar: UITextField!
-    @IBOutlet weak var passVar: UITextField!
     
     @IBAction func sendLogin(sender: AnyObject) {
+ 
+        
+    }
+    
+    func loginClick(){
         
         Poster.post(["email": emailVar.text, "password": passVar.text], url: "login");
-     //  var currUser = User(id: <#String#>, first_name: <#String#>, last_name: <#String#>, loc: <#Array<Double>#>)
+      //  var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "login"))
+    //    println(markersDictionary)
+        //       var currUser = User(id: <#String#>, first_name: <#String#>, last_name: <#String#>, loc: <#Array<Double>#>)
         
     }
     
