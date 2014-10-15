@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "wgo/FirstViewController.swift"
+            timestampString = "435033891.250467"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "FirstViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "wgo/FirstViewController.swift"
+            timestampString = "435031257.182006"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "FirstViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "wgo.FirstViewController.mapView.getter : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.MKMapView&gt;"
+                  moduleName = "wgo"
+                  urlString = "file:///Users/sharatsridhar/BoxSync/Code/iOS%20Independent%20Study/iosstudy/wgo/wgo/FirstViewController.swift"
+                  timestampString = "435031257.187893"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "wgo.FirstViewController.mapView.setter : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.MKMapView&gt;"
+                  moduleName = "wgo"
+                  urlString = "file:///Users/sharatsridhar/BoxSync/Code/iOS%20Independent%20Study/iosstudy/wgo/wgo/FirstViewController.swift"
+                  timestampString = "435031257.188119"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "wgo.FirstViewController.mapView.materializeForSet : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.MKMapView&gt;"
+                  moduleName = "wgo"
+                  urlString = "file:///Users/sharatsridhar/BoxSync/Code/iOS%20Independent%20Study/iosstudy/wgo/wgo/FirstViewController.swift"
+                  timestampString = "435031257.188289"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "wgo.FirstViewController.init (wgo.FirstViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;ObjectiveC.NSBundle&gt;) -&gt; wgo.FirstViewController"
+                  moduleName = "wgo"
+                  urlString = "file:///Users/sharatsridhar/BoxSync/Code/iOS%20Independent%20Study/iosstudy/wgo/wgo/FirstViewController.swift"
+                  timestampString = "435031257.18844"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "wgo.FirstViewController.init (wgo.FirstViewController.Type)() -&gt; wgo.FirstViewController"
+                  moduleName = "wgo"
+                  urlString = "file:///Users/sharatsridhar/BoxSync/Code/iOS%20Independent%20Study/iosstudy/wgo/wgo/FirstViewController.swift"
+                  timestampString = "435031257.188597"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "wgo.FirstViewController.init (wgo.FirstViewController.Type)(coder : ObjectiveC.NSCoder) -&gt; wgo.FirstViewController"
+                  moduleName = "wgo"
+                  urlString = "file:///Users/sharatsridhar/BoxSync/Code/iOS%20Independent%20Study/iosstudy/wgo/wgo/FirstViewController.swift"
+                  timestampString = "435031257.188873"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -138,7 +138,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
 
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")!
         cell.textLabel?.text = "Event #\(indexPath.row)"
         cell.detailTextLabel?.text = "Event Description"
         return cell

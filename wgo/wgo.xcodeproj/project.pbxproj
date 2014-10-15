@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		353BEF5D19EE6C790075263B /* SwiftHTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359DD41919EE4E49002D6495 /* SwiftHTTP.framework */; };
+		353BEF5E19EE6C790075263B /* SwiftHTTP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 359DD41919EE4E49002D6495 /* SwiftHTTP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		359DD42019EE4E53002D6495 /* SwiftHTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359DD41919EE4E49002D6495 /* SwiftHTTP.framework */; };
 		637279E919DBA10800721AD0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637279E819DBA10800721AD0 /* LoginController.swift */; };
 		63B0B0D319E4C15600A281B1 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B0B0D219E4C15600A281B1 /* Poster.swift */; };
 		63B0B0D519E4EC4700A281B1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B0B0D419E4EC4700A281B1 /* User.swift */; };
@@ -19,6 +22,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		353BEF5F19EE6C790075263B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 359DD41119EE4E49002D6495 /* SwiftHTTP.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 6BFD901519C8D8B500DD99B6;
+			remoteInfo = SwiftHTTP;
+		};
+		359DD41819EE4E49002D6495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 359DD41119EE4E49002D6495 /* SwiftHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6BFD901619C8D8B500DD99B6;
+			remoteInfo = SwiftHTTP;
+		};
+		359DD41A19EE4E49002D6495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 359DD41119EE4E49002D6495 /* SwiftHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6BFD902119C8D8B500DD99B6;
+			remoteInfo = SwiftHTTPTests;
+		};
+		359DD41C19EE4E49002D6495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 359DD41119EE4E49002D6495 /* SwiftHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D958025919E6EEEB003C8218;
+			remoteInfo = SwiftHTTPOSX;
+		};
+		359DD41E19EE4E49002D6495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 359DD41119EE4E49002D6495 /* SwiftHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D958026319E6EEEB003C8218;
+			remoteInfo = SwiftHTTPOSXTests;
+		};
 		63DC640619B9416800F7981C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 63DC63E919B9416600F7981C /* Project object */;
@@ -28,7 +66,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		353BEF6119EE6C7A0075263B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				353BEF5E19EE6C790075263B /* SwiftHTTP.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		359DD41119EE4E49002D6495 /* SwiftHTTP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftHTTP.xcodeproj; path = "../SwiftHTTP-feature-xcode-6.1/SwiftHTTP.xcodeproj"; sourceTree = "<group>"; };
 		637279E819DBA10800721AD0 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		63B0B0D219E4C15600A281B1 /* Poster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
 		63B0B0D419E4EC4700A281B1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -49,6 +102,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				353BEF5D19EE6C790075263B /* SwiftHTTP.framework in Frameworks */,
+				359DD42019EE4E53002D6495 /* SwiftHTTP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,9 +117,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		359DD41219EE4E49002D6495 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				359DD41919EE4E49002D6495 /* SwiftHTTP.framework */,
+				359DD41B19EE4E49002D6495 /* SwiftHTTPTests.xctest */,
+				359DD41D19EE4E49002D6495 /* SwiftHTTPOSX.framework */,
+				359DD41F19EE4E49002D6495 /* SwiftHTTPOSXTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		63DC63E819B9416600F7981C = {
 			isa = PBXGroup;
 			children = (
+				359DD41119EE4E49002D6495 /* SwiftHTTP.xcodeproj */,
 				63DC63F319B9416700F7981C /* wgo */,
 				63DC640819B9416800F7981C /* wgoTests */,
 				63DC63F219B9416700F7981C /* Products */,
@@ -131,10 +198,12 @@
 				63DC63ED19B9416700F7981C /* Sources */,
 				63DC63EE19B9416700F7981C /* Frameworks */,
 				63DC63EF19B9416700F7981C /* Resources */,
+				353BEF6119EE6C7A0075263B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				353BEF6019EE6C790075263B /* PBXTargetDependency */,
 			);
 			name = wgo;
 			productName = wgo;
@@ -189,6 +258,12 @@
 			mainGroup = 63DC63E819B9416600F7981C;
 			productRefGroup = 63DC63F219B9416700F7981C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 359DD41219EE4E49002D6495 /* Products */;
+					ProjectRef = 359DD41119EE4E49002D6495 /* SwiftHTTP.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				63DC63F019B9416700F7981C /* wgo */,
@@ -196,6 +271,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		359DD41919EE4E49002D6495 /* SwiftHTTP.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftHTTP.framework;
+			remoteRef = 359DD41819EE4E49002D6495 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		359DD41B19EE4E49002D6495 /* SwiftHTTPTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwiftHTTPTests.xctest;
+			remoteRef = 359DD41A19EE4E49002D6495 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		359DD41D19EE4E49002D6495 /* SwiftHTTPOSX.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftHTTPOSX.framework;
+			remoteRef = 359DD41C19EE4E49002D6495 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		359DD41F19EE4E49002D6495 /* SwiftHTTPOSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwiftHTTPOSXTests.xctest;
+			remoteRef = 359DD41E19EE4E49002D6495 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		63DC63EF19B9416700F7981C /* Resources */ = {
@@ -241,6 +347,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		353BEF6019EE6C790075263B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftHTTP;
+			targetProxy = 353BEF5F19EE6C790075263B /* PBXContainerItemProxy */;
+		};
 		63DC640719B9416800F7981C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 63DC63F019B9416700F7981C /* wgo */;
@@ -344,8 +455,9 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = wgo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -359,8 +471,9 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = wgo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
