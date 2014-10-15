@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		353BEF5D19EE6C790075263B /* SwiftHTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359DD41919EE4E49002D6495 /* SwiftHTTP.framework */; };
 		353BEF5E19EE6C790075263B /* SwiftHTTP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 359DD41919EE4E49002D6495 /* SwiftHTTP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3592877B19EF2B0A0005719B /* User.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3592877919EF2B0A0005719B /* User.xcdatamodeld */; };
+		3592877D19EF2B520005719B /* UserEn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3592877C19EF2B520005719B /* UserEn.swift */; };
 		359DD42019EE4E53002D6495 /* SwiftHTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359DD41919EE4E49002D6495 /* SwiftHTTP.framework */; };
 		637279E919DBA10800721AD0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637279E819DBA10800721AD0 /* LoginController.swift */; };
 		63B0B0D319E4C15600A281B1 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B0B0D219E4C15600A281B1 /* Poster.swift */; };
@@ -81,6 +83,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3592877A19EF2B0A0005719B /* User.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = User.xcdatamodel; sourceTree = "<group>"; };
+		3592877C19EF2B520005719B /* UserEn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEn.swift; sourceTree = "<group>"; };
 		359DD41119EE4E49002D6495 /* SwiftHTTP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftHTTP.xcodeproj; path = "../SwiftHTTP-feature-xcode-6.1/SwiftHTTP.xcodeproj"; sourceTree = "<group>"; };
 		637279E819DBA10800721AD0 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		63B0B0D219E4C15600A281B1 /* Poster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
@@ -159,6 +163,8 @@
 				63DC63F419B9416700F7981C /* Supporting Files */,
 				63B0B0D219E4C15600A281B1 /* Poster.swift */,
 				63B0B0D419E4EC4700A281B1 /* User.swift */,
+				3592877919EF2B0A0005719B /* User.xcdatamodeld */,
+				3592877C19EF2B520005719B /* UserEn.swift */,
 			);
 			path = wgo;
 			sourceTree = "<group>";
@@ -328,9 +334,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				63B0B0D319E4C15600A281B1 /* Poster.swift in Sources */,
+				3592877D19EF2B520005719B /* UserEn.swift in Sources */,
 				63DC63FB19B9416700F7981C /* SecondViewController.swift in Sources */,
 				63B0B0D519E4EC4700A281B1 /* User.swift in Sources */,
 				637279E919DBA10800721AD0 /* LoginController.swift in Sources */,
+				3592877B19EF2B0A0005719B /* User.xcdatamodeld in Sources */,
 				63DC63F719B9416700F7981C /* AppDelegate.swift in Sources */,
 				63DC63F919B9416700F7981C /* FirstViewController.swift in Sources */,
 			);
@@ -545,6 +553,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3592877919EF2B0A0005719B /* User.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3592877A19EF2B0A0005719B /* User.xcdatamodel */,
+			);
+			currentVersion = 3592877A19EF2B0A0005719B /* User.xcdatamodel */;
+			path = User.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 63DC63E919B9416600F7981C /* Project object */;
 }
