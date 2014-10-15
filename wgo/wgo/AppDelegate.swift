@@ -66,21 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             var curDoubLong:double_t = currentLng as double_t
             let locString = NSString(format: "[%f, %f]", curDoubLong, curDoubLat)
             println(locString)
-            println("Current User: \(self.currUser.id)")
-//            var request = HTTPTask()
-//            request.responseSerializer = JSONResponseSerializer()
-//            request.baseURL = "http://54.186.68.209"
-//            request.POST("/users/\(self.currUser.id)", parameters: ["loc": locString], success: {(response: HTTPResponse) -> Void in
-//                let data = response.responseObject as NSDictionary
-//                self.currUser.loc = data.valueForKey("loc") as Array<Double>
-//                
-//                
-//                },failure: {(error: NSError) -> Void in
-//                    
-//                    
-//            })
-
-//            Poster.post(["loc" : locString], url: "users/5418fcc9947f56e85137d5bb")
         }
     }
 

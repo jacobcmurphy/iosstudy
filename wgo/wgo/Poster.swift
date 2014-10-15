@@ -11,7 +11,7 @@ import Foundation
 public class Poster {
     
     class func getIP () -> String {
-        return "http://54.186.68.209/"
+        return "http://leiner.cs-i.brandeis.edu:6000"
     }
     
     /* Parsing Stuff */

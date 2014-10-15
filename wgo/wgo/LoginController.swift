@@ -12,7 +12,7 @@ import SwiftHTTP
 
 class LoginController: UIViewController {
     
-    
+    var user = User()
 
     
     
@@ -32,18 +32,17 @@ class LoginController: UIViewController {
         }
     
     func loginClick(){
-        var user = User()
         var request = HTTPTask()
         request.responseSerializer = JSONResponseSerializer()
-        request.baseURL = "http://54.186.68.209"
+        request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
         request.POST("/login", parameters: ["email": emailVar.text, "password": passVar.text], success: {(response: HTTPResponse) -> Void in
             let data = response.responseObject as NSDictionary
             
-            user.id = data.valueForKey("_id") as String
+           self.user.id = data.valueForKey("_id") as String
             
-            user.first_name = data.valueForKey("first_name") as String
-            user.last_name = data.valueForKey("last_name") as String
-            user.loc = data.valueForKey("loc") as Array<Double>
+            self.user.first_name = data.valueForKey("first_name") as String
+            self.user.last_name = data.valueForKey("last_name") as String
+            self.user.loc = data.valueForKey("loc") as Array<Double>
 
             
             },failure: {(error: NSError) -> Void in

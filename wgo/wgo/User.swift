@@ -34,7 +34,7 @@ class User {
     
     func setFirstName(first_name:String) {
         self.first_name = first_name
-    }
+    }               
     
     func getLastName() -> String {
         return self.last_name
