@@ -38,27 +38,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Create the coordinator and store
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("wgo.sqlite")
-        println("FUCK2")
         var error: NSError? = nil
-        println("FUCK3")
         var failureReason = "There was an error creating or loading the application's saved data."
         if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
-            println("FUCK")
             coordinator = nil
-            println("FUCK1")
             // Report any error we got.
             let dict = NSMutableDictionary()
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error
-            println("FUCK4")
             error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
-            println("FUCK5")
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            println("FUCK6")
             NSLog("Unresolved error \(error), \(error!.userInfo)")
-            println("FUCK7")
             abort()
         }
         
@@ -71,12 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // conditions that could cause the creation of the context to fail.
         let coordinator = self.persistentStoreCoordinator
         if coordinator == nil {
-            println("apphere")
             return nil
         }
         var managedObjectContext = NSManagedObjectContext()
         managedObjectContext.persistentStoreCoordinator = coordinator
-        println("apphere2")
         return managedObjectContext
         }()
    
@@ -127,7 +117,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             var curDoubLat:double_t = currentLat as double_t
             var curDoubLong:double_t = currentLng as double_t
             let locString = NSString(format: "[%f, %f]", curDoubLong, curDoubLat)
-            println(locString)
+            let fetchRequest = NSFetchRequest(entityName: "UserEn")
+            if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
+                var currId:String = fetchResults[0].id
+                var request = HTTPTask()
+                request.responseSerializer = JSONResponseSerializer()
+                request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
+                request.POST("/users/\(currId)", parameters: ["loc": locString], success: {(response: HTTPResponse) -> Void in
+                    println("Response\(response.responseObject)")
+                    },failure: {(error: NSError) -> Void in
+                })
+
+                println(locString)
+                
+                
+            }
+            
         }
     }
 

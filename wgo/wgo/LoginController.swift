@@ -40,8 +40,16 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         println("here")
-        loginButton.addTarget(self, action: Selector("loginClick"), forControlEvents: .TouchUpInside)
-        
+     
+        let firstViewController = FirstViewController.alloc()
+        let fetchRequest = NSFetchRequest(entityName: "UserEn")
+        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
+            if(fetchResults.isEmpty){
+                loginButton.addTarget(self, action: Selector("loginClick"), forControlEvents: .TouchUpInside)
+            }else{
+                let firstViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FirstViewController") as UIViewController
+            }
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -51,40 +59,34 @@ class LoginController: UIViewController {
         }
     
     func loginClick(){
-        println("0")
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("UserEn", inManagedObjectContext: self.managedObjectContext!) as UserEn
-        println("1")
         var request = HTTPTask()
         request.responseSerializer = JSONResponseSerializer()
-        request.baseURL = "54.69.226.38"
-        println("2")
+        request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
         request.POST("/login", parameters: ["email": emailVar.text, "password": passVar.text], success: {(response: HTTPResponse) -> Void in
             let data = response.responseObject as NSDictionary
-            println("3")
-           self.user.id = data.valueForKey("_id") as String
+            self.user.id = data.valueForKey("_id") as String
             newItem.id = data.valueForKey("_id") as String
             self.user.first_name = data.valueForKey("first_name") as String
             newItem.first_name = data.valueForKey("first_name") as String
             self.user.last_name = data.valueForKey("last_name") as String
             newItem.last_name = data.valueForKey("last_name") as String
-            println("4")
             self.user.loc = data.valueForKey("loc") as Array<Double>
             newItem.long = self.user.loc[0]
             newItem.lat = self.user.loc[1]
-            println("5")
             
             },failure: {(error: NSError) -> Void in
                 
                 
         })
 
-        println("UserID: \(user.id)")
+       /* println("UserID: \(user.id)")
         sleep(1)
         println("UserID: \(user.id)")
         println("First Name: \(user.first_name)")
         println("Last Name: \(user.last_name)")
         println("Location: \(user.loc)")
-
+*/
 
         
       //  var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "login"))

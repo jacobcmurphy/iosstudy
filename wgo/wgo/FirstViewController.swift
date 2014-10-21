@@ -14,7 +14,7 @@ import CoreData
 class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate{
     
     @IBOutlet var mapView: MKMapView!
-    var myPin = MKPointAnnotation()
+    var myPin:[MKPointAnnotation] = []
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
     var locationManager = CLLocationManager()
@@ -51,19 +51,20 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             mapView.userInteractionEnabled = true
             minimizeButton.hidden = true
             
-            let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
+            let priority = DISPATCH_QUEUE_PRIORITY_HIGH
             dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
             
-            println("gcd hello")
             dispatch_async(dispatch_get_main_queue(), {
-            var timer = NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: Selector("update"), userInfo: nil, repeats: true)//Update is called every 30 seconds
+            var timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: Selector("update"), userInfo: nil, repeats: true)//Update is called every 30 seconds
            println("hello from UI thread executed as dispatch")
             
             })
             })
            println("hello from UI thread")
-            println("hi")
-           // presentItemInfo()
+            let location = locationManager.location
+            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
+            self.mapView.setRegion(region, animated: true)
         }
         
     }
@@ -94,25 +95,28 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     func presentItemInfo() {
         let fetchRequest = NSFetchRequest(entityName: "UserEn")
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
+                let alert = UIAlertView()
+                alert.title = fetchResults[0].first_name
+                alert.message = fetchResults[0].last_name
+                alert.show()
             
-            let alert = UIAlertView()
-            alert.title = fetchResults[0].first_name
-            alert.message = fetchResults[0].last_name
-            alert.show()
         }
     }
     
     func update(){
-        
-        var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "users"))
+        self.mapView.removeAnnotations(myPin)
+        myPin = []
+        let fetchRequest = NSFetchRequest(entityName: "UserEn")
+        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
+            var currId:String = fetchResults[0].id
+        var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(currId)/friends"))
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
-        addInitialPin(locationManager)
-        var myPin:[MKPointAnnotation] = []
-        /* Start Loop to Update ALL Markers */
+        //saddInitialPin(locationManager)
+                /* Start Loop to Update ALL Markers */
         for i in 0...markersDictionary.count-1 {
             var lnglat:NSArray = markersDictionary[i]["loc"] as NSArray
             var firstname: String = markersDictionary[i]["first_name"] as String
@@ -125,10 +129,11 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             var currentLng:CLLocationDegrees = lng
             currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
             myPin.append(MKPointAnnotation())
-            self.mapView.addAnnotation(myPin[i])
             myPin[i].coordinate = currLoc
             myPin[i].title = (firstname + " " + lastname)
+            self.mapView.addAnnotation(myPin[i])
             /* End Of Pin Code*/
+        }
         }
     }
    
