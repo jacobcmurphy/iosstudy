@@ -18,14 +18,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
     var locationManager = CLLocationManager()
-   // var mapHeight:Double = mapView.frame.size.height
     @IBOutlet weak var minimizeButton: UIButton!
-
-    
-        let tapRec = UITapGestureRecognizer()
-    
-
-
+    let tapRec = UITapGestureRecognizer()
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
@@ -35,8 +29,6 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             return nil
         }
         }()
-    
-    
     
     override func viewDidLoad() {
         
@@ -50,12 +42,12 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             mapView.addGestureRecognizer(tapRec)
             mapView.userInteractionEnabled = true
             minimizeButton.hidden = true
-            
+            update();
+            /*Starts thread to call update() every 10 seconds)*/
             let priority = DISPATCH_QUEUE_PRIORITY_HIGH
             dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
-            
             dispatch_async(dispatch_get_main_queue(), {
-            var timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: Selector("update"), userInfo: nil, repeats: true)//Update is called every 30 seconds
+            var timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: Selector("update"), userInfo: nil, repeats: true)//Update is called every 10 seconds
            println("hello from UI thread executed as dispatch")
             
             })
@@ -69,9 +61,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         
     }
     
-    
+    /*Function called when map needs to be maximized*/
     func tappedView(){
-        
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let screenHeight = screenSize.height;
         minimizeButton.hidden = false
@@ -81,7 +72,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             self.mapView.frame = frame
             }, completion: nil)
     }
-    
+    /*Function called when map needs to be minimized*/
     func miniClick(){
          minimizeButton.hidden = true
         UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut  , animations: {
@@ -91,7 +82,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             }, completion: nil)
 
     }
-
+    /*Not Being Used At The Moment, But Will Be..Used for to show CoreData info*/
     func presentItemInfo() {
         let fetchRequest = NSFetchRequest(entityName: "UserEn")
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
@@ -103,6 +94,10 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         }
     }
     
+    /*Update is called every 10 seconds, 
+     * It clears the pins and gets stuff from the database
+     * It then loops through all of the people and makes a pin for each one
+     */
     func update(){
         self.mapView.removeAnnotations(myPin)
         myPin = []
@@ -137,24 +132,6 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         }
     }
    
-    func addInitialPin(location: CLLocationManager!){
-        /* Making a Pin here...*/
-        var name = "Name"
-        let location = locationManager.location
-        var currentLat:CLLocationDegrees = location.coordinate.latitude
-        var currentLng:CLLocationDegrees = location.coordinate.longitude
-        currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
-        var myPin = MKPointAnnotation()
-        self.mapView.addAnnotation(myPin)
-        myPin.coordinate = currLoc
-        myPin.title = name
-        /* Makes The Initial Center Start Up at Pin */
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
-        self.mapView.setRegion(region, animated: true)
-        /* End Of Pin Code*/
-    }
-    
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         let location = locations.last as CLLocation
         var currentLat:CLLocationDegrees = location.coordinate.latitude
