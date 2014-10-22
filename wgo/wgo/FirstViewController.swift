@@ -42,7 +42,6 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             mapView.addGestureRecognizer(tapRec)
             mapView.userInteractionEnabled = true
             minimizeButton.hidden = true
-            update();
             /*Starts thread to call update() every 10 seconds)*/
             let priority = DISPATCH_QUEUE_PRIORITY_HIGH
             dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
