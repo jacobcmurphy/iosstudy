@@ -10,9 +10,11 @@ import UIKit
 import Foundation
 import SwiftHTTP
 import CoreData
+import CoreLocation
 
 class LoginController: UIViewController {
     
+    var locationManager = CLLocationManager()
 
     
     @IBOutlet weak var emailVar: UITextField!
@@ -25,22 +27,22 @@ class LoginController: UIViewController {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
             return managedObjectContext
+        } else {
+           return nil
         }
-        else {
-           
-            return nil
-        }
-        }()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
      
+        locationManager.requestAlwaysAuthorization()
+
         let firstViewController = FirstViewController.alloc()
         let fetchRequest = NSFetchRequest(entityName: "UserEn")
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
             if(fetchResults.isEmpty){
                 loginButton.addTarget(self, action: Selector("loginClick"), forControlEvents: .TouchUpInside)
-            }else{
+            } else {
                 let firstViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FirstViewController") as UIViewController
             }
         }
@@ -49,15 +51,16 @@ class LoginController: UIViewController {
     }
     
     @IBAction func sendLogin(sender: AnyObject) {
- 
-        }
+    }
     
     func loginClick(){
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("UserEn", inManagedObjectContext: self.managedObjectContext!) as UserEn
         var request = HTTPTask()
+        request.auth = HTTPAuth(username: emailVar.text, password: passVar.text)
+        request.auth?.persistence = .Permanent
         request.responseSerializer = JSONResponseSerializer()
         request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
-        request.POST("/login", parameters: ["email": emailVar.text, "password": passVar.text], success: {(response: HTTPResponse) -> Void in
+        request.GET("/login/\(emailVar.text)/\(passVar.text)", parameters: nil, success: {(response: HTTPResponse) -> Void in
             let data = response.responseObject as NSDictionary
             newItem.id = data.valueForKey("_id") as String
             newItem.first_name = data.valueForKey("first_name") as String
