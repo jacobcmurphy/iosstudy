@@ -241,6 +241,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         description = description.stringByReplacingOccurrencesOfString("&quot", withString: "\"", options: NSStringCompareOptions.LiteralSearch, range: nil)
         description = description.stringByReplacingOccurrencesOfString("&#39", withString: "\'", options: NSStringCompareOptions.LiteralSearch, range: nil)
         description = description.stringByReplacingOccurrencesOfString("&gt", withString: ">", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        description = description.stringByReplacingOccurrencesOfString("&amp", withString: "&", options: NSStringCompareOptions.LiteralSearch, range: nil)
 
     return description
     }

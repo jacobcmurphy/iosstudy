@@ -10,13 +10,18 @@ import UIKit
 import CoreData
 import CoreLocation
 import Darwin
+import SwiftHTTP
 
 class SecondViewController: UIViewController, UITableViewDelegate, CLLocationManagerDelegate {
-    
+  
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var newWordField: UITextField?
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
     var locationManager = CLLocationManager()
-    
+    var currId:String = ""
+    var markersDictionary: NSArray = []
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
@@ -30,9 +35,45 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         addButton.addTarget(self, action: Selector("addFriend"), forControlEvents: .TouchUpInside)
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    /* func wordEntered(alert: UIAlertAction!){
+        // store the new word
+        self.textView2.text = deletedString + " " + self.newWordField.text
+    }*/
 
+    func addTextField(textField: UITextField!){
+        // add the text field and make the result global
+        textField.placeholder = "Add Friend Here"
+        self.newWordField = textField
+        
+        var request = HTTPTask()
+        request.responseSerializer = JSONResponseSerializer()
+        request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
+        request.POST("/users/\(currId)/friends", parameters: ["friends": textField], success: {(response: HTTPResponse) -> Void in
+            println("Response\(response.responseObject)")
+            },failure: {(error: NSError) -> Void in
+        })
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.tableView.reloadData()
+        })
+    }
+    
+    func addFriend(){
+        let alert = UIAlertController(title: "Add A Friend", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addTextFieldWithConfigurationHandler(addTextField)
+        alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+       
+        
+    }
+
+   
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -82,7 +123,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
         let fetchRequest = NSFetchRequest(entityName: "UserEn")
-        var currId:String = ""
+        
         var currLng:NSNumber = 0
         var currLat:NSNumber = 0
         locationManager = CLLocationManager()
@@ -94,7 +135,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
             currId  = fetchResults[0].id
         }
-        var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(currId)/friends"))
+        markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(currId)/friends"))
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
         //if ( indexPath.row % 2 == 0 ){
         //    cell.backgroundColor = UIColor.blueColor()
@@ -110,7 +151,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         var currentLng:CLLocationDegrees = location.coordinate.longitude
         
         var dist = getDistanceFromLatLonInMi(lat, lon1: lng, lat2: currentLat, lon2: currentLng)
-        cell.textLabel.text = (firstname + " " + lastname + " " + dist)
+        cell.textLabel.text = (firstname + " " + lastname + "   " + dist)
         cell.detailTextLabel?.numberOfLines = 3
         // cell.detailTextLabel?.text = feeds.objectAtIndex(indexPath.row).objectForKey("description") as NSString
         
@@ -118,7 +159,20 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             
         
     }
-
-
+    
+    func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {
+       
+        var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
+        tableView.editing = false
+        
+        println("deleteAction")
+        }
+        
+        return [deleteAction]
+        }
+        
+        func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+        }
+    
 }
 
