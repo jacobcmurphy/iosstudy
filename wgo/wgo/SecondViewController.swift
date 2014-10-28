@@ -69,7 +69,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     }
     
     func roundToTwo(num:Double) -> String {
-        return NSString(format:"%.2f", num)
+        return NSString(format:"%8.2f", num)
     }
 
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
@@ -80,6 +80,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+        
         let fetchRequest = NSFetchRequest(entityName: "UserEn")
         var currId:String = ""
         var currLng:NSNumber = 0
@@ -94,7 +95,10 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             currId  = fetchResults[0].id
         }
         var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(currId)/friends"))
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")!
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
+        //if ( indexPath.row % 2 == 0 ){
+        //    cell.backgroundColor = UIColor.blueColor()
+        //}
         var firstname: String = markersDictionary[indexPath.row]["first_name"] as String
         var lastname: String = markersDictionary[indexPath.row]["last_name"] as String
         
@@ -106,7 +110,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         var currentLng:CLLocationDegrees = location.coordinate.longitude
         
         var dist = getDistanceFromLatLonInMi(lat, lon1: lng, lat2: currentLat, lon2: currentLng)
-        cell.textLabel?.text = (firstname + " " + lastname + " " + dist)
+        cell.textLabel.text = (firstname + " " + lastname + " " + dist)
         cell.detailTextLabel?.numberOfLines = 3
         // cell.detailTextLabel?.text = feeds.objectAtIndex(indexPath.row).objectForKey("description") as NSString
         

@@ -222,8 +222,10 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
 
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")!
-        cell.textLabel?.text = feeds.objectAtIndex(indexPath.row).objectForKey ("title") as NSString
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
+        cell.textLabel.text = feeds.objectAtIndex(indexPath.row).objectForKey ("title") as NSString
+        let myRedColor = UIColor(red:0xfa/255, green:0xeb/255,blue:0xeb/255,alpha:1.0)
+        cell.backgroundColor = myRedColor
         cell.detailTextLabel?.numberOfLines = 3
        // cell.detailTextLabel?.text = feeds.objectAtIndex(indexPath.row).objectForKey("description") as NSString
         
