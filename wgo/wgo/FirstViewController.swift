@@ -230,8 +230,23 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         return cell
     }
     
+    func cleanUp(description:String) -> String{
+        
+        var description = description.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
+        description = description.stringByReplacingOccurrencesOfString("&nbsp", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        description = description.stringByReplacingOccurrencesOfString(";", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        description = description.stringByReplacingOccurrencesOfString("&ndash", withString: "-", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        description = description.stringByReplacingOccurrencesOfString("&quot", withString: "\"", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        description = description.stringByReplacingOccurrencesOfString("&#39", withString: "\'", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        description = description.stringByReplacingOccurrencesOfString("&gt", withString: ">", options: NSStringCompareOptions.LiteralSearch, range: nil)
+
+    return description
+    }
+    
+ 
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        let description = feeds.objectAtIndex(indexPath.row).objectForKey("description") as NSString
+        var description = feeds.objectAtIndex(indexPath.row).objectForKey("description") as String
+        description = cleanUp(description)
         let title = feeds.objectAtIndex(indexPath.row).objectForKey ("title") as NSString
         let alert = UIAlertController(title: title, message: description, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
