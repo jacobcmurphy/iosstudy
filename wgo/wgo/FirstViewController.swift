@@ -222,8 +222,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
 
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
-        cell.textLabel.text = feeds.objectAtIndex(indexPath.row).objectForKey ("title") as NSString
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")!
+        cell.textLabel?.text = feeds.objectAtIndex(indexPath.row).objectForKey ("title") as NSString
         cell.detailTextLabel?.numberOfLines = 3
        // cell.detailTextLabel?.text = feeds.objectAtIndex(indexPath.row).objectForKey("description") as NSString
         
