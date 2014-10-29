@@ -12,10 +12,12 @@ import CoreLocation
 import Darwin
 import SwiftHTTP
 
-class SecondViewController: UIViewController, UITableViewDelegate, CLLocationManagerDelegate {
-  
+class SecondViewController: UIViewController, UITableViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
+    
+    
+    var filteredNames: NSArray = []
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var addButton: UIButton!
+
     @IBOutlet weak var newWordField: UITextField?
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
@@ -35,7 +37,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         addButton.addTarget(self, action: Selector("addFriend"), forControlEvents: .TouchUpInside)
+       
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -61,7 +63,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             self.tableView.reloadData()
         })
     }
-    
+    /*
     func addFriend(){
         let alert = UIAlertController(title: "Add A Friend", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addTextFieldWithConfigurationHandler(addTextField)
@@ -70,7 +72,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         
        
         
-    }
+    }*/
 
    
    
@@ -149,11 +151,21 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         let location = locationManager.location
         var currentLat:CLLocationDegrees = location.coordinate.latitude
         var currentLng:CLLocationDegrees = location.coordinate.longitude
-        
         var dist = getDistanceFromLatLonInMi(lat, lon1: lng, lat2: currentLat, lon2: currentLng)
-        cell.textLabel.text = (firstname + " " + lastname + "   " + dist)
+        var name:String = (firstname + " " + lastname + "   " + dist)
+        
+        if tableView == self.searchDisplayController!.searchResultsTableView {
+            name = "Test"
+        }
+        
+        
+        
+        cell.textLabel.text = name
         cell.detailTextLabel?.numberOfLines = 3
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         // cell.detailTextLabel?.text = feeds.objectAtIndex(indexPath.row).objectForKey("description") as NSString
+        
+     
         
         return cell
             
@@ -173,6 +185,18 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         
         func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
         }
+    
+
+    
+    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
+      //  self.filterContentForSearchText(searchString)
+        return true
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchScope searchOption: Int) -> Bool {
+       // self.filterContentForSearchText(self.searchDisplayController!.searchBar.text)
+        return true
+    }
     
 }
 

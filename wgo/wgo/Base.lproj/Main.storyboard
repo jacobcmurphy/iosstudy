@@ -122,33 +122,27 @@
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="14h-fI-yHN"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" text="" translatesAutoresizingMaskIntoConstraints="NO" id="Et3-8J-Zq3">
+                                <rect key="frame" x="0.0" y="65" width="320" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8rJ-Kc-sve" id="bHL-7T-JNk"/>
+                                </connections>
+                            </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRD-Pp-ozA">
-                                <rect key="frame" x="132" y="63" width="57" height="21"/>
+                                <rect key="frame" x="132" y="44" width="57" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xwT-gf-ApW">
-                                <rect key="frame" x="0.0" y="104" width="320" height="348"/>
+                                <rect key="frame" x="0.0" y="109" width="320" height="410"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="8rJ-Kc-sve" id="ggZ-OS-PY5"/>
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="3H0-wT-ae7"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9WQ-ds-pA7">
-                                <rect key="frame" x="256" y="44" width="74" height="30"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="+">
-                                            <attributes>
-                                                <font key="NSFont" size="36" name="HelveticaNeue-Bold"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -160,11 +154,20 @@
                     <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="addButton" destination="9WQ-ds-pA7" id="TFC-0w-y5g"/>
+                        <outlet property="searchDisplayController" destination="jtj-Ux-gVA" id="tx6-eS-XNk"/>
                         <outlet property="tableView" destination="xwT-gf-ApW" id="kcQ-Zc-YDb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="jtj-Ux-gVA">
+                    <connections>
+                        <outlet property="delegate" destination="8rJ-Kc-sve" id="A6R-bq-IOQ"/>
+                        <outlet property="searchBar" destination="Et3-8J-Zq3" id="bG1-Fo-qcb"/>
+                        <outlet property="searchContentsController" destination="8rJ-Kc-sve" id="giI-08-tjP"/>
+                        <outlet property="searchResultsDataSource" destination="8rJ-Kc-sve" id="s5a-Jt-rZn"/>
+                        <outlet property="searchResultsDelegate" destination="8rJ-Kc-sve" id="JhB-wz-5sS"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="625" y="519"/>
         </scene>
