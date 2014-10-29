@@ -21,7 +21,10 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     var ftitle = NSMutableString()
     var link = NSMutableString()
     var fdescription = NSMutableString()
-
+    
+    @IBOutlet weak var refreshIndi: UIActivityIndicatorView!
+  
+    @IBOutlet weak var refreshButton: UIButton!
 
     @IBOutlet var mapView: MKMapView!
     var myPin:[MKPointAnnotation] = []
@@ -56,8 +59,9 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
 
         if (CLLocationManager.locationServicesEnabled())
         {
-            
+            refreshIndi.hidden = true;
             tapRec.addTarget(self, action: "tappedView")
+            refreshButton.addTarget(self, action: Selector("refresh"), forControlEvents: .TouchUpInside)
             minimizeButton.addTarget(self, action: Selector("miniClick"), forControlEvents: .TouchUpInside)
             mapView.addGestureRecognizer(tapRec)
             mapView.userInteractionEnabled = true
@@ -113,7 +117,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         }
     }
     
-    /*Update is called every 10 seconds, 
+    /*Update is called every 10 seconds,
      * It clears the pins and gets stuff from the database
      * It then loops through all of the people and makes a pin for each one
      */
@@ -142,14 +146,55 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             var currentLat:CLLocationDegrees = lat
             var currentLng:CLLocationDegrees = lng
             currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
+            
             myPin.append(MKPointAnnotation())
+            
             myPin[i].coordinate = currLoc
             myPin[i].title = (firstname + " " + lastname)
             self.mapView.addAnnotation(myPin[i])
+          //  mapView(mapView,viewForAnnotation: myPin[i])
             /* End Of Pin Code*/
         }
         }
     }
+    
+    func refresh(){
+        refreshButton.hidden = true
+        refreshIndi.hidden = false
+        refreshIndi.startAnimating()
+        update()
+        refreshIndi.stopAnimating()
+        refreshIndi.hidden = true
+        refreshButton.hidden = false
+        
+        
+    }
+    
+    /**USED TO LATER CHANGE THE MARKER IMAGE**/
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        if !(annotation is MKPointAnnotation) {
+            //if annotation is not an MKPointAnnotation (eg. MKUserLocation),
+            //return nil so map draws default view for it (eg. blue dot)...
+            return nil
+        }
+        
+        let reuseId = "test"
+        
+        var anView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
+        if anView == nil {
+            anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            anView.image = UIImage(named:"Marker2")
+            anView.canShowCallout = true
+        }
+        else {
+            //we are re-using a view, update its annotation reference...
+            anView.annotation = annotation
+        }
+        
+        return anView
+    }
+    
    
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         let location = locations.last as CLLocation
@@ -224,8 +269,12 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
         cell.textLabel.text = feeds.objectAtIndex(indexPath.row).objectForKey ("title") as NSString
-        let myRedColor = UIColor(red:0xfa/255, green:0xeb/255,blue:0xeb/255,alpha:1.0)
+       
+        let myRedColor = UIColor(red:0xec/255, green:0xf0/255,blue:0xf2/255,alpha:1.0)
         cell.backgroundColor = myRedColor
+         let myRedColor1 = UIColor(red:0x0b/255, green:0x6a/255,blue:0xff/255,alpha:1.0)
+        cell.textLabel.textColor = myRedColor1
+        tableView.backgroundColor = myRedColor
         cell.detailTextLabel?.numberOfLines = 3
        // cell.detailTextLabel?.text = feeds.objectAtIndex(indexPath.row).objectForKey("description") as NSString
         
