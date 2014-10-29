@@ -211,8 +211,9 @@
                                     <action selector="sendLogin:" destination="ges-jH-t0S" eventType="editingDidEnd" id="lFa-WJ-ico"/>
                                 </connections>
                             </textField>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="X2z-LZ-6fU">
-                                <rect key="frame" x="146" y="180" width="20" height="20"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="X2z-LZ-6fU">
+                                <rect key="frame" x="138" y="171" width="37" height="37"/>
+                                <color key="color" red="0.043137254901960784" green="0.37647058823529411" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -58,7 +58,7 @@ class LoginController: UIViewController {
         loginButton.hidden = true;
         activityMon.hidden = false;
         activityMon.hidesWhenStopped = true
-        activityMon.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+       // activityMon.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         view.addSubview(activityMon)
         activityMon.startAnimating()
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("UserEn", inManagedObjectContext: self.managedObjectContext!) as UserEn
