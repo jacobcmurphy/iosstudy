@@ -17,6 +17,7 @@ class LoginController: UIViewController {
     var locationManager = CLLocationManager()
 
     
+    @IBOutlet weak var activityMon: UIActivityIndicatorView!
     @IBOutlet weak var emailVar: UITextField!
     @IBOutlet weak var passVar: UITextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -34,7 +35,7 @@ class LoginController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        activityMon.hidden = true;
         locationManager.requestAlwaysAuthorization()
 
         let firstViewController = FirstViewController.alloc()
@@ -54,6 +55,12 @@ class LoginController: UIViewController {
     }
     
     func loginClick(){
+        loginButton.hidden = true;
+        activityMon.hidden = false;
+        activityMon.hidesWhenStopped = true
+        activityMon.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        view.addSubview(activityMon)
+        activityMon.startAnimating()
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("UserEn", inManagedObjectContext: self.managedObjectContext!) as UserEn
         var request = HTTPTask()
         request.auth = HTTPAuth(username: emailVar.text, password: passVar.text)

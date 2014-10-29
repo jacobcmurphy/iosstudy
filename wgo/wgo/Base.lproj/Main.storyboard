@@ -211,11 +211,15 @@
                                     <action selector="sendLogin:" destination="ges-jH-t0S" eventType="editingDidEnd" id="lFa-WJ-ico"/>
                                 </connections>
                             </textField>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="X2z-LZ-6fU">
+                                <rect key="frame" x="146" y="180" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="activityMon" destination="X2z-LZ-6fU" id="rSi-Cg-qTn"/>
                         <outlet property="emailVar" destination="se5-P4-Iod" id="26x-1d-d5f"/>
                         <outlet property="loginButton" destination="hKe-Pe-sMl" id="yaR-IR-eXv"/>
                         <outlet property="passVar" destination="N72-ay-SfT" id="CWP-7O-RmQ"/>
