@@ -17,7 +17,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     
     var filteredNames: NSArray = []
     @IBOutlet weak var tableView: UITableView!
-
+    var searchName:String = " "
     @IBOutlet weak var newWordField: UITextField?
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
@@ -153,11 +153,20 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         var currentLng:CLLocationDegrees = location.coordinate.longitude
         var dist = getDistanceFromLatLonInMi(lat, lon1: lng, lat2: currentLat, lon2: currentLng)
         var name:String = (firstname + " " + lastname + "   " + dist)
-        
-        if tableView == self.searchDisplayController!.searchResultsTableView {
-            name = "Test"
-        }
-        
+        //NOTE TO FUTURE ME: CHECK FOR NULL STRINGS
+            if(countElements(searchName) >= 2){
+                var nameArray: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/search/\(searchName)"))
+                if tableView == self.searchDisplayController!.searchResultsTableView {
+                    if(indexPath.row<(nameArray.count)){
+                        println(nameArray[indexPath.row]["first_name"])
+                        var firstName:String = nameArray[indexPath.row]["first_name"] as String
+                        var lastName:String = nameArray[indexPath.row]["last_name"] as String
+                        name = firstName + " " + lastName
+                    }else{
+                        name = ""
+                    }
+                }
+            }
         
         
         cell.textLabel.text = name
@@ -189,12 +198,23 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
 
     
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
-      //  self.filterContentForSearchText(searchString)
+      
+        
+        searchName = searchString
+        
+ 
+
+      
+       
+        
         return true
     }
     
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchScope searchOption: Int) -> Bool {
        // self.filterContentForSearchText(self.searchDisplayController!.searchBar.text)
+        
+      //  searchName = self.searchDisplayController!.searchBar.text
+        
         return true
     }
     
