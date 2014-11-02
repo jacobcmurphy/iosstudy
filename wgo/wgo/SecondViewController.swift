@@ -47,19 +47,21 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         self.textView2.text = deletedString + " " + self.newWordField.text
     }*/
 
-    func addTextField(textField: UITextField!){
+    func deleteFriend(id: String){
         // add the text field and make the result global
-        textField.placeholder = "Add Friend Here"
-        self.newWordField = textField
+        
+        println("hi")
         
         var request = HTTPTask()
         request.responseSerializer = JSONResponseSerializer()
         request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
-        request.POST("/users/\(currId)/friends", parameters: ["friends": textField], success: {(response: HTTPResponse) -> Void in
+        request.DELETE("/friends/\(currId)/\(id)", parameters: nil, success: {(response: HTTPResponse) -> Void in
             println("Response\(response.responseObject)")
             },failure: {(error: NSError) -> Void in
         })
+        
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+       
             self.tableView.reloadData()
         })
     }
@@ -142,10 +144,12 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         //if ( indexPath.row % 2 == 0 ){
         //    cell.backgroundColor = UIColor.blueColor()
         //}
+        if(indexPath.row<markersDictionary.count){ //Instead of doing this try to change the table size
         var firstname: String = markersDictionary[indexPath.row]["first_name"] as String
         var lastname: String = markersDictionary[indexPath.row]["last_name"] as String
         
         var lnglat:NSArray = markersDictionary[indexPath.row]["loc"] as NSArray
+        
         var lng:Double = lnglat[0] as Double
         var lat:Double = lnglat[1] as Double
         let location = locationManager.location
@@ -170,6 +174,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         
         
         cell.textLabel.text = name
+        }
         cell.detailTextLabel?.numberOfLines = 3
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         // cell.detailTextLabel?.text = feeds.objectAtIndex(indexPath.row).objectForKey("description") as NSString
@@ -185,8 +190,9 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
        
         var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
         tableView.editing = false
-        
-        println("deleteAction")
+          self.markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(self.currId)/friends"))
+           var id: String = self.markersDictionary[indexPath.row]["_id"] as String
+            self.deleteFriend(id);
         }
         
         return [deleteAction]
