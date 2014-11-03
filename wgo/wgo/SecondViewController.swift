@@ -37,21 +37,11 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    /* func wordEntered(alert: UIAlertAction!){
-        // store the new word
-        self.textView2.text = deletedString + " " + self.newWordField.text
-    }*/
 
     func deleteFriend(id: String){
-        // add the text field and make the result global
-        
-        println("hi")
-        
         var request = HTTPTask()
         request.responseSerializer = JSONResponseSerializer()
         request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
@@ -61,23 +51,10 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         })
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-       
             self.tableView.reloadData()
         })
     }
-    /*
-    func addFriend(){
-        let alert = UIAlertController(title: "Add A Friend", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addTextFieldWithConfigurationHandler(addTextField)
-        alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-        
-       
-        
-    }*/
 
-   
-   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -101,11 +78,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         var c = 2 * atan2(sqrt(a), sqrt(1-a))
         var d = R * c; // Distance km
         var dInMi = d*0.621371; // American units
-//        if (dInMi < 0.1) {
-//            return "<0.1 mi"
-//        } else {
-//            return roundToTwo(dInMi) + " mi"
-//        }
         return (dInMi < 0.1 ? "<0.1 mi" : roundToTwo(dInMi) + " mi");
     }
         
@@ -127,7 +99,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
         let fetchRequest = NSFetchRequest(entityName: "UserEn")
-        
         var currLng:NSNumber = 0
         var currLat:NSNumber = 0
         locationManager = CLLocationManager()
@@ -139,51 +110,39 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
             currId  = fetchResults[0].id
         }
+        
         markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(currId)/friends"))
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
-        //if ( indexPath.row % 2 == 0 ){
-        //    cell.backgroundColor = UIColor.blueColor()
-        //}
+
         if(indexPath.row<markersDictionary.count){ //Instead of doing this try to change the table size
-        var firstname: String = markersDictionary[indexPath.row]["first_name"] as String
-        var lastname: String = markersDictionary[indexPath.row]["last_name"] as String
-        
-        var lnglat:NSArray = markersDictionary[indexPath.row]["loc"] as NSArray
-        
-        var lng:Double = lnglat[0] as Double
-        var lat:Double = lnglat[1] as Double
-        let location = locationManager.location
-        var currentLat:CLLocationDegrees = location.coordinate.latitude
-        var currentLng:CLLocationDegrees = location.coordinate.longitude
-        var dist = getDistanceFromLatLonInMi(lat, lon1: lng, lat2: currentLat, lon2: currentLng)
-        var name:String = (firstname + " " + lastname + "   " + dist)
-        //NOTE TO FUTURE ME: CHECK FOR NULL STRINGS
-            if(countElements(searchName) >= 2){
-                var nameArray: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/search/\(searchName)"))
-                if tableView == self.searchDisplayController!.searchResultsTableView {
-                    if(indexPath.row<(nameArray.count)){
-                        println(nameArray[indexPath.row]["first_name"])
-                        var firstName:String = nameArray[indexPath.row]["first_name"] as String
-                        var lastName:String = nameArray[indexPath.row]["last_name"] as String
-                        name = firstName + " " + lastName
-                    }else{
-                        name = ""
+            var firstname: String = markersDictionary[indexPath.row]["first_name"] as String
+            var lastname: String = markersDictionary[indexPath.row]["last_name"] as String
+            var lnglat:NSArray = markersDictionary[indexPath.row]["loc"] as NSArray
+            var lng:Double = lnglat[0] as Double
+            var lat:Double = lnglat[1] as Double
+            let location = locationManager.location
+            var currentLat:CLLocationDegrees = location.coordinate.latitude
+            var currentLng:CLLocationDegrees = location.coordinate.longitude
+            var dist = getDistanceFromLatLonInMi(lat, lon1: lng, lat2: currentLat, lon2: currentLng)
+            var name:String = (firstname + " " + lastname + "   " + dist)
+            //NOTE TO FUTURE ME: CHECK FOR NULL STRINGS
+                if(countElements(searchName) >= 2){
+                    var nameArray: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/search/\(searchName)"))
+                    if tableView == self.searchDisplayController!.searchResultsTableView {
+                        if(indexPath.row<(nameArray.count)){
+                            var firstName:String = nameArray[indexPath.row]["first_name"] as String
+                            var lastName:String = nameArray[indexPath.row]["last_name"] as String
+                            name = firstName + " " + lastName
+                        }else{
+                            name = ""
+                        }
                     }
                 }
+            cell.textLabel.text = name
             }
-        
-        
-        cell.textLabel.text = name
-        }
         cell.detailTextLabel?.numberOfLines = 3
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        // cell.detailTextLabel?.text = feeds.objectAtIndex(indexPath.row).objectForKey("description") as NSString
-        
-     
-        
         return cell
-            
-        
     }
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {
@@ -195,9 +154,17 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             self.deleteFriend(id);
         }
         
-        return [deleteAction]
+        if tableView == self.searchDisplayController!.searchResultsTableView {
+            var addAction = UITableViewRowAction(style: .Default, title: "Add") { (action, indexPath) -> Void in
+            tableView.editing = false
         }
-        
+        addAction.backgroundColor = UIColor.yellowColor()
+        return [addAction]
+        }
+        return [deleteAction]
+    }
+    
+    
         func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
         }
     
@@ -205,14 +172,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
       
-        
         searchName = searchString
-        
- 
-
-      
-       
-        
         return true
     }
     
