@@ -21,9 +21,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     var ftitle = NSMutableString()
     var link = NSMutableString()
     var fdescription = NSMutableString()
-    
     @IBOutlet weak var refreshIndi: UIActivityIndicatorView!
-  
+    
     @IBOutlet weak var refreshButton: UIButton!
 
     @IBOutlet var mapView: MKMapView!

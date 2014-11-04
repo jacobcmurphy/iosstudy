@@ -54,7 +54,21 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             self.tableView.reloadData()
         })
     }
-
+    
+    func addFriend(id: String){
+        var request = HTTPTask()
+        request.responseSerializer = JSONResponseSerializer()
+        request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
+        request.POST("/friends/\(currId)/\(id)", parameters: nil, success: {(response: HTTPResponse) -> Void in
+            println("Response\(response.responseObject)")
+            },failure: {(error: NSError) -> Void in
+        })
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+          // self.tableView.insertRowsAtIndexPaths([id.toInt()], withRowAnimation: .automatic)
+        })
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -149,24 +163,27 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
        
         var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
         tableView.editing = false
-          self.markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(self.currId)/friends"))
-           var id: String = self.markersDictionary[indexPath.row]["_id"] as String
+            self.markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(self.currId)/friends"))
+            var id: String = self.markersDictionary[indexPath.row]["_id"] as String
             self.deleteFriend(id);
         }
         
         if tableView == self.searchDisplayController!.searchResultsTableView {
             var addAction = UITableViewRowAction(style: .Default, title: "Add") { (action, indexPath) -> Void in
             tableView.editing = false
+            var nameArray: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/search/\(self.searchName)"))
+            var id: String = nameArray[indexPath.row]["_id"] as String
+            self.addFriend(id)
         }
-        addAction.backgroundColor = UIColor.yellowColor()
+        addAction.backgroundColor = UIColor.greenColor()
         return [addAction]
         }
         return [deleteAction]
     }
     
     
-        func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
-        }
+    func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+    }
     
 
     
