@@ -142,9 +142,11 @@ class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDe
         
         var pinAction = UITableViewRowAction(style: .Default, title: "Pin") { (action, indexPath) -> Void in
             tableView.editing = false
+            
+         
         }
         let myRedColor = UIColor(red:0xcc/255, green:0x66/255,blue:0x00/255,alpha:1.0)
-         pinAction.backgroundColor = UIColor.orangeColor()
+        pinAction.backgroundColor = UIColor.orangeColor()
         
         return [pinAction]
     }

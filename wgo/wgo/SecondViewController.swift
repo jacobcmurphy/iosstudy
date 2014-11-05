@@ -12,9 +12,10 @@ import CoreLocation
 import Darwin
 import SwiftHTTP
 
-class SecondViewController: UIViewController, UITableViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
+class SecondViewController: UIViewController, UITableViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIActionSheetDelegate {
     
     
+    var friendId:String = "0";
     var filteredNames: NSArray = []
     @IBOutlet weak var tableView: UITableView!
     var searchName:String = " "
@@ -65,7 +66,9 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         })
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-          // self.tableView.insertRowsAtIndexPaths([id.toInt()], withRowAnimation: .automatic)
+           // self.tableView = nil
+            self.tableView.reloadData()
+            
         })
     }
     
@@ -75,13 +78,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     }
     
     func tableView(tableView:UITableView!, numberOfRowsInSection section: Int) -> Int {
-        let fetchRequest = NSFetchRequest(entityName: "UserEn")
-        var currId:String = ""
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
-            currId = fetchResults[0].id
-        }
-        var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(currId)/friends"))
-        return markersDictionary.count
+       return 100
     }
     
     func getDistanceFromLatLonInMi(lat1:Double,lon1:Double,lat2:Double,lon2:Double) -> String{
@@ -155,30 +152,54 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             cell.textLabel.text = name
             }
         cell.detailTextLabel?.numberOfLines = 3
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+       // cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         return cell
     }
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {
-       
-        var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
-        tableView.editing = false
-            self.markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(self.currId)/friends"))
+        self.markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(self.currId)/friends"))
+        
+        if(indexPath.row<self.markersDictionary.count){
+            var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
+                tableView.editing = false
             var id: String = self.markersDictionary[indexPath.row]["_id"] as String
             self.deleteFriend(id);
         }
+        return [deleteAction]
+        }
+        
+   return nil
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        
         
         if tableView == self.searchDisplayController!.searchResultsTableView {
-            var addAction = UITableViewRowAction(style: .Default, title: "Add") { (action, indexPath) -> Void in
-            tableView.editing = false
             var nameArray: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/search/\(self.searchName)"))
             var id: String = nameArray[indexPath.row]["_id"] as String
-            self.addFriend(id)
+            friendId = id
+            var name: String = nameArray[indexPath.row]["first_name"] as String
+            var sheet: UIActionSheet = UIActionSheet()
+            let title: String = "Would You Like To Add "
+            let title2: String = "?"
+            sheet.title  = (title + name + title2)
+            sheet.addButtonWithTitle("Add")
+            sheet.addButtonWithTitle("Not Now")
+            sheet.cancelButtonIndex = 1
+            sheet.delegate = self                  // new line here
+            sheet.tag = 1                          // another new line here
+            sheet.showInView(self.view)
+            
+                    
+                   // self.addFriend(id)
+            }
+    }
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int){
+        
+        if(buttonIndex == 0){
+            addFriend(friendId)
         }
-        addAction.backgroundColor = UIColor.greenColor()
-        return [addAction]
-        }
-        return [deleteAction]
     }
     
     

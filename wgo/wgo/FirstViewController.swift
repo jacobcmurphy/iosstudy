@@ -11,16 +11,9 @@ import CoreLocation
 import Foundation
 import CoreData
 
-class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate, NSXMLParserDelegate{
+class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate{
     
-    /**RSS**/
-    var parser = NSXMLParser()
-    var feeds = NSMutableArray()
-    var elements = NSMutableDictionary()
-    var element = NSString()
-    var ftitle = NSMutableString()
-    var link = NSMutableString()
-    var fdescription = NSMutableString()
+
     @IBOutlet weak var refreshIndi: UIActivityIndicatorView!
     
     @IBOutlet weak var refreshButton: UIButton!
@@ -43,16 +36,6 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         }()
     
     override func viewDidLoad() {
-        
-        /**RSS**/
-        feeds = []
-        var url: NSURL = NSURL(string: "http://25livepub.collegenet.com/calendars/campus.rss")!
-        parser = NSXMLParser (contentsOfURL: url)!
-        parser.delegate = self
-        parser.shouldProcessNamespaces = false
-        parser.shouldReportNamespacePrefixes = false
-        parser.shouldResolveExternalEntities = false
-        parser.parse()
 
         super.viewDidLoad()
 
@@ -207,102 +190,17 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         // Dispose of any resources that can be recreated.
     }
     
-    
-    //**RSS**//
-    
-    func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!, attributes attributeDict: [NSObject : AnyObject]!) {
-        
-        element = elementName
-        
-        if (element as NSString).isEqualToString("item") {
-            elements = NSMutableDictionary.alloc()
-            elements = [:]
-            ftitle = NSMutableString.alloc ()
-            ftitle = ""
-            link = NSMutableString.alloc()
-            link = ""
-            fdescription = NSMutableString.alloc()
-            fdescription = ""
-        }
-        
-    }
-    
-    func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!) {
-        if (elementName as NSString).isEqualToString("item") {
-            if ftitle != "" {
-                elements.setObject(ftitle, forKey: "title")
-            }
-            
-            if (link != "") {
-                elements.setObject(link, forKey: "link")
-            }
-            
-            if (fdescription != "") {
-                elements.setObject(fdescription, forKey: "description")
-            }
-            feeds.addObject(elements)
-        }
-        
-    }
-    
-    func parser(parser: NSXMLParser!, foundCharacters string: String!) {
-        
-        
-        if element.isEqualToString("title"){
-            ftitle.appendString(string)
-            
-        }else if element.isEqualToString("link"){
-            link.appendString(string)
-            
-        }else if element.isEqualToString("description"){
-            fdescription.appendString(string)
-            
-        }
-        
-    }
-    
     func tableView(tableView:UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return feeds.count
+        return 10
     }
-
+    
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
-        cell.textLabel.text = feeds.objectAtIndex(indexPath.row).objectForKey ("title") as NSString
-       
-        let myRedColor = UIColor(red:0xec/255, green:0xf0/255,blue:0xf2/255,alpha:1.0)
-        cell.backgroundColor = myRedColor
-         let myRedColor1 = UIColor(red:0x0b/255, green:0x6a/255,blue:0xff/255,alpha:1.0)
-        cell.textLabel.textColor = myRedColor1
-        tableView.backgroundColor = myRedColor
-        cell.detailTextLabel?.numberOfLines = 3
-       // cell.detailTextLabel?.text = feeds.objectAtIndex(indexPath.row).objectForKey("description") as NSString
-        
+        cell.textLabel.text = "Event #\(indexPath.row)"
+        cell.detailTextLabel?.text = "Event Description"
         return cell
     }
-    
-    func cleanUp(description:String) -> String{
-        
-        var description = description.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
-        description = description.stringByReplacingOccurrencesOfString("&nbsp", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        description = description.stringByReplacingOccurrencesOfString(";", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        description = description.stringByReplacingOccurrencesOfString("&ndash", withString: "-", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        description = description.stringByReplacingOccurrencesOfString("&quot", withString: "\"", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        description = description.stringByReplacingOccurrencesOfString("&#39", withString: "\'", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        description = description.stringByReplacingOccurrencesOfString("&gt", withString: ">", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        description = description.stringByReplacingOccurrencesOfString("&amp", withString: "&", options: NSStringCompareOptions.LiteralSearch, range: nil)
 
-    return description
-    }
     
- 
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        var description = feeds.objectAtIndex(indexPath.row).objectForKey("description") as String
-        description = cleanUp(description)
-        let title = feeds.objectAtIndex(indexPath.row).objectForKey ("title") as NSString
-        let alert = UIAlertController(title: title, message: description, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-        //println("You selected cell #\(indexPath.row)!")
-    }
     
 }

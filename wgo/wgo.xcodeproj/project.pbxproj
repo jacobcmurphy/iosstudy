@@ -21,6 +21,7 @@
 		63DC63FE19B9416800F7981C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63DC63FC19B9416800F7981C /* Main.storyboard */; };
 		63DC640019B9416800F7981C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC63FF19B9416800F7981C /* Images.xcassets */; };
 		63DC640C19B9416800F7981C /* wgoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC640B19B9416800F7981C /* wgoTests.swift */; };
+		B95A01B11A09553F00ECDEB4 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95A01B01A09553F00ECDEB4 /* View.xib */; };
 		B9AD9F971A0862050045FDD4 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD9F961A0862050045FDD4 /* EventsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +101,7 @@
 		63DC640519B9416800F7981C /* wgoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wgoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DC640A19B9416800F7981C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63DC640B19B9416800F7981C /* wgoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wgoTests.swift; sourceTree = "<group>"; };
+		B95A01B01A09553F00ECDEB4 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		B9AD9F961A0862050045FDD4 /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +170,7 @@
 				63B0B0D419E4EC4700A281B1 /* User.swift */,
 				3592877919EF2B0A0005719B /* User.xcdatamodeld */,
 				3592877C19EF2B520005719B /* UserEn.swift */,
+				B95A01B01A09553F00ECDEB4 /* View.xib */,
 			);
 			path = wgo;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63DC63FE19B9416800F7981C /* Main.storyboard in Resources */,
+				B95A01B11A09553F00ECDEB4 /* View.xib in Resources */,
 				63DC640019B9416800F7981C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
