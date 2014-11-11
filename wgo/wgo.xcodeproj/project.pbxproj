@@ -22,6 +22,7 @@
 		63DC640019B9416800F7981C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC63FF19B9416800F7981C /* Images.xcassets */; };
 		63DC640C19B9416800F7981C /* wgoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC640B19B9416800F7981C /* wgoTests.swift */; };
 		B90CC5D11A11989E00C67ED7 /* CalenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90CC5D01A11989E00C67ED7 /* CalenderController.swift */; };
+		B950931B1A11B56B008F9312 /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B950931A1A11B56B008F9312 /* AddEventView.swift */; };
 		B95A01B11A09553F00ECDEB4 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95A01B01A09553F00ECDEB4 /* View.xib */; };
 		B9AD9F971A0862050045FDD4 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD9F961A0862050045FDD4 /* EventsViewController.swift */; };
 /* End PBXBuildFile section */
@@ -103,6 +104,7 @@
 		63DC640A19B9416800F7981C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63DC640B19B9416800F7981C /* wgoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wgoTests.swift; sourceTree = "<group>"; };
 		B90CC5D01A11989E00C67ED7 /* CalenderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderController.swift; sourceTree = "<group>"; };
+		B950931A1A11B56B008F9312 /* AddEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
 		B95A01B01A09553F00ECDEB4 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		B9AD9F961A0862050045FDD4 /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,6 +162,7 @@
 		63DC63F319B9416700F7981C /* wgo */ = {
 			isa = PBXGroup;
 			children = (
+				B950931A1A11B56B008F9312 /* AddEventView.swift */,
 				B90CC5D01A11989E00C67ED7 /* CalenderController.swift */,
 				63DC63F619B9416700F7981C /* AppDelegate.swift */,
 				63DC63F819B9416700F7981C /* FirstViewController.swift */,
@@ -349,6 +352,7 @@
 				63B0B0D519E4EC4700A281B1 /* User.swift in Sources */,
 				637279E919DBA10800721AD0 /* LoginController.swift in Sources */,
 				3592877B19EF2B0A0005719B /* User.xcdatamodeld in Sources */,
+				B950931B1A11B56B008F9312 /* AddEventView.swift in Sources */,
 				63DC63F719B9416700F7981C /* AppDelegate.swift in Sources */,
 				63DC63F919B9416700F7981C /* FirstViewController.swift in Sources */,
 				B9AD9F971A0862050045FDD4 /* EventsViewController.swift in Sources */,

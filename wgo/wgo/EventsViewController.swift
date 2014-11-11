@@ -18,8 +18,10 @@ class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDe
     
     @IBOutlet weak var tableView: UITableView!
 
- override func viewDidLoad() {
- 
+    override func viewDidLoad() {
+    
+    let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addEvent")
+    self.navigationItem.rightBarButtonItem = button
     
     super.viewDidLoad()
     
@@ -27,7 +29,12 @@ class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDe
     }
     
     
-    
+    func addEvent(){
+        
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("AddEventView") as AddEventView
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+        
+    }
 
     
     
@@ -38,7 +45,7 @@ class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDe
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
         if(indexPath.row==0){
-            cell.textLabel.text = "Brandeis Calender"
+            cell.textLabel.text = "Brandeis Calendar"
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         }
         return cell
