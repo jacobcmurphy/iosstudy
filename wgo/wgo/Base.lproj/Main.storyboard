@@ -63,7 +63,7 @@
                     <tabBarItem key="tabBarItem" title="Map" image="Map" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" title="Map" id="BjT-5o-tfU">
                         <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="TWk-b8-l5b"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="5p4-ue-1YL"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="5p4-ue-1YL"/>
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -246,7 +246,7 @@
                                 </date>
                             </datePicker>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="RN8-Yu-SR1">
-                                <rect key="frame" x="79" y="430" width="150" height="2"/>
+                                <rect key="frame" x="85" y="424" width="150" height="2"/>
                             </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
