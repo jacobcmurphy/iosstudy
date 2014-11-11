@@ -1,0 +1,14 @@
+{
+  "images" : [
+    {
+      "idiom" : "Unviersal",
+      "size" : "25x40",
+      "scale" : "1x",
+      "file name" : "Marker2.png"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

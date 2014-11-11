@@ -14,8 +14,6 @@ import Foundation
 class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDelegate{
     
     
-    
-    
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
