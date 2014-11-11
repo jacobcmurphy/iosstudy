@@ -200,5 +200,21 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
 
     
+    func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {
+        
+        var pinAction = UITableViewRowAction(style: .Default, title: "Unpin") { (action, indexPath) -> Void in
+            tableView.editing = false
+            
+            
+        }
+        let myRedColor = UIColor(red:0xcc/255, green:0x66/255,blue:0x00/255,alpha:1.0)
+        pinAction.backgroundColor = UIColor.redColor()
+        
+        return [pinAction]
+    }
+    
+    func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+    }
+    
     
 }
