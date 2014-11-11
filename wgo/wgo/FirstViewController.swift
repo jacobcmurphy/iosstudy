@@ -14,17 +14,18 @@ import CoreData
 class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate{
     
 
-    @IBOutlet weak var refreshIndi: UIActivityIndicatorView!
     
-    @IBOutlet weak var refreshButton: UIButton!
 
+    @IBOutlet weak var minimizeButton: UIBarButtonItem!
+ 
     @IBOutlet var mapView: MKMapView!
     var myPin:[MKPointAnnotation] = []
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
     var locationManager = CLLocationManager()
-    @IBOutlet weak var minimizeButton: UIButton!
-    let tapRec = UITapGestureRecognizer()
+ 
+    
+    @IBOutlet var tapRec: UITapGestureRecognizer!
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
@@ -41,12 +42,13 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
 
         if (CLLocationManager.locationServicesEnabled())
         {
-          /*  refreshIndi.hidden = true;
-            tapRec.addTarget(self, action: "tappedView")
-            refreshButton.addTarget(self, action: Selector("refresh"), forControlEvents: .TouchUpInside)
-            minimizeButton.addTarget(self, action: Selector("miniClick"), forControlEvents: .TouchUpInside)
+          
+            let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "update")
+            self.navigationItem.leftBarButtonItem = button
+            let button1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "miniClick")
+            self.navigationItem.rightBarButtonItem = button1
             
-            minimizeButton.hidden = true*/
+            tapRec.addTarget(self, action: "tappedView")
             mapView.addGestureRecognizer(tapRec)
             mapView.userInteractionEnabled = true
             /*Starts thread to call update() every 10 seconds)*/
@@ -71,7 +73,6 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     func tappedView(){
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let screenHeight = screenSize.height;
-        minimizeButton.hidden = false
        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut  , animations: {
             var frame = self.mapView.frame
             frame.size.height = screenHeight
@@ -80,7 +81,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
     /*Function called when map needs to be minimized*/
     func miniClick(){
-         minimizeButton.hidden = true
+       
         UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut  , animations: {
             var frame = self.mapView.frame
             frame.size.height = 213
@@ -142,13 +143,9 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
     
     func refresh(){
-        refreshButton.hidden = true
-        refreshIndi.hidden = false
-        refreshIndi.startAnimating()
+       
         update()
-        refreshIndi.stopAnimating()
-        refreshIndi.hidden = true
-        refreshButton.hidden = false
+       
         
         
     }
