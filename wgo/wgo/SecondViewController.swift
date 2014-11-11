@@ -157,18 +157,21 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     }
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {
-        self.markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(self.currId)/friends"))
         
-        if(indexPath.row<self.markersDictionary.count){
-            var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
-                tableView.editing = false
-            var id: String = self.markersDictionary[indexPath.row]["_id"] as String
-            self.deleteFriend(id);
-        }
-        return [deleteAction]
-        }
         
-   return nil
+            self.markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(self.currId)/friends"))
+        
+            if(indexPath.row<self.markersDictionary.count){
+                var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
+                    tableView.editing = false
+                    var id: String = self.markersDictionary[indexPath.row]["_id"] as String
+                    self.deleteFriend(id);
+                }
+                return [deleteAction]
+            }
+        
+        
+        return nil
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {

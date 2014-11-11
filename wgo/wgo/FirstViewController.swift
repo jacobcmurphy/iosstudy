@@ -45,7 +45,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
           
             let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "update")
             self.navigationItem.leftBarButtonItem = button
-            let button1 = UIBarButtonItem(title: "Go Home", style: .Plain, target: self, action: "goToCurrentLocation")
+            let homeImage = UIImage(named: "Home")
+            let button1 = UIBarButtonItem(image: homeImage, style: .Plain, target: self, action: "goToCurrentLocation")
             self.navigationItem.rightBarButtonItem = button1
             
             tapRec.addTarget(self, action: "tappedView")
@@ -73,7 +74,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     func tappedView(){
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let screenHeight = screenSize.height;
-         let button1 = UIBarButtonItem(title: "Minimize", style: .Plain, target: self, action: "miniClick")
+        let miniImage = UIImage(named: "Minimize")
+        let button1 = UIBarButtonItem(image: miniImage, style: .Plain, target: self, action: "miniClick")
         self.navigationItem.rightBarButtonItem = button1
        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut  , animations: {
             var frame = self.mapView.frame
@@ -84,7 +86,9 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     /*Function called when map needs to be minimized*/
     func miniClick(){
         
-        let button1 = UIBarButtonItem(title: "Go Home", style: .Plain, target: self, action: "goToCurrentLocation")
+        let homeImage = UIImage(named: "Home")
+        
+        let button1 = UIBarButtonItem(image: homeImage, style: .Plain, target: self, action: "goToCurrentLocation")
         self.navigationItem.rightBarButtonItem = button1
        
         UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut  , animations: {
@@ -155,7 +159,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
     
     func refresh(){
-       
+        
         update()
        
         

@@ -63,7 +63,7 @@
                     <tabBarItem key="tabBarItem" title="Map" image="Map" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" title="Map" id="BjT-5o-tfU">
                         <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="TWk-b8-l5b"/>
-                        <barButtonItem key="rightBarButtonItem" title="Go Home" id="5p4-ue-1YL"/>
+                        <barButtonItem key="rightBarButtonItem" image="Home" id="5p4-ue-1YL"/>
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -224,18 +224,18 @@
                                     <segue destination="49e-Tb-3d3" kind="showDetail" id="ni0-V0-mz3"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsj-fD-s37">
-                                <rect key="frame" x="104" y="98" width="73" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="eEp-H3-FeU">
                                 <rect key="frame" x="0.0" y="136" width="320" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="437428262.92460603">
                                     <!--2014-11-11 19:51:02 +0000-->
                                 </date>
                             </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsj-fD-s37">
+                                <rect key="frame" x="124" y="97" width="73" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -243,7 +243,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4tV-a4-NiD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1659" y="-306"/>
+            <point key="canvasLocation" x="-1645" y="-306"/>
         </scene>
         <!--Friends-->
         <scene sceneID="TjS-qL-TGc">
@@ -607,6 +607,7 @@
     <resources>
         <image name="Events" width="30" height="30"/>
         <image name="Friends" width="30" height="30"/>
+        <image name="Home" width="30" height="30"/>
         <image name="Map" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
