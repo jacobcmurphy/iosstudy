@@ -37,18 +37,19 @@ class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDe
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
-        cell.textLabel.text = "Brandeis Calender"
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        if(indexPath.row==0){
+            cell.textLabel.text = "Brandeis Calender"
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        }
         return cell
     }
     
 
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         
-        if(indexPath.row == 1){
-        let calenderController:CalenderController = CalenderController()
-        
-        self.presentViewController(calenderController, animated: true, completion: nil)
+        if(indexPath.row == 0){
+            let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CalenderController") as CalenderController
+            self.navigationController?.pushViewController(secondViewController, animated: true)
         }
     }
     
