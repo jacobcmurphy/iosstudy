@@ -41,13 +41,14 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
 
         if (CLLocationManager.locationServicesEnabled())
         {
-            refreshIndi.hidden = true;
+          /*  refreshIndi.hidden = true;
             tapRec.addTarget(self, action: "tappedView")
             refreshButton.addTarget(self, action: Selector("refresh"), forControlEvents: .TouchUpInside)
             minimizeButton.addTarget(self, action: Selector("miniClick"), forControlEvents: .TouchUpInside)
+            
+            minimizeButton.hidden = true*/
             mapView.addGestureRecognizer(tapRec)
             mapView.userInteractionEnabled = true
-            minimizeButton.hidden = true
             /*Starts thread to call update() every 10 seconds)*/
             let priority = DISPATCH_QUEUE_PRIORITY_HIGH
             dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
