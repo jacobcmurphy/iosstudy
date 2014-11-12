@@ -77,17 +77,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
 
     func applicationDidEnterBackground(application: UIApplication!) {
-        
+        sleep(10)
+
         let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
         dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
             
           //  println("gcd hello")
             dispatch_async(dispatch_get_main_queue(), {
-                var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: Selector("updateBackground"), userInfo: nil, repeats: true)
+            var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: Selector("updateBackground"), userInfo: nil, repeats: true)
             //    println("hello from UI thread executed as dispatch")
                 
             })
         })
+    
+        
         // println("hello from UI thread")
         
         
@@ -97,7 +100,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     
     func updateBackground(){
-        
         var locationManager = CLLocationManager()
         
         if (CLLocationManager.locationServicesEnabled())
@@ -142,6 +144,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func applicationWillTerminate(application: UIApplication!) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    func application(application: UIApplication!, openURL url: NSURL!, sourceApplication: String!, annotation: AnyObject!) -> Bool {
+        println(url)
+        if (url.host == "oauth-callback") {
+            if (url.path!.hasPrefix("/twitter") || url.path!.hasPrefix("/flickr") || url.path!.hasPrefix("/fitbit")
+                || url.path!.hasPrefix("/withings") || url.path!.hasPrefix("/linkedin")) {
+                    OAuth1Swift.handleOpenURL(url)
+            }
+            if ( url.path!.hasPrefix("/github" ) || url.path!.hasPrefix("/instagram" ) || url.path!.hasPrefix("/foursquare")) {
+                OAuth2Swift.handleOpenURL(url)
+            }
+        }
+        return true
+    }
+
 
 }
 

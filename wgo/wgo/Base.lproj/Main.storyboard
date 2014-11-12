@@ -7,7 +7,7 @@
         <!--Map-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="wgo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="firstViewController" id="9pv-A4-QxB" customClass="FirstViewController" customModule="wgo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -351,10 +351,6 @@
                                         </fragment>
                                     </attributedString>
                                 </state>
-                                <connections>
-                                    <action selector="sendLogin:" destination="ges-jH-t0S" eventType="touchUpInside" id="ukm-UM-tnK"/>
-                                    <segue destination="49e-Tb-3d3" kind="show" id="bZg-PC-Z8e"/>
-                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="se5-P4-Iod">
                                 <rect key="frame" x="28" y="174" width="264" height="30"/>
@@ -565,7 +561,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabViewController" id="49e-Tb-3d3" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -608,7 +604,4 @@
         <image name="Map" width="30" height="30"/>
         <image name="Title" width="250" height="80"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="bZg-PC-Z8e"/>
-    </inferredMetricsTieBreakers>
 </document>
