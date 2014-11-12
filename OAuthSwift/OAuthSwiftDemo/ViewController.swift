@@ -191,6 +191,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 println(error.localizedDescription)
         })
     }
+    
+    func doOAuthGoogle() {
+        let oauthswift = OAuth1Swift(
+            consumerKey:    Google["consumerKey"]!,
+            consumerSecret: Google["consumerSecret"]!,
+            requestTokenUrl: "https://api.linkedin.com/uas/oauth/requestToken",
+            authorizeUrl:    "https://api.linkedin.com/uas/oauth/authenticate",
+            accessTokenUrl:  "https://api.linkedin.com/uas/oauth/accessToken"
+        )
+        oauthswift.authorizeWithCallbackURL( NSURL(string: "wgo://oauth-callback/google")!, success: {
+            credential, response in
+            self.showAlertView("Google", message: "oauth_token:\(credential.oauth_token)\n\noauth_toke_secret:\(credential.oauth_token_secret)")
+            }, failure: {(error:NSError!) -> Void in
+                println(error.localizedDescription)
+        })
+
+    }
 
     func showAlertView(title: String, message: String) {
         var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)

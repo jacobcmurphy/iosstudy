@@ -13,6 +13,13 @@ let Twitter =
     "consumerKey": "Dt3eXW85b4Enalxg2tyhH07mw",
     "consumerSecret": "llzxOj48HnMKzJ4ucs8wv8FqRLgKui0myS8Obb2529JsydSVUd"
 ]
+
+let Google =
+[
+    "consumerKey": "932148694004-2009ffast4c8br9mcj4al5g1qdp6qcja.apps.googleusercontent.com",
+    "consumerSecret": "deUyf2badsmkeeGvVSI5Lofw"
+]
+
 let Flickr =
 [
     "consumerKey": "***",
@@ -20,8 +27,8 @@ let Flickr =
 ]
 let Github =
 [
-    "consumerKey": "***",
-    "consumerSecret": "***"
+    "consumerKey": "e99a0c4c085a05117a45",
+    "consumerSecret": "5c8c2706f279abcc618b9263d8119bf4d0fd74ae"
 ]
 let Instagram =
 [

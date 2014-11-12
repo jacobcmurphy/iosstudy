@@ -77,19 +77,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
 
     func applicationDidEnterBackground(application: UIApplication!) {
-        sleep(10)
-
-        let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
-        dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
-            
-          //  println("gcd hello")
-            dispatch_async(dispatch_get_main_queue(), {
-            var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: Selector("updateBackground"), userInfo: nil, repeats: true)
-            //    println("hello from UI thread executed as dispatch")
-                
-            })
-        })
-    
+//        sleep(10)
+//
+//        let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
+//        dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
+//            
+//          //  println("gcd hello")
+//            dispatch_async(dispatch_get_main_queue(), {
+//            var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: Selector("updateBackground"), userInfo: nil, repeats: true)
+//            //    println("hello from UI thread executed as dispatch")
+//                
+//            })
+//        })
+//    
         
         // println("hello from UI thread")
         
