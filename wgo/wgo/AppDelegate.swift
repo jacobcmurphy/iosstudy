@@ -78,18 +78,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func applicationDidEnterBackground(application: UIApplication!) {
 //        sleep(10)
-//
-//        let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
-//        dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
-//            
-//          //  println("gcd hello")
-//            dispatch_async(dispatch_get_main_queue(), {
-//            var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: Selector("updateBackground"), userInfo: nil, repeats: true)
-//            //    println("hello from UI thread executed as dispatch")
-//                
-//            })
-//        })
-//    
+
+        let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
+        dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
+            
+          //  println("gcd hello")
+            dispatch_async(dispatch_get_main_queue(), {
+            var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: Selector("updateBackground"), userInfo: nil, repeats: true)
+            //    println("hello from UI thread executed as dispatch")
+                
+            })
+        })
+    
         
         // println("hello from UI thread")
         
@@ -117,15 +117,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let locString = NSString(format: "[%f, %f]", curDoubLong, curDoubLat)
             let fetchRequest = NSFetchRequest(entityName: "UserEn")
             if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
-                var currId:String = fetchResults[0].id
-                var request = HTTPTask()
-                request.responseSerializer = JSONResponseSerializer()
-                request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
-                request.POST("/users/\(currId)", parameters: ["loc": locString], success: {(response: HTTPResponse) -> Void in
-                    println("Response\(response.responseObject)")
-                    },failure: {(error: NSError) -> Void in
-                })
-
+                if(fetchResults.count>1){
+                    var currId:String = fetchResults[0].id
+                    var request = HTTPTask()
+                    request.responseSerializer = JSONResponseSerializer()
+                    request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
+                    request.POST("/users/\(currId)", parameters: ["loc": locString], success: {(response: HTTPResponse) -> Void in
+                        println("Response\(response.responseObject)")
+                        },failure: {(error: NSError) -> Void in
+                    })
+                }
                 println(locString)
                 
             }
