@@ -126,7 +126,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
                 println(locString)
                 
-                
             }
             
         }

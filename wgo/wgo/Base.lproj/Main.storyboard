@@ -397,8 +397,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Title" translatesAutoresizingMaskIntoConstraints="NO" id="Jn4-vO-AVt">
-                                <rect key="frame" x="34" y="60" width="239" height="63"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Title" translatesAutoresizingMaskIntoConstraints="NO" id="qeU-hJ-EPb">
+                                <rect key="frame" x="-90" y="28" width="500" height="169"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -158,7 +158,9 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {
         
-        
+        if tableView == self.searchDisplayController!.searchResultsTableView {
+            return nil
+        }
             self.markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(self.currId)/friends"))
         
             if(indexPath.row<self.markersDictionary.count){
