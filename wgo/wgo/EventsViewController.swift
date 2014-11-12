@@ -15,6 +15,7 @@ class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDe
     
     
     @IBOutlet weak var tableView: UITableView!
+   
 
     override func viewDidLoad() {
     
@@ -37,7 +38,7 @@ class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDe
     
     
     func tableView(tableView:UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 15
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {

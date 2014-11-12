@@ -17,6 +17,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     
     var friendId:String = "0";
     var filteredNames: NSArray = []
+    
     @IBOutlet weak var tableView: UITableView!
     var searchName:String = " "
     @IBOutlet weak var newWordField: UITextField?
