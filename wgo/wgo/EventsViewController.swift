@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import CoreData
 
 
 
@@ -15,8 +16,19 @@ class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDe
     
     
     @IBOutlet weak var tableView: UITableView!
-   
-
+    var currId:String = ""
+    var markersDictionary: NSArray = []
+    lazy var managedObjectContext : NSManagedObjectContext? = {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if let managedObjectContext = appDelegate.managedObjectContext {
+            return managedObjectContext
+        }
+        else {
+            return nil
+        }
+        }()
+    
+    
     override func viewDidLoad() {
     
     let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addEvent")
@@ -46,7 +58,18 @@ class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDe
         if(indexPath.row==0){
             cell.textLabel.text = "Brandeis Calendar"
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        }else{
+            var title:String = ""
+        
+            let fetchRequest = NSFetchRequest(entityName: "UserEn")
+            if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
+                currId  = fetchResults[0].id
+                markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/events/user/\(currId)"))
+               // title = markersDictionary[indexPath.row-1]["title"] as String
+            }
         }
+       // cell.textLabel.text = title
+        
         return cell
     }
     
@@ -65,7 +88,6 @@ class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDe
         
         var pinAction = UITableViewRowAction(style: .Default, title: "Pin") { (action, indexPath) -> Void in
             tableView.editing = false
-            
          
         }
         let myRedColor = UIColor(red:0xcc/255, green:0x66/255,blue:0x00/255,alpha:1.0)

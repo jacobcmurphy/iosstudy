@@ -15,16 +15,18 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     
 
     
+   
 
     @IBOutlet weak var minimizeButton: UIBarButtonItem!
  
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet weak var tableView: UITableView!
     var myPin:[MKPointAnnotation] = []
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
     var locationManager = CLLocationManager()
- 
-    
+    var screenHeight:CGFloat = 0;
+   
     @IBOutlet var tapRec: UITapGestureRecognizer!
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -37,6 +39,10 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         }()
     
     override func viewDidLoad() {
+        
+        screenHeight = mapView.frame.size.height
+        
+      
 
         super.viewDidLoad()
 
@@ -73,7 +79,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     /*Function called when map needs to be maximized*/
     func tappedView(){
         let screenSize: CGRect = UIScreen.mainScreen().bounds
-        let screenHeight = screenSize.height;
+        let screenHeight = screenSize.height
+        tableView.hidden = true
         let miniImage = UIImage(named: "Minimize")
         let button1 = UIBarButtonItem(image: miniImage, style: .Plain, target: self, action: "miniClick")
         self.navigationItem.rightBarButtonItem = button1
@@ -87,13 +94,14 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     func miniClick(){
         
         let homeImage = UIImage(named: "Home")
+        tableView.hidden = false
         
         let button1 = UIBarButtonItem(image: homeImage, style: .Plain, target: self, action: "goToCurrentLocation")
         self.navigationItem.rightBarButtonItem = button1
        
         UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut  , animations: {
             var frame = self.mapView.frame
-            frame.size.height = 213
+            frame.size.height = self.screenHeight
             self.mapView.frame = frame
             }, completion: nil)
 
