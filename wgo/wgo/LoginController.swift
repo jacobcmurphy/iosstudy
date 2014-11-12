@@ -70,7 +70,7 @@ class LoginController: UIViewController {
         
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil);
-        let vc = storyboard.instantiateViewControllerWithIdentifier("firstViewController") as UIViewController;
+        let vc = storyboard.instantiateViewControllerWithIdentifier("tabViewController") as UITabBarController;
         let oauthswift = OAuth1Swift(
             consumerKey:    Twitter["consumerKey"]!,
             consumerSecret: Twitter["consumerSecret"]!,
