@@ -24,6 +24,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
     var locationManager = CLLocationManager()
+    var markersDictionaryCount: NSArray = []
     var currId:String = ""
     var markersDictionary: NSArray = []
     lazy var managedObjectContext : NSManagedObjectContext? = {
@@ -38,8 +39,21 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     
     
     override func viewDidLoad() {
+        
+        updateCount()
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func updateCount(){
+        
+        var currId:String = ""
+        let fetchRequest = NSFetchRequest(entityName: "UserEn")
+        if let fetchResults = self.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
+            currId = fetchResults[0].id
+        }
+        self.markersDictionaryCount = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(currId)/friends"))
     }
     
 
@@ -68,6 +82,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
            // self.tableView = nil
+            
+            self.updateCount()
             self.tableView.reloadData()
             
         })
@@ -79,7 +95,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     }
     
     func tableView(tableView:UITableView!, numberOfRowsInSection section: Int) -> Int {
-       return 100
+        return markersDictionaryCount.count
     }
     
     func getDistanceFromLatLonInMi(lat1:Double,lon1:Double,lat2:Double,lon2:Double) -> String{
@@ -162,9 +178,9 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         if tableView == self.searchDisplayController!.searchResultsTableView {
             return nil
         }
-            self.markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(self.currId)/friends"))
+            updateCount()
         
-            if(indexPath.row<self.markersDictionary.count){
+            if(indexPath.row<self.markersDictionaryCount.count){
                 var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
                     tableView.editing = false
                     var id: String = self.markersDictionary[indexPath.row]["_id"] as String

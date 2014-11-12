@@ -9,12 +9,15 @@
 import UIKit
 import Foundation
 import CoreData
+import CoreLocation
 
 
 
-class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDelegate{
+class EventsViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, NSXMLParserDelegate{
     
     
+    
+    var locationManager = CLLocationManager()
     @IBOutlet weak var tableView: UITableView!
     var currId:String = ""
     var markersDictionary: NSArray = []
@@ -58,18 +61,24 @@ class EventsViewController: UIViewController, UITableViewDelegate, NSXMLParserDe
         if(indexPath.row==0){
             cell.textLabel.text = "Brandeis Calendar"
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        }else{
+        }/*else{
             var title:String = ""
-        
-            let fetchRequest = NSFetchRequest(entityName: "UserEn")
-            if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
-                currId  = fetchResults[0].id
-                markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/events/user/\(currId)"))
-               // title = markersDictionary[indexPath.row-1]["title"] as String
-            }
+            locationManager = CLLocationManager()
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.requestAlwaysAuthorization()
+            locationManager.startUpdatingLocation()
+            let location = locationManager.location
+            var currLat:CLLocationDegrees = location.coordinate.latitude
+            var currLng:CLLocationDegrees = location.coordinate.longitude
+            markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/events/loc/\(currLng)/\(currLat)"))
+            var test:NSArray = markersDictionary[indexPath.row-1] as NSArray
+            var test1:AnyObject = test[0]
+            title = test1["title"] as String
         }
-       // cell.textLabel.text = title
         
+       cell.textLabel.text = title
+        */
         return cell
     }
     
