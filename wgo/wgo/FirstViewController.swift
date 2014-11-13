@@ -41,7 +41,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     override func viewDidLoad() {
         
         screenHeight = mapView.frame.size.height
-        
+       
       
 
         super.viewDidLoad()

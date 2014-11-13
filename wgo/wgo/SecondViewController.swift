@@ -175,23 +175,29 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {
         
-        if tableView == self.searchDisplayController!.searchResultsTableView {
-            return nil
-        }
-            updateCount()
         
-            if(indexPath.row<self.markersDictionaryCount.count){
-                var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
-                    tableView.editing = false
-                    var id: String = self.markersDictionary[indexPath.row]["_id"] as String
-                    self.deleteFriend(id);
-                }
-                return [deleteAction]
+        println("TEST")
+            //updateCount()
+        
+          //  if(indexPath.row<self.markersDictionaryCount.count){
+                
+                
+            let deleteClosure = { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+                
+                tableView.editing = false
+                var id: String = self.markersDictionary[indexPath.row]["_id"] as String
+                self.deleteFriend(id);
             }
+
+              let deleteAction = UITableViewRowAction(style: .Default, title: "Delete", handler: deleteClosure)
+                
+           
+           // }
         
         
-        return nil
+        return [deleteAction]
     }
+    
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         
