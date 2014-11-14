@@ -123,6 +123,47 @@ class CalenderController: UIViewController, UITableViewDelegate, NSXMLParserDele
         description = description.stringByReplacingOccurrencesOfString("&gt", withString: ">", options: NSStringCompareOptions.LiteralSearch, range: nil)
         description = description.stringByReplacingOccurrencesOfString("&amp", withString: "&", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
+        var myArray = description.componentsSeparatedByString(" ")
+        var monthsArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        var dayArr = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        var startTime: String = ""
+        var endTime: String = ""
+        var day:String = ""
+        var month:String = ""
+        var year:String = ""
+        var dayOfWeek:String = ""
+        
+        for i in 0...myArray.count-1 {
+            //TIME OF DAY
+            if(myArray[i] == "-"){
+                if(myArray[i-1].rangeOfString("m") != nil){
+                    startTime = myArray[i-2]
+                }else{
+                    startTime = myArray[i-1]
+                }
+                
+                endTime = myArray[i+1]
+            }
+            //MONTH
+            for a in 0...monthsArr.count-1 {
+                if(myArray[i] == monthsArr[a]){
+                    month = myArray[i]
+                }
+            }
+            
+            for a in 0...dayArr.count-1 {
+                if(myArray[i].rangeOfString(dayArr[a]) != nil){
+                    dayOfWeek = dayArr[a]
+                    break
+                }
+            }
+            
+        }
+        
+        println(month)
+        println(dayOfWeek)
+        println(startTime + "-" + endTime)
+        
         return description
     }
     
