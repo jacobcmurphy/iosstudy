@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ges-jH-t0S">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RQa-Ph-sCO">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -412,7 +412,7 @@
         <!--LoginController-->
         <scene sceneID="bMt-sC-jni">
             <objects>
-                <viewController title="LoginController" id="ges-jH-t0S" customClass="LoginController" customModule="wgo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginController" title="LoginController" id="ges-jH-t0S" customClass="LoginController" customModule="wgo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="k6B-fw-V4j"/>
                         <viewControllerLayoutGuide type="bottom" id="5ie-ff-y22"/>
@@ -523,6 +523,24 @@
             </objects>
             <point key="canvasLocation" x="-1138" y="-2042"/>
         </scene>
+        <!--SplashViewController-->
+        <scene sceneID="esN-9O-ZGr">
+            <objects>
+                <viewController storyboardIdentifier="SplashViewController" title="SplashViewController" id="RQa-Ph-sCO" customClass="SplashViewController" customModule="wgo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eYS-7z-2rg"/>
+                        <viewControllerLayoutGuide type="bottom" id="BO2-o3-W6O"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mqz-2T-eqq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A9n-0r-YF8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="199" y="-1604"/>
+        </scene>
         <!--Events-->
         <scene sceneID="ly8-aS-LGn">
             <objects>
@@ -576,6 +594,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZZs-bP-GPL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="192" y="-896"/>
+        </scene>
+        <!--SettingsController-->
+        <scene sceneID="3Ue-xm-GZM">
+            <objects>
+                <viewController storyboardIdentifier="SettingsController" title="SettingsController" id="IfW-Ut-37o" customClass="SettingsController" customModule="wgo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lt1-1j-ZaF"/>
+                        <viewControllerLayoutGuide type="bottom" id="GxB-Rq-8QM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4YM-vw-oAt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yr5-Qf-lGq">
+                                <rect key="frame" x="250" y="421" width="121" height="42"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Log Out">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="ges-jH-t0S" kind="showDetail" id="o1F-sT-yUq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="logOutButton" destination="yr5-Qf-lGq" id="zqg-mh-GOc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pXd-Dp-EKS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-450" y="-2036"/>
         </scene>
         <!--CalenderController-->
         <scene sceneID="eMK-oh-sSU">
@@ -770,4 +823,7 @@
         <image name="Map" width="30" height="30"/>
         <image name="Title" width="250" height="80"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="o1F-sT-yUq"/>
+    </inferredMetricsTieBreakers>
 </document>

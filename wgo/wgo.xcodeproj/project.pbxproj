@@ -31,6 +31,10 @@
 		63DC640019B9416800F7981C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC63FF19B9416800F7981C /* Images.xcassets */; };
 		63DC640C19B9416800F7981C /* wgoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC640B19B9416800F7981C /* wgoTests.swift */; };
 		B90CC5D11A11989E00C67ED7 /* CalenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90CC5D01A11989E00C67ED7 /* CalenderController.swift */; };
+		B933E13D1A1AF06A0070D2B8 /* Locksmith.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933E1391A1AF06A0070D2B8 /* Locksmith.swift */; };
+		B933E13E1A1AF06A0070D2B8 /* LocksmithRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933E13A1A1AF06A0070D2B8 /* LocksmithRequest.swift */; };
+		B933E13F1A1AF06A0070D2B8 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933E13B1A1AF06A0070D2B8 /* SettingsController.swift */; };
+		B933E1401A1AF06A0070D2B8 /* SpashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933E13C1A1AF06A0070D2B8 /* SpashViewController.swift */; };
 		B950931B1A11B56B008F9312 /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B950931A1A11B56B008F9312 /* AddEventView.swift */; };
 		B95A01B11A09553F00ECDEB4 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95A01B01A09553F00ECDEB4 /* View.xib */; };
 		B9AD9F971A0862050045FDD4 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD9F961A0862050045FDD4 /* EventsViewController.swift */; };
@@ -140,6 +144,10 @@
 		63DC640A19B9416800F7981C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63DC640B19B9416800F7981C /* wgoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wgoTests.swift; sourceTree = "<group>"; };
 		B90CC5D01A11989E00C67ED7 /* CalenderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderController.swift; sourceTree = "<group>"; };
+		B933E1391A1AF06A0070D2B8 /* Locksmith.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locksmith.swift; sourceTree = "<group>"; };
+		B933E13A1A1AF06A0070D2B8 /* LocksmithRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocksmithRequest.swift; sourceTree = "<group>"; };
+		B933E13B1A1AF06A0070D2B8 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		B933E13C1A1AF06A0070D2B8 /* SpashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpashViewController.swift; sourceTree = "<group>"; };
 		B950931A1A11B56B008F9312 /* AddEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
 		B95A01B01A09553F00ECDEB4 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		B9AD9F961A0862050045FDD4 /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
@@ -235,6 +243,8 @@
 		63DC63F319B9416700F7981C /* wgo */ = {
 			isa = PBXGroup;
 			children = (
+				B933E13B1A1AF06A0070D2B8 /* SettingsController.swift */,
+				B933E13C1A1AF06A0070D2B8 /* SpashViewController.swift */,
 				35058F8B1A12F97500019150 /* Constants.swift */,
 				B950931A1A11B56B008F9312 /* AddEventView.swift */,
 				B90CC5D01A11989E00C67ED7 /* CalenderController.swift */,
@@ -258,6 +268,8 @@
 		63DC63F419B9416700F7981C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B933E13A1A1AF06A0070D2B8 /* LocksmithRequest.swift */,
+				B933E1391A1AF06A0070D2B8 /* Locksmith.swift */,
 				63DC63F519B9416700F7981C /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -438,9 +450,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B933E13F1A1AF06A0070D2B8 /* SettingsController.swift in Sources */,
 				35058F871A12F8EF00019150 /* OAuthSwiftClient.swift in Sources */,
 				63B0B0D319E4C15600A281B1 /* Poster.swift in Sources */,
 				35058F8A1A12F8EF00019150 /* HMACSHA1Signature.m in Sources */,
+				B933E13E1A1AF06A0070D2B8 /* LocksmithRequest.swift in Sources */,
 				3592877D19EF2B520005719B /* UserEn.swift in Sources */,
 				35058F841A12F8EF00019150 /* String+OAuthSwift.swift in Sources */,
 				35058F881A12F8EF00019150 /* OAuthSwiftCredential.swift in Sources */,
@@ -450,6 +464,7 @@
 				35058F831A12F8EF00019150 /* NSURL+OAuthSwift.swift in Sources */,
 				35058F821A12F8EF00019150 /* Dictionary+OAuthSwift.swift in Sources */,
 				35058F8C1A12F97500019150 /* Constants.swift in Sources */,
+				B933E13D1A1AF06A0070D2B8 /* Locksmith.swift in Sources */,
 				3592877B19EF2B0A0005719B /* User.xcdatamodeld in Sources */,
 				B950931B1A11B56B008F9312 /* AddEventView.swift in Sources */,
 				35058F851A12F8EF00019150 /* OAuth1Swift.swift in Sources */,
@@ -459,6 +474,7 @@
 				35058F891A12F8EF00019150 /* OAuthSwiftHTTPRequest.swift in Sources */,
 				B9AD9F971A0862050045FDD4 /* EventsViewController.swift in Sources */,
 				B90CC5D11A11989E00C67ED7 /* CalenderController.swift in Sources */,
+				B933E1401A1AF06A0070D2B8 /* SpashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

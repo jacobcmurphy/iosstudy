@@ -15,14 +15,17 @@ import CoreLocation
 class LoginController: UIViewController {
     
     var locationManager = CLLocationManager()
-
+    let service = "WGO"
+    let userAccount = "WGOUser"
+    let key = "wgoAuth"
+    
     
     @IBOutlet weak var activityMon: UIActivityIndicatorView!
     @IBOutlet weak var emailVar: UITextField!
     @IBOutlet weak var passVar: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var githubLogin: UIButton!
-
+    
     var user = User()
     
     
@@ -31,42 +34,64 @@ class LoginController: UIViewController {
         if let managedObjectContext = appDelegate.managedObjectContext {
             return managedObjectContext
         } else {
-           return nil
+            return nil
         }
-    }()
-    
+        }()
     override func viewDidLoad() {
         super.viewDidLoad()
         activityMon.hidden = true;
         locationManager.requestAlwaysAuthorization()
-
+        
         let firstViewController = FirstViewController.alloc()
-        let fetchRequest = NSFetchRequest(entityName: "UserEn")
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
-            if(fetchResults.isEmpty){
-                loginButton.addTarget(self, action: Selector("loginClick"), forControlEvents: .TouchUpInside)
-                githubLogin.addTarget(self, action: Selector("doOAuthGithub"), forControlEvents: .TouchUpInside)
-            } else {
-                let firstViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FirstViewController") as UIViewController
-            }
-        }
-
-        // Do any additional setup after loading the view.
+        loginButton.addTarget(self, action: Selector("loginClick"), forControlEvents: .TouchUpInside)
+        githubLogin.addTarget(self, action: Selector("doOAuthGithub"), forControlEvents: .TouchUpInside)
+        //        let fetchRequest = NSFetchRequest(entityName: "UserEn")
+        //        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
+        //            if(fetchResults.isEmpty){
+        //
+        //            } else {
+        //                let firstViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FirstViewController") as UIViewController
+        //            }
+        //        }
     }
+    /*    override func viewDidAppear(animated: Bool) {
+    let (dictionary, error) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
+    if (dictionary?.count != 0) {
+    println("Printing dictionary from ViewDidLoad:")
+    println(dictionary?.valueForKey(key))
+    let storyboard = UIStoryboard(name: "Main", bundle: nil);
+    let vc = storyboard.instantiateViewControllerWithIdentifier("tabViewController") as UITabBarController;
+    self.presentViewController(vc, animated: false, completion: nil);
+    } else {
+    activityMon.hidden = true;
+    locationManager.requestAlwaysAuthorization()
     
+    let firstViewController = FirstViewController.alloc()
+    let fetchRequest = NSFetchRequest(entityName: "UserEn")
+    if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
+    if(fetchResults.isEmpty){
+    loginButton.addTarget(self, action: Selector("loginClick"), forControlEvents: .TouchUpInside)
+    githubLogin.addTarget(self, action: Selector("doOAuthGithub"), forControlEvents: .TouchUpInside)
+    } else {
+    let firstViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FirstViewController") as UIViewController
+    }
+    }
+    }
+    }
+    */
     @IBAction func sendLogin(sender: AnyObject) {
     }
     
-
+    
     func loginClick() {
-//        
+        //
         loginButton.hidden = true;
-          activityMon.hidden = false;
-          activityMon.hidesWhenStopped = true
-         // activityMon.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-          view.addSubview(activityMon)
-          activityMon.startAnimating()
-          let newItem = NSEntityDescription.insertNewObjectForEntityForName("UserEn", inManagedObjectContext: self.managedObjectContext!) as UserEn
+        activityMon.hidden = false;
+        activityMon.hidesWhenStopped = true
+        // activityMon.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        view.addSubview(activityMon)
+        activityMon.startAnimating()
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("UserEn", inManagedObjectContext: self.managedObjectContext!) as UserEn
         
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil);
@@ -82,7 +107,7 @@ class LoginController: UIViewController {
         oauthswift.authorizeWithCallbackURL( NSURL(string: "wgo://oauth-callback/twitter")!, success: {
             credential, response in
             self.presentViewController(vc, animated: false, completion: nil);
-
+            
             println("Twitter", message: "auth_token:\(credential.oauth_token)\n\noauth_toke_secret:\(credential.oauth_token_secret)\n")
             var request = HTTPTask()
             request.responseSerializer = JSONResponseSerializer()
@@ -95,17 +120,18 @@ class LoginController: UIViewController {
                 self.user.loc = data.valueForKey("loc") as Array<Double>
                 newItem.long = self.user.loc[0]
                 newItem.lat = self.user.loc[1]
+                Locksmith.saveData(["wgoAuth" : credential.oauth_token], forKey: self.key, inService: self.service, forUserAccount: self.userAccount)
                 },failure: {(error: NSError) -> Void in
             })
-
+            
             var parameters =  Dictionary<String, AnyObject>()
-        
+            
             }, failure: {(error:NSError!) -> Void in
                 println("Failed to login")
                 println(error.localizedDescription)
         })
         
-
+        
     }
     
     func doOAuthGithub(){
@@ -145,17 +171,17 @@ class LoginController: UIViewController {
                 newItem.lat = self.user.loc[1]
                 },failure: {(error: NSError) -> Void in
             })
-
+            
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)
         })
         
     }
     
-        override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
