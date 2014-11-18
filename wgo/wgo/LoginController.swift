@@ -15,6 +15,9 @@ import CoreLocation
 class LoginController: UIViewController {
     
     var locationManager = CLLocationManager()
+    let service = "WGO"
+    let userAccount = "WGOUser"
+    let key = "wgoAuth"
 
     
     @IBOutlet weak var activityMon: UIActivityIndicatorView!
@@ -34,26 +37,48 @@ class LoginController: UIViewController {
            return nil
         }
     }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         activityMon.hidden = true;
         locationManager.requestAlwaysAuthorization()
-
+        
         let firstViewController = FirstViewController.alloc()
-        let fetchRequest = NSFetchRequest(entityName: "UserEn")
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
-            if(fetchResults.isEmpty){
-                loginButton.addTarget(self, action: Selector("loginClick"), forControlEvents: .TouchUpInside)
-                githubLogin.addTarget(self, action: Selector("doOAuthGithub"), forControlEvents: .TouchUpInside)
-            } else {
-                let firstViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FirstViewController") as UIViewController
+        loginButton.addTarget(self, action: Selector("loginClick"), forControlEvents: .TouchUpInside)
+        githubLogin.addTarget(self, action: Selector("doOAuthGithub"), forControlEvents: .TouchUpInside)
+//        let fetchRequest = NSFetchRequest(entityName: "UserEn")
+//        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
+//            if(fetchResults.isEmpty){
+//
+//            } else {
+//                let firstViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FirstViewController") as UIViewController
+//            }
+//        }
+    }
+    /*    override func viewDidAppear(animated: Bool) {
+        let (dictionary, error) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
+        if (dictionary?.count != 0) {
+            println("Printing dictionary from ViewDidLoad:")
+            println(dictionary?.valueForKey(key))
+            let storyboard = UIStoryboard(name: "Main", bundle: nil);
+            let vc = storyboard.instantiateViewControllerWithIdentifier("tabViewController") as UITabBarController;
+            self.presentViewController(vc, animated: false, completion: nil);
+        } else {
+            activityMon.hidden = true;
+            locationManager.requestAlwaysAuthorization()
+            
+            let firstViewController = FirstViewController.alloc()
+            let fetchRequest = NSFetchRequest(entityName: "UserEn")
+            if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
+                if(fetchResults.isEmpty){
+                    loginButton.addTarget(self, action: Selector("loginClick"), forControlEvents: .TouchUpInside)
+                    githubLogin.addTarget(self, action: Selector("doOAuthGithub"), forControlEvents: .TouchUpInside)
+                } else {
+                    let firstViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FirstViewController") as UIViewController
+                }
             }
         }
-
-        // Do any additional setup after loading the view.
     }
-    
+    */
     @IBAction func sendLogin(sender: AnyObject) {
     }
     
@@ -95,6 +120,7 @@ class LoginController: UIViewController {
                 self.user.loc = data.valueForKey("loc") as Array<Double>
                 newItem.long = self.user.loc[0]
                 newItem.lat = self.user.loc[1]
+                Locksmith.saveData(["wgoAuth" : credential.oauth_token], forKey: self.key, inService: self.service, forUserAccount: self.userAccount)
                 },failure: {(error: NSError) -> Void in
             })
 

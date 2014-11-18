@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ges-jH-t0S">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="T7n-TL-HQm">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -78,7 +78,7 @@
                     <tabBarItem key="tabBarItem" title="Map" image="Map" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" title="Map" id="BjT-5o-tfU">
                         <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="TWk-b8-l5b"/>
-                        <barButtonItem key="rightBarButtonItem" image="Home" id="5p4-ue-1YL"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="5p4-ue-1YL"/>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="DkD-yk-28L" id="LRb-u7-M2t"/>
@@ -90,6 +90,44 @@
                 <tapGestureRecognizer id="fXv-81-pVp"/>
             </objects>
             <point key="canvasLocation" x="247" y="-26"/>
+        </scene>
+        <!--SettingsController-->
+        <scene sceneID="SLD-Xd-vUr">
+            <objects>
+                <viewController storyboardIdentifier="SettingsController" title="SettingsController" id="ggM-IZ-tkR" customClass="SettingsController" customModule="wgo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sd4-LZ-qdW"/>
+                        <viewControllerLayoutGuide type="bottom" id="12h-qQ-UGU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dUu-ad-LIF">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWz-ym-wcp">
+                                <rect key="frame" x="253" y="423" width="128" height="61"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Log Out">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="ges-jH-t0S" kind="showDetail" id="7B9-Ng-sv0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="eWz-ym-wcp" secondAttribute="trailing" constant="203" id="nLZ-Ka-WVm"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="logOutButton" destination="eWz-ym-wcp" id="h3p-dr-Yca"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="57p-Ss-7Iw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-296" y="-2018"/>
         </scene>
         <!--AddEventView-->
         <scene sceneID="Gog-8P-JlM">
@@ -419,10 +457,28 @@
             </objects>
             <point key="canvasLocation" x="-809" y="809"/>
         </scene>
+        <!--SplashViewController-->
+        <scene sceneID="2hg-rH-OoJ">
+            <objects>
+                <viewController storyboardIdentifier="splashViewController" title="SplashViewController" id="T7n-TL-HQm" customClass="SplashViewController" customModule="wgo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="w4A-un-uwI"/>
+                        <viewControllerLayoutGuide type="bottom" id="fvL-97-qD4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="unZ-FV-sLo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hWC-7x-aAl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1972" y="-2528"/>
+        </scene>
         <!--LoginController-->
         <scene sceneID="bMt-sC-jni">
             <objects>
-                <viewController title="LoginController" id="ges-jH-t0S" customClass="LoginController" customModule="wgo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginController" title="LoginController" id="ges-jH-t0S" customClass="LoginController" customModule="wgo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="k6B-fw-V4j"/>
                         <viewControllerLayoutGuide type="bottom" id="5ie-ff-y22"/>
@@ -431,7 +487,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hKe-Pe-sMl">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hKe-Pe-sMl">
                                 <rect key="frame" x="168" y="257" width="264" height="38"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal">
@@ -445,7 +501,7 @@
                                     </attributedString>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fr3-48-W2a">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fr3-48-W2a">
                                 <rect key="frame" x="168" y="211" width="264" height="38"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -494,10 +550,10 @@
                                     <segue destination="W3r-6w-nFk" kind="presentation" id="EU6-Bp-4HC"/>
                                 </connections>
                             </button>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Title" translatesAutoresizingMaskIntoConstraints="NO" id="qeU-hJ-EPb">
-                                <rect key="frame" x="50" y="20" width="500" height="118"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="Title" translatesAutoresizingMaskIntoConstraints="NO" id="qeU-hJ-EPb">
+                                <rect key="frame" x="50" y="48" width="500" height="118"/>
                             </imageView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="X2z-LZ-6fU">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="X2z-LZ-6fU">
                                 <rect key="frame" x="282" y="233" width="37" height="37"/>
                                 <color key="color" red="0.043137254901960784" green="0.37647058823529411" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
@@ -523,6 +579,7 @@
                             <constraint firstItem="7MO-ky-YWx" firstAttribute="top" secondItem="MBT-p4-jDj" secondAttribute="bottom" constant="8" symbolic="YES" id="zoA-HB-p5G"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="ylJ-Mo-Whx"/>
                     <connections>
                         <outlet property="activityMon" destination="X2z-LZ-6fU" id="rSi-Cg-qTn"/>
                         <outlet property="githubLogin" destination="fr3-48-W2a" id="00w-hx-cZ0"/>
@@ -531,7 +588,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a19-mN-SoZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1138" y="-2042"/>
+            <point key="canvasLocation" x="-1132" y="-2008"/>
         </scene>
         <!--Events-->
         <scene sceneID="ly8-aS-LGn">
@@ -757,8 +814,10 @@
     <resources>
         <image name="Events" width="30" height="30"/>
         <image name="Friends" width="30" height="30"/>
-        <image name="Home" width="30" height="30"/>
         <image name="Map" width="30" height="30"/>
         <image name="Title" width="250" height="80"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="7B9-Ng-sv0"/>
+    </inferredMetricsTieBreakers>
 </document>

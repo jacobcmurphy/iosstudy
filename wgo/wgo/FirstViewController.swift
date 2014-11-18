@@ -10,6 +10,7 @@ import MapKit
 import CoreLocation
 import Foundation
 import CoreData
+import SwiftHTTP
 
 class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate{
     
@@ -24,6 +25,9 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     var data = NSMutableData()
     var locationManager = CLLocationManager()
  
+    let service = "WGO"
+    let userAccount = "WGOUser"
+    let key = "wgoAuth"
     
     @IBOutlet var tapRec: UITapGestureRecognizer!
     lazy var managedObjectContext : NSManagedObjectContext? = {
@@ -39,6 +43,22 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     override func viewDidLoad() {
 
         super.viewDidLoad()
+        
+        let (dictionary, error) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("UserEn", inManagedObjectContext: self.managedObjectContext!) as UserEn
+        var request = HTTPTask()
+        request.responseSerializer = JSONResponseSerializer()
+        request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
+        var oauthtoken = dictionary?.valueForKey(key) as String
+        request.POST("/twitterauth", parameters: ["twittertoken": "\(oauthtoken)" ], success: {(response: HTTPResponse) -> Void in
+            let data = response.responseObject as NSDictionary
+            newItem.id = data.valueForKey("_id") as String
+            newItem.first_name = data.valueForKey("first_name") as String
+            newItem.last_name = data.valueForKey("last_name") as String
+            },failure: {(error: NSError) -> Void in
+                println(dictionary)
+        })
+
 
         if (CLLocationManager.locationServicesEnabled())
         {
@@ -47,7 +67,13 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             self.navigationItem.leftBarButtonItem = button
             let homeImage = UIImage(named: "Home")
             let button1 = UIBarButtonItem(image: homeImage, style: .Plain, target: self, action: "goToCurrentLocation")
-            self.navigationItem.rightBarButtonItem = button1
+            
+            
+            /**Settings**/
+            let settingsImage = UIImage(named: "Settings")
+            let settingsButton = UIBarButtonItem(image: settingsImage, style: .Plain, target: self, action: "settingsHit")
+
+            self.navigationItem.rightBarButtonItem = settingsButton
             
             tapRec.addTarget(self, action: "tappedView")
             mapView.addGestureRecognizer(tapRec)
@@ -97,6 +123,11 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             self.mapView.frame = frame
             }, completion: nil)
 
+    }
+    
+    func settingsHit(){
+        let settingsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SettingsController") as SettingsController
+        self.navigationController?.pushViewController(settingsViewController, animated: true)
     }
     /*Not Being Used At The Moment, But Will Be..Used for to show CoreData info*/
     func presentItemInfo() {
