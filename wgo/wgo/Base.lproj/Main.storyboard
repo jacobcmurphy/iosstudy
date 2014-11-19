@@ -819,7 +819,7 @@
     <resources>
         <image name="Events" width="30" height="30"/>
         <image name="Friends" width="30" height="30"/>
-        <image name="Home" width="30" height="30"/>
+        <image name="Home" width="60" height="60"/>
         <image name="Map" width="30" height="30"/>
         <image name="Title" width="250" height="80"/>
     </resources>

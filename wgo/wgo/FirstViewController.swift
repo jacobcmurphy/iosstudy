@@ -35,8 +35,9 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     var info1 = CustomPointAnnotation()
     let service = "WGO"
     let userAccount = "WGOUser"
+    var mapBottomBound:CGFloat = 0;
     let key = "wgoAuth"
-   
+    let button1 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     @IBOutlet var tapRec: UITapGestureRecognizer!
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -79,11 +80,13 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             self.navigationItem.leftBarButtonItem = button
             let homeImage = UIImage(named: "Home")
             
-            let button1 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+            
             button1.setImage(homeImage, forState: UIControlState.Normal)
-            button1.frame = CGRectMake(167, 10, 30, 30)
+            mapBottomBound = mapView.frame.size.height
+            button1.frame = CGRectMake(10, mapBottomBound - 40, 30, 30)
             button1.setTitle("Go!", forState: UIControlState.Normal)
             button1.addTarget(self, action: "goToCurrentLocation", forControlEvents: UIControlEvents.TouchUpInside)
+            
             //let button1 = UIBarButtonItem(image: homeImage, style: .Plain, target: self, action: "goToCurrentLocation")
            
             mapView.addSubview(button1)
@@ -155,6 +158,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             var frame = self.mapView.frame
             frame.size.height = screenHeight
             self.mapView.frame = frame
+            self.mapBottomBound = frame.size.height
+            self.button1.frame = CGRectMake(10, self.mapBottomBound-165, 30, 30)
             }, completion: nil)
     }
     /*Function called when map needs to be minimized*/
@@ -163,7 +168,6 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         let homeImage = UIImage(named: "Home")
         let settingsImage = UIImage(named: "Settings")
         tableView.hidden = false
-        
         let button1 = UIBarButtonItem(image: settingsImage, style: .Plain, target: self, action: "settingsHit")
         self.navigationItem.rightBarButtonItem = button1
        
@@ -171,6 +175,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             var frame = self.mapView.frame
             frame.size.height = self.screenHeight
             self.mapView.frame = frame
+            self.mapBottomBound = frame.size.height
+            self.button1.frame = CGRectMake(10, self.mapBottomBound - 40, 30, 30)
             }, completion: nil)
 
     }
@@ -207,15 +213,9 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         myPin = []
         let fetchRequest = NSFetchRequest(entityName: "UserEn")
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
-            var currId:String = fetchResults[0].id
+        var currId:String = fetchResults[0].id
         var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(currId)/friends"))
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        locationManager.startUpdatingLocation()
-        //saddInitialPin(locationManager)
-                /* Start Loop to Update ALL Markers */
+            /* Start Loop to Update ALL Markers */
         for i in 0...markersDictionary.count-1 {
             var lnglat:NSArray = markersDictionary[i]["loc"] as NSArray
             var firstname: String = markersDictionary[i]["first_name"] as String
@@ -227,7 +227,6 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             var currentLat:CLLocationDegrees = lat
             var currentLng:CLLocationDegrees = lng
             currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
-            
             myPin.append(CustomPointAnnotation())
             myPin[i].imageName = "Marker2"
             myPin[i].coordinate = currLoc
@@ -240,39 +239,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
     
     func refresh(){
-        
         update()
-       
-        
-        
     }
-    
-    /**USED TO LATER CHANGE THE MARKER IMAGE**/
-  
-    
-    /*func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        if !(annotation is MKPointAnnotation) {
-            //if annotation is not an MKPointAnnotation (eg. MKUserLocation),
-            //return nil so map draws default view for it (eg. blue dot)...
-            return nil
-        }
-        println("test")
-        let reuseId = "test"
-        
-        var anView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
-        if anView == nil {
-            anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            anView.image = UIImage(named:"Marker2")
-            anView.canShowCallout = true
-        }
-        else {
-            //we are re-using a view, update its annotation reference...
-            anView.annotation = annotation
-        }
-        
-        return anView
-    }*/
-    
    
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         let location = locations.last as CLLocation

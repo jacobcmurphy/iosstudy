@@ -4,16 +4,6 @@
       "idiom" : "universal",
       "scale" : "1x",
       "filename" : "gohome.png"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "gohome@2x.png"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "gohome@3x.png"
     }
   ],
   "info" : {
