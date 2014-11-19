@@ -10,6 +10,10 @@
       "scale" : "2x",
       "filename" : "settings@2x.png"
     },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
   ],
   "info" : {
     "version" : 1,

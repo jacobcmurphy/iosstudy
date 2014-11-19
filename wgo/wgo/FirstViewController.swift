@@ -159,7 +159,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             frame.size.height = screenHeight
             self.mapView.frame = frame
             self.mapBottomBound = frame.size.height
-            self.button1.frame = CGRectMake(10, self.mapBottomBound-165, 30, 30)
+            self.button1.frame = CGRectMake(10, self.mapBottomBound - 165, 30, 30)
             }, completion: nil)
     }
     /*Function called when map needs to be minimized*/
@@ -264,6 +264,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         cell.detailTextLabel?.text = "Event Description"
         return cell
     }
+    
+    
 
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {

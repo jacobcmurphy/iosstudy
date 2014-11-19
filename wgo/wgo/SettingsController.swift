@@ -22,6 +22,10 @@ class SettingsController: UIViewController {
     override func viewDidLoad() {
       
         logOutButton.addTarget(self, action: Selector("logOutClick"), forControlEvents: .TouchUpInside)
+        var screenSize: CGRect = UIScreen.mainScreen().bounds
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height
+        //logOutButton.frame.width = screenWidth as CGFloat
         super.viewDidLoad()
         
     }
