@@ -1,8 +1,7 @@
 {
   "images" : [
-    {
-      "idiom" : "Unviersal",
-      "size" : "25x40",
+   {
+      "idiom" : "universal",
       "scale" : "1x",
       "filename" : "Marker2.png"
     }

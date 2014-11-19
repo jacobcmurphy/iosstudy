@@ -12,7 +12,12 @@ import Foundation
 import CoreData
 import SwiftHTTP
 
-class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate{
+
+class CustomPointAnnotation: MKPointAnnotation {
+    var imageName: String!
+}
+
+class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate, MKMapViewDelegate{
     
 
     
@@ -22,12 +27,12 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
  
     @IBOutlet var mapView: MKMapView!
     @IBOutlet weak var tableView: UITableView!
-    var myPin:[MKPointAnnotation] = []
+    var myPin:[CustomPointAnnotation] = []
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
     var locationManager = CLLocationManager()
     var screenHeight:CGFloat = 0;
-    
+    var info1 = CustomPointAnnotation()
     let service = "WGO"
     let userAccount = "WGOUser"
     let key = "wgoAuth"
@@ -45,8 +50,10 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     
     override func viewDidLoad() {
         
+        
+       
+        mapView.delegate = self
         screenHeight = mapView.frame.size.height
-
         super.viewDidLoad()
 
         
@@ -71,7 +78,15 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "update")
             self.navigationItem.leftBarButtonItem = button
             let homeImage = UIImage(named: "Home")
-            let button1 = UIBarButtonItem(image: homeImage, style: .Plain, target: self, action: "goToCurrentLocation")
+            
+            let button1 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+            button1.setImage(homeImage, forState: UIControlState.Normal)
+            button1.frame = CGRectMake(167, 10, 30, 30)
+            button1.setTitle("Go!", forState: UIControlState.Normal)
+            button1.addTarget(self, action: "goToCurrentLocation", forControlEvents: UIControlEvents.TouchUpInside)
+            //let button1 = UIBarButtonItem(image: homeImage, style: .Plain, target: self, action: "goToCurrentLocation")
+           
+            mapView.addSubview(button1)
           //  self.navigationItem.rightBarButtonItem = button1
             /**Settings**/
             let settingsImage = UIImage(named: "Settings")
@@ -99,6 +114,35 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         
     }
     
+    
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        if !(annotation is CustomPointAnnotation) {
+            return nil
+        }
+        
+        let reuseId = "test"
+        println("test")
+        var anView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
+        if anView == nil {
+            anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            anView.canShowCallout = true
+        }
+        else {
+            anView.annotation = annotation
+        }
+        
+        //Set annotation-specific properties **AFTER**
+        //the view is dequeued or created...
+       
+        let cpa = annotation as CustomPointAnnotation
+      
+        anView.image = UIImage(named: cpa.imageName)
+        println(anView.image)
+        return anView
+    }
+    
+    
     /*Function called when map needs to be maximized*/
     func tappedView(){
         let screenSize: CGRect = UIScreen.mainScreen().bounds
@@ -117,9 +161,10 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     func miniClick(){
         
         let homeImage = UIImage(named: "Home")
+        let settingsImage = UIImage(named: "Settings")
         tableView.hidden = false
         
-        let button1 = UIBarButtonItem(image: homeImage, style: .Plain, target: self, action: "goToCurrentLocation")
+        let button1 = UIBarButtonItem(image: settingsImage, style: .Plain, target: self, action: "settingsHit")
         self.navigationItem.rightBarButtonItem = button1
        
         UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut  , animations: {
@@ -183,8 +228,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             var currentLng:CLLocationDegrees = lng
             currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
             
-            myPin.append(MKPointAnnotation())
-            
+            myPin.append(CustomPointAnnotation())
+            myPin[i].imageName = "Marker2"
             myPin[i].coordinate = currLoc
             myPin[i].title = (firstname + " " + lastname)
             self.mapView.addAnnotation(myPin[i])
@@ -203,14 +248,15 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
     
     /**USED TO LATER CHANGE THE MARKER IMAGE**/
+  
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    /*func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         if !(annotation is MKPointAnnotation) {
             //if annotation is not an MKPointAnnotation (eg. MKUserLocation),
             //return nil so map draws default view for it (eg. blue dot)...
             return nil
         }
-        
+        println("test")
         let reuseId = "test"
         
         var anView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
@@ -225,7 +271,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         }
         
         return anView
-    }
+    }*/
     
    
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
