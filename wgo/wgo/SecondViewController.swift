@@ -124,6 +124,11 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView?) -> Int {
+    // Return the number of sections.
+    return 1
+    }
+    
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
         let fetchRequest = NSFetchRequest(entityName: "UserEn")
@@ -134,13 +139,13 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
-
+        
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
             currId  = fetchResults[0].id
         }
         
         markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(currId)/friends"))
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "MyTestCell")
 
         if(indexPath.row<markersDictionary.count){ //Instead of doing this try to change the table size
             var firstname: String = markersDictionary[indexPath.row]["first_name"] as String
@@ -152,7 +157,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             var currentLat:CLLocationDegrees = location.coordinate.latitude
             var currentLng:CLLocationDegrees = location.coordinate.longitude
             var dist = getDistanceFromLatLonInMi(lat, lon1: lng, lat2: currentLat, lon2: currentLng)
-            var name:String = (firstname + " " + lastname + "   " + dist)
+            var name:String = (firstname + " " + lastname)
             //NOTE TO FUTURE ME: CHECK FOR NULL STRINGS
                 if(countElements(searchName) >= 2){
                     var nameArray: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/search/\(searchName)"))
@@ -166,14 +171,24 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
                         }
                     }
                 }
+            
+            let friendsImage = UIImage(named: "Friends")
             cell.textLabel.text = name
-            }
-        cell.detailTextLabel?.numberOfLines = 3
+            cell.imageView.image = friendsImage
+            cell.detailTextLabel?.text = dist
+            
+        }
+       // cell.detailTextLabel?.numberOfLines = 3
+        //cell.imageView.image = imageView.image
+        
+    
+        
        // cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         return cell
     }
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {
+        
         
         
         println("TEST")
@@ -197,6 +212,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         
         return [deleteAction]
     }
+    
+    
     
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {

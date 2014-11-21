@@ -57,8 +57,11 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+        let calenderImage = UIImage(named: "Events")
+        
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
         if(indexPath.row==0){
+            cell.imageView.image = calenderImage
             cell.textLabel.text = "Brandeis Calendar"
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         }/*else{
