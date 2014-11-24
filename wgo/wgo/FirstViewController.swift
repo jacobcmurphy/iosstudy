@@ -18,13 +18,8 @@ class CustomPointAnnotation: MKPointAnnotation {
 }
 
 class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate, MKMapViewDelegate{
-    
-
-    
-   
 
     @IBOutlet weak var minimizeButton: UIBarButtonItem!
- 
     @IBOutlet var mapView: MKMapView!
     @IBOutlet weak var tableView: UITableView!
     var myPin:[CustomPointAnnotation] = []
@@ -32,12 +27,12 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     var data = NSMutableData()
     var locationManager = CLLocationManager()
     var screenHeight:CGFloat = 0;
-    var info1 = CustomPointAnnotation()
     let service = "WGO"
     let userAccount = "WGOUser"
     var mapBottomBound:CGFloat = 0;
     let key = "wgoAuth"
     let button1 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+    let button2 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     @IBOutlet var tapRec: UITapGestureRecognizer!
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -50,14 +45,11 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         }()
     
     override func viewDidLoad() {
-        
-        
-       
+
         mapView.delegate = self
         screenHeight = mapView.frame.size.height
         super.viewDidLoad()
 
-        
         let (dictionary, error) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("UserEn", inManagedObjectContext: self.managedObjectContext!) as UserEn
         var request = HTTPTask()
@@ -75,27 +67,29 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         
         if (CLLocationManager.locationServicesEnabled())
         {
-          
+            
+            /*Refresh Button*/
             let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "update")
             self.navigationItem.leftBarButtonItem = button
+            /*Go To Current Location Button*/
             let homeImage = UIImage(named: "Home")
-            
-            
             button1.setImage(homeImage, forState: UIControlState.Normal)
             mapBottomBound = mapView.frame.size.height
             button1.frame = CGRectMake(10, mapBottomBound - 40, 30, 30)
-            button1.setTitle("Go!", forState: UIControlState.Normal)
             button1.addTarget(self, action: "goToCurrentLocation", forControlEvents: UIControlEvents.TouchUpInside)
-            
-            //let button1 = UIBarButtonItem(image: homeImage, style: .Plain, target: self, action: "goToCurrentLocation")
-           
+            /*Minimize Button*/
+            let miniImage = UIImage(named: "Minimize")
+            button2.setImage(miniImage, forState: UIControlState.Normal)
+            button2.addTarget(self, action: "miniClick", forControlEvents: UIControlEvents.TouchUpInside)
+            button2.backgroundColor = UIColor.whiteColor()
             mapView.addSubview(button1)
-          //  self.navigationItem.rightBarButtonItem = button1
-            /**Settings**/
+            mapView.addSubview(button2)
+            button2.hidden = true
+            /*Settings Button*/
             let settingsImage = UIImage(named: "Settings")
             let settingsButton = UIBarButtonItem(image: settingsImage, style: .Plain, target: self, action: "settingsHit")
-            
             self.navigationItem.rightBarButtonItem = settingsButton
+            /*Maximize Map On Tap*/
             tapRec.addTarget(self, action: "tappedView")
             mapView.addGestureRecognizer(tapRec)
             mapView.userInteractionEnabled = true
@@ -116,9 +110,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         }
         
     }
-    
-    
-    
+
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         if !(annotation is CustomPointAnnotation) {
             return nil
@@ -145,21 +137,19 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         return anView
     }
     
-    
     /*Function called when map needs to be maximized*/
     func tappedView(){
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let screenHeight = screenSize.height
         tableView.hidden = true
-        let miniImage = UIImage(named: "Minimize")
-        let button1 = UIBarButtonItem(image: miniImage, style: .Plain, target: self, action: "miniClick")
-        self.navigationItem.rightBarButtonItem = button1
+        button2.hidden = false
        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut  , animations: {
             var frame = self.mapView.frame
             frame.size.height = screenHeight
             self.mapView.frame = frame
             self.mapBottomBound = frame.size.height
             self.button1.frame = CGRectMake(10, self.mapBottomBound - 165, 30, 30)
+            self.button2.frame = CGRectMake(330, self.mapBottomBound - 165, 30, 30)
             }, completion: nil)
     }
     /*Function called when map needs to be minimized*/
@@ -168,9 +158,9 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         let homeImage = UIImage(named: "Home")
         let settingsImage = UIImage(named: "Settings")
         tableView.hidden = false
-        let button1 = UIBarButtonItem(image: settingsImage, style: .Plain, target: self, action: "settingsHit")
-        self.navigationItem.rightBarButtonItem = button1
-       
+      //  let button1 = UIBarButtonItem(image: settingsImage, style: .Plain, target: self, action: "settingsHit")
+       // self.navigationItem.rightBarButtonItem = button1
+       button2.hidden = true
         UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut  , animations: {
             var frame = self.mapView.frame
             frame.size.height = self.screenHeight
@@ -185,6 +175,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         let settingsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SettingsController") as SettingsController
         self.navigationController?.pushViewController(settingsViewController, animated: true)
     }
+    
     /*Not Being Used At The Moment, But Will Be..Used for to show CoreData info*/
     func presentItemInfo() {
         let fetchRequest = NSFetchRequest(entityName: "UserEn")
@@ -196,7 +187,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             
         }
     }
-    
+    /*Called When "Go Home" Button is hit*/
     func goToCurrentLocation(){
         let location = locationManager.location
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
@@ -265,9 +256,6 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         return cell
     }
     
-    
-
-    
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {
         
         var pinAction = UITableViewRowAction(style: .Default, title: "Unpin") { (action, indexPath) -> Void in
@@ -283,6 +271,5 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     
     func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
     }
-    
     
 }

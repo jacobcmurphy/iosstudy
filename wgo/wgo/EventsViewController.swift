@@ -63,7 +63,7 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
         if(indexPath.row==0){
             cell.imageView.image = calenderImage
             cell.textLabel.text = "Brandeis Calendar"
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
         }/*else{
             var title:String = ""
             locationManager = CLLocationManager()

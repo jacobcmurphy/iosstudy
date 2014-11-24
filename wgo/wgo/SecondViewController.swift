@@ -171,9 +171,10 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
                         }
                     }
                 }
-            
+          
             let friendsImage = UIImage(named: "Friends")
             cell.textLabel.text = name
+            tableView.rowHeight = 100
             cell.imageView.image = friendsImage
             cell.detailTextLabel?.text = dist
             
