@@ -81,7 +81,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             let miniImage = UIImage(named: "Minimize")
             button2.setImage(miniImage, forState: UIControlState.Normal)
             button2.addTarget(self, action: "miniClick", forControlEvents: UIControlEvents.TouchUpInside)
-            button2.backgroundColor = UIColor.whiteColor()
+           // button2.backgroundColor = UIColor.whiteColor()
             mapView.addSubview(button1)
             mapView.addSubview(button2)
             button2.hidden = true
