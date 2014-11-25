@@ -20,7 +20,6 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
     var locationManager = CLLocationManager()
     @IBOutlet weak var tableView: UITableView!
     var currId:String = ""
-    var markersDictionary: NSArray = []
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
@@ -53,19 +52,28 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     
     func tableView(tableView:UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        let location = locationManager.location
+        var currLat:CLLocationDegrees = location.coordinate.latitude
+        var currLng:CLLocationDegrees = location.coordinate.longitude
+        var eventsArray:NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/events/loc/\(currLng)/\(currLat)"))
+        return eventsArray.count+1
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         let calenderImage = UIImage(named: "Events")
-        
+        var eventsArray:NSArray = []
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
         if(indexPath.row==0){
             cell.imageView.image = calenderImage
             cell.textLabel.text = "Brandeis Calendar"
             cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
-        }/*else{
-            var title:String = ""
+        }else{
+            
             locationManager = CLLocationManager()
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -74,14 +82,15 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
             let location = locationManager.location
             var currLat:CLLocationDegrees = location.coordinate.latitude
             var currLng:CLLocationDegrees = location.coordinate.longitude
-            markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/events/loc/\(currLng)/\(currLat)"))
-            var test:NSArray = markersDictionary[indexPath.row-1] as NSArray
-            var test1:AnyObject = test[0]
-            title = test1["title"] as String
+            eventsArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/events/loc/\(currLng)/\(currLat)"))
+            if(eventsArray.count > 0){
+                var test:NSDictionary = eventsArray[indexPath.row-1]["obj"] as NSDictionary
+                cell.textLabel.text =  test["title"] as String
+            }
         }
         
-       cell.textLabel.text = title
-        */
+       
+        
         return cell
     }
     
