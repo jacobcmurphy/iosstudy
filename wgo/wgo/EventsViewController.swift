@@ -8,7 +8,6 @@
 
 import UIKit
 import Foundation
-import CoreData
 import CoreLocation
 
 
@@ -20,15 +19,15 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
     var locationManager = CLLocationManager()
     @IBOutlet weak var tableView: UITableView!
     var currId:String = ""
-    lazy var managedObjectContext : NSManagedObjectContext? = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        if let managedObjectContext = appDelegate.managedObjectContext {
-            return managedObjectContext
-        }
-        else {
-            return nil
-        }
-        }()
+//    lazy var managedObjectContext : NSManagedObjectContext? = {
+//        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+//        if let managedObjectContext = appDelegate.managedObjectContext {
+//            return managedObjectContext
+//        }
+//        else {
+//            return nil
+//        }
+//        }()
     
     
     override func viewDidLoad() {

@@ -14,9 +14,9 @@ class SplashViewController: UIViewController {
     let service = "WGO"
     let userAccount = "WGOUser"
     let key = "wgoAuth"
+    let userId = "userId"
     
     override func viewDidAppear(animated: Bool) {
-        println("Here in viewDidAppear" )
         let (dictionary, error) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
         if (dictionary?.valueForKey(key) != nil) {
             println("Printing dictionary from ViewDidAppear:")

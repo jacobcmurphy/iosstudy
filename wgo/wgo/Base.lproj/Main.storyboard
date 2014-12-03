@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14C68m" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RQa-Ph-sCO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RQa-Ph-sCO">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -421,102 +421,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hKe-Pe-sMl">
-                                <rect key="frame" x="168" y="257" width="264" height="38"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Login with Twitter">
-                                            <attributes>
-                                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <font key="NSFont" size="15" name="HelveticaNeue-Bold"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fr3-48-W2a">
-                                <rect key="frame" x="168" y="211" width="264" height="38"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="38" id="1TP-8B-Jb2"/>
-                                    <constraint firstAttribute="width" constant="264" id="aK1-jS-MDE"/>
-                                </constraints>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Login with Github">
-                                            <attributes>
-                                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <font key="NSFont" size="15" name="HelveticaNeue-Bold"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't Have An Account Yet?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBT-p4-jDj">
-                                <rect key="frame" x="232" y="319" width="150" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="3xs-XA-4ws"/>
-                                    <constraint firstAttribute="width" constant="150" id="BDd-Mo-eql"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-46-t2k">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What's Going On" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="09E-es-9LB">
+                                <rect key="frame" x="238" y="61" width="189" height="62"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7MO-ky-YWx">
-                                <rect key="frame" x="168" y="348" width="264" height="36"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="haF-aZ-o6A"/>
-                                </constraints>
-                                <color key="tintColor" red="0.99542297979797978" green="0.99542297979797978" blue="0.99542297979797978" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Sign up!">
-                                            <attributes>
-                                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <font key="NSFont" size="15" name="HelveticaNeue-Bold"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                                <connections>
-                                    <segue destination="W3r-6w-nFk" kind="presentation" id="EU6-Bp-4HC"/>
-                                </connections>
-                            </button>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Title" translatesAutoresizingMaskIntoConstraints="NO" id="qeU-hJ-EPb">
-                                <rect key="frame" x="50" y="20" width="500" height="118"/>
-                            </imageView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="X2z-LZ-6fU">
-                                <rect key="frame" x="282" y="233" width="37" height="37"/>
-                                <color key="color" red="0.043137254901960784" green="0.37647058823529411" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vqp-rz-xur" customClass="FBLoginView">
+                                <rect key="frame" x="157" y="217" width="270" height="142"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AWa-ll-A9U" customClass="FBLoginView">
+                                        <rect key="frame" x="0.0" y="0.0" width="270" height="142"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="hKe-Pe-sMl" firstAttribute="leading" secondItem="7MO-ky-YWx" secondAttribute="leading" id="EIs-sr-Cce"/>
-                            <constraint firstItem="fr3-48-W2a" firstAttribute="centerX" secondItem="X2z-LZ-6fU" secondAttribute="centerX" id="G5f-Yn-FEY"/>
-                            <constraint firstItem="MBT-p4-jDj" firstAttribute="leading" secondItem="42P-WP-FiF" secondAttribute="leading" constant="232" id="Ivh-X6-eft"/>
-                            <constraint firstItem="qeU-hJ-EPb" firstAttribute="leading" secondItem="42P-WP-FiF" secondAttribute="leadingMargin" constant="34" id="Mha-u3-kYf"/>
-                            <constraint firstItem="hKe-Pe-sMl" firstAttribute="trailing" secondItem="7MO-ky-YWx" secondAttribute="trailing" id="VXo-sw-bCL"/>
-                            <constraint firstItem="X2z-LZ-6fU" firstAttribute="top" secondItem="qeU-hJ-EPb" secondAttribute="bottom" constant="95" id="a2A-Nb-Nk4"/>
-                            <constraint firstItem="fr3-48-W2a" firstAttribute="trailing" secondItem="hKe-Pe-sMl" secondAttribute="trailing" id="aoj-oC-BJf"/>
-                            <constraint firstItem="MBT-p4-jDj" firstAttribute="top" secondItem="X2z-LZ-6fU" secondAttribute="bottom" constant="49" id="arn-29-8OE"/>
-                            <constraint firstItem="hKe-Pe-sMl" firstAttribute="top" secondItem="fr3-48-W2a" secondAttribute="bottom" constant="8" symbolic="YES" id="ct7-Nm-nJj"/>
-                            <constraint firstItem="qeU-hJ-EPb" firstAttribute="centerX" secondItem="42P-WP-FiF" secondAttribute="centerX" id="eK6-ax-C7z"/>
-                            <constraint firstItem="qeU-hJ-EPb" firstAttribute="top" secondItem="k6B-fw-V4j" secondAttribute="bottom" id="eSy-2F-XPa"/>
-                            <constraint firstItem="fr3-48-W2a" firstAttribute="top" secondItem="qeU-hJ-EPb" secondAttribute="bottom" constant="73" id="fWu-jv-i1g"/>
-                            <constraint firstItem="hKe-Pe-sMl" firstAttribute="leading" secondItem="fr3-48-W2a" secondAttribute="leading" id="ho3-Km-4ga"/>
-                            <constraint firstItem="5ie-ff-y22" firstAttribute="top" secondItem="7MO-ky-YWx" secondAttribute="bottom" constant="216" id="mdT-ea-M7N"/>
-                            <constraint firstItem="qeU-hJ-EPb" firstAttribute="centerX" secondItem="fr3-48-W2a" secondAttribute="centerX" id="sWb-uc-M0s"/>
-                            <constraint firstItem="MBT-p4-jDj" firstAttribute="top" secondItem="hKe-Pe-sMl" secondAttribute="bottom" constant="24" id="uga-Ch-84t"/>
-                            <constraint firstItem="7MO-ky-YWx" firstAttribute="top" secondItem="MBT-p4-jDj" secondAttribute="bottom" constant="8" symbolic="YES" id="zoA-HB-p5G"/>
-                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityMon" destination="X2z-LZ-6fU" id="rSi-Cg-qTn"/>
-                        <outlet property="githubLogin" destination="fr3-48-W2a" id="00w-hx-cZ0"/>
-                        <outlet property="loginButton" destination="hKe-Pe-sMl" id="yaR-IR-eXv"/>
+                        <outlet property="fbLoginView" destination="AWa-ll-A9U" id="dnt-Lp-K1o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a19-mN-SoZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -619,10 +547,26 @@
                                     <segue destination="ges-jH-t0S" kind="showDetail" id="o1F-sT-yUq"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zgp-Wn-IBb" customClass="FBLoginView">
+                                <rect key="frame" x="165" y="177" width="270" height="142"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nIP-4h-vP0">
+                                        <rect key="frame" x="0.0" y="0.0" width="279" height="152"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="ges-jH-t0S" kind="showDetail" id="bfw-Ie-FOJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="fbLoginView" destination="zgp-Wn-IBb" id="tfi-v5-T3m"/>
                         <outlet property="logOutButton" destination="yr5-Qf-lGq" id="zqg-mh-GOc"/>
                     </connections>
                 </viewController>
@@ -821,7 +765,6 @@
         <image name="Friends" width="30" height="30"/>
         <image name="Home" width="60" height="60"/>
         <image name="Map" width="30" height="30"/>
-        <image name="Title" width="250" height="80"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="o1F-sT-yUq"/>

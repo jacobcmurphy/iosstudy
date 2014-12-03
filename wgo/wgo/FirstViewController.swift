@@ -9,7 +9,6 @@ import UIKit
 import MapKit
 import CoreLocation
 import Foundation
-import CoreData
 import SwiftHTTP
 
 
@@ -34,80 +33,71 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     let button1 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     let button2 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     @IBOutlet var tapRec: UITapGestureRecognizer!
-    lazy var managedObjectContext : NSManagedObjectContext? = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        if let managedObjectContext = appDelegate.managedObjectContext {
-            return managedObjectContext
-        }
-        else {
-            return nil
-        }
-        }()
+    
     
     override func viewDidLoad() {
 
         mapView.delegate = self
         screenHeight = mapView.frame.size.height
         super.viewDidLoad()
+        locationManager.requestAlwaysAuthorization()
 
-        let (dictionary, error) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
-        let newItem = NSEntityDescription.insertNewObjectForEntityForName("UserEn", inManagedObjectContext: self.managedObjectContext!) as UserEn
-        var request = HTTPTask()
-        request.responseSerializer = JSONResponseSerializer()
-        request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
-        var oauthtoken = dictionary?.valueForKey(key) as String
-        request.POST("/twitterauth", parameters: ["twittertoken": "\(oauthtoken)" ], success: {(response: HTTPResponse) -> Void in
-            let data = response.responseObject as NSDictionary
-            newItem.id = data.valueForKey("_id") as String
-            newItem.first_name = data.valueForKey("first_name") as String
-            newItem.last_name = data.valueForKey("last_name") as String
-            },failure: {(error: NSError) -> Void in
-                println(dictionary)
-        })
-        
-        if (CLLocationManager.locationServicesEnabled())
-        {
-            
-            /*Refresh Button*/
-            let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "update")
-            self.navigationItem.leftBarButtonItem = button
-            /*Go To Current Location Button*/
-            let homeImage = UIImage(named: "Home")
-            button1.setImage(homeImage, forState: UIControlState.Normal)
-            mapBottomBound = mapView.frame.size.height
-            button1.frame = CGRectMake(10, mapBottomBound - 40, 30, 30)
-            button1.addTarget(self, action: "goToCurrentLocation", forControlEvents: UIControlEvents.TouchUpInside)
-            /*Minimize Button*/
-            let miniImage = UIImage(named: "Minimize")
-            button2.setImage(miniImage, forState: UIControlState.Normal)
-            button2.addTarget(self, action: "miniClick", forControlEvents: UIControlEvents.TouchUpInside)
-           // button2.backgroundColor = UIColor.whiteColor()
-            mapView.addSubview(button1)
-            mapView.addSubview(button2)
-            button2.hidden = true
+
+//        let (dictionary, error) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
+//       
+//        var request = HTTPTask()
+//        request.responseSerializer = JSONResponseSerializer()
+//        request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
+//        var oauthtoken = dictionary?.valueForKey(key) as String
+//        request.POST("/twitterauth", parameters: ["twittertoken": "\(oauthtoken)" ], success: {(response: HTTPResponse) -> Void in
+//            let data = response.responseObject as NSDictionary
+//            },failure: {(error: NSError) -> Void in
+//                println(dictionary)
+//        })
+//        
+//        if (CLLocationManager.locationServicesEnabled())
+//        {
+//            
+//            /*Refresh Button*/
+//            let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "update")
+//            self.navigationItem.leftBarButtonItem = button
+//            /*Go To Current Location Button*/
+//            let homeImage = UIImage(named: "Home")
+//            button1.setImage(homeImage, forState: UIControlState.Normal)
+//            mapBottomBound = mapView.frame.size.height
+//            button1.frame = CGRectMake(10, mapBottomBound - 40, 30, 30)
+//            button1.addTarget(self, action: "goToCurrentLocation", forControlEvents: UIControlEvents.TouchUpInside)
+//            /*Minimize Button*/
+//            let miniImage = UIImage(named: "Minimize")
+//            button2.setImage(miniImage, forState: UIControlState.Normal)
+//            button2.addTarget(self, action: "miniClick", forControlEvents: UIControlEvents.TouchUpInside)
+//           // button2.backgroundColor = UIColor.whiteColor()
+//            mapView.addSubview(button1)
+//            mapView.addSubview(button2)
+//            button2.hidden = true
             /*Settings Button*/
             let settingsImage = UIImage(named: "Settings")
             let settingsButton = UIBarButtonItem(image: settingsImage, style: .Plain, target: self, action: "settingsHit")
             self.navigationItem.rightBarButtonItem = settingsButton
-            /*Maximize Map On Tap*/
-            tapRec.addTarget(self, action: "tappedView")
-            mapView.addGestureRecognizer(tapRec)
-            mapView.userInteractionEnabled = true
-            /*Starts thread to call update() every 10 seconds)*/
-            let priority = DISPATCH_QUEUE_PRIORITY_HIGH
-            dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
-            dispatch_async(dispatch_get_main_queue(), {
-            var timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: Selector("update"), userInfo: nil, repeats: true)//Update is called every 10 seconds
-           println("hello from UI thread executed as dispatch")
-            
-            })
-            })
-           println("hello from UI thread")
-            let location = locationManager.location
-            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
-            self.mapView.setRegion(region, animated: true)
-        }
+//            /*Maximize Map On Tap*/
+//            tapRec.addTarget(self, action: "tappedView")
+//            mapView.addGestureRecognizer(tapRec)
+//            mapView.userInteractionEnabled = true
+//            /*Starts thread to call update() every 10 seconds)*/
+//            let priority = DISPATCH_QUEUE_PRIORITY_HIGH
+//            dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
+//            dispatch_async(dispatch_get_main_queue(), {
+//            var timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: Selector("update"), userInfo: nil, repeats: true)//Update is called every 10 seconds
+//           println("hello from UI thread executed as dispatch")
+//            
+//            })
+//            })
+//           println("hello from UI thread")
+//            let location = locationManager.location
+//            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
+//            self.mapView.setRegion(region, animated: true)
+//        }
         
     }
 
@@ -158,8 +148,8 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         let homeImage = UIImage(named: "Home")
         let settingsImage = UIImage(named: "Settings")
         tableView.hidden = false
-      //  let button1 = UIBarButtonItem(image: settingsImage, style: .Plain, target: self, action: "settingsHit")
-       // self.navigationItem.rightBarButtonItem = button1
+        let button1 = UIBarButtonItem(image: settingsImage, style: .Plain, target: self, action: "settingsHit")
+        self.navigationItem.rightBarButtonItem = button1
        button2.hidden = true
         UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut  , animations: {
             var frame = self.mapView.frame
@@ -177,16 +167,6 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
     
     /*Not Being Used At The Moment, But Will Be..Used for to show CoreData info*/
-    func presentItemInfo() {
-        let fetchRequest = NSFetchRequest(entityName: "UserEn")
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
-                let alert = UIAlertView()
-                alert.title = fetchResults[0].first_name
-                alert.message = fetchResults[0].last_name
-                alert.show()
-            
-        }
-    }
     /*Called When "Go Home" Button is hit*/
     func goToCurrentLocation(){
         let location = locationManager.location
@@ -202,31 +182,29 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     func update(){
         self.mapView.removeAnnotations(myPin)
         myPin = []
-        let fetchRequest = NSFetchRequest(entityName: "UserEn")
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [UserEn] {
-        var currId:String = fetchResults[0].id
-        var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(currId)/friends"))
+//        var currId:String = fetchResults[0].id
+//        var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(currId)/friends"))
             /* Start Loop to Update ALL Markers */
-        for i in 0...markersDictionary.count-1 {
-            var lnglat:NSArray = markersDictionary[i]["loc"] as NSArray
-            var firstname: String = markersDictionary[i]["first_name"] as String
-            var lastname: String = markersDictionary[i]["last_name"] as String
-            var subname:String = "subname"
-            var lng:double_t = lnglat[0] as double_t
-            var lat:double_t = lnglat[1] as double_t
-            /*Making a Pin here...*/
-            var currentLat:CLLocationDegrees = lat
-            var currentLng:CLLocationDegrees = lng
-            currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
-            myPin.append(CustomPointAnnotation())
-            myPin[i].imageName = "Marker2"
-            myPin[i].coordinate = currLoc
-            myPin[i].title = (firstname + " " + lastname)
-            self.mapView.addAnnotation(myPin[i])
-          //  mapView(mapView,viewForAnnotation: myPin[i])
-            /* End Of Pin Code*/
-        }
-        }
+//        for i in 0...markersDictionary.count-1 {
+//            var lnglat:NSArray = markersDictionary[i]["loc"] as NSArray
+//            var firstname: String = markersDictionary[i]["first_name"] as String
+//            var lastname: String = markersDictionary[i]["last_name"] as String
+//            var subname:String = "subname"
+//            var lng:double_t = lnglat[0] as double_t
+//            var lat:double_t = lnglat[1] as double_t
+//            /*Making a Pin here...*/
+//            var currentLat:CLLocationDegrees = lat
+//            var currentLng:CLLocationDegrees = lng
+//            currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
+//            myPin.append(CustomPointAnnotation())
+//            myPin[i].imageName = "Marker2"
+//            myPin[i].coordinate = currLoc
+//            myPin[i].title = (firstname + " " + lastname)
+//            self.mapView.addAnnotation(myPin[i])
+//          //  mapView(mapView,viewForAnnotation: myPin[i])
+//            /* End Of Pin Code*/
+//        }
+//        }
     }
     
     func refresh(){
