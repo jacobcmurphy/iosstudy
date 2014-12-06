@@ -23,9 +23,6 @@ class LoginController: UIViewController, CLLocationManagerDelegate, FBLoginViewD
     @IBOutlet weak var activityMon: UIActivityIndicatorView!
     @IBOutlet var fbLoginView : FBLoginView!
     
-    var user = User()
-    
-    
         override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.requestAlwaysAuthorization()

@@ -68,8 +68,8 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
         var eventsArray:NSArray = []
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
         if(indexPath.row==0){
-            cell.imageView.image = calenderImage
-            cell.textLabel.text = "Brandeis Calendar"
+            cell.imageView?.image = calenderImage
+            cell.textLabel?.text = "Brandeis Calendar"
             cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
         }else{
             
@@ -84,7 +84,7 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
             eventsArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/events/loc/\(currLng)/\(currLat)"))
             if(eventsArray.count > 0){
                 var test:NSDictionary = eventsArray[indexPath.row-1]["obj"] as NSDictionary
-                cell.textLabel.text =  test["title"] as String
+                cell.textLabel?.text =  test["title"] as String
             }
         }
         

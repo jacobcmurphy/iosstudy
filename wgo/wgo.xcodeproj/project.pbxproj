@@ -10,10 +10,8 @@
 		353BEF5D19EE6C790075263B /* SwiftHTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359DD41919EE4E49002D6495 /* SwiftHTTP.framework */; };
 		353BEF5E19EE6C790075263B /* SwiftHTTP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 359DD41919EE4E49002D6495 /* SwiftHTTP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		354C05591A2FA70700A71FAF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 354C05581A2FA70700A71FAF /* FacebookSDK.framework */; };
-		3592877B19EF2B0A0005719B /* User.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3592877919EF2B0A0005719B /* User.xcdatamodeld */; };
 		637279E919DBA10800721AD0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637279E819DBA10800721AD0 /* LoginController.swift */; };
 		63B0B0D319E4C15600A281B1 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B0B0D219E4C15600A281B1 /* Poster.swift */; };
-		63B0B0D519E4EC4700A281B1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B0B0D419E4EC4700A281B1 /* User.swift */; };
 		63DC63F719B9416700F7981C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC63F619B9416700F7981C /* AppDelegate.swift */; };
 		63DC63F919B9416700F7981C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC63F819B9416700F7981C /* FirstViewController.swift */; };
 		63DC63FB19B9416700F7981C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC63FA19B9416700F7981C /* SecondViewController.swift */; };
@@ -26,7 +24,6 @@
 		B933E13F1A1AF06A0070D2B8 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933E13B1A1AF06A0070D2B8 /* SettingsController.swift */; };
 		B933E1401A1AF06A0070D2B8 /* SpashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933E13C1A1AF06A0070D2B8 /* SpashViewController.swift */; };
 		B950931B1A11B56B008F9312 /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B950931A1A11B56B008F9312 /* AddEventView.swift */; };
-		B95A01B11A09553F00ECDEB4 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95A01B01A09553F00ECDEB4 /* View.xib */; };
 		B9AD9F971A0862050045FDD4 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD9F961A0862050045FDD4 /* EventsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -92,11 +89,9 @@
 /* Begin PBXFileReference section */
 		354C05581A2FA70700A71FAF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		354C055A1A2FA75400A71FAF /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		3592877A19EF2B0A0005719B /* User.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = User.xcdatamodel; sourceTree = "<group>"; };
 		359DD41119EE4E49002D6495 /* SwiftHTTP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftHTTP.xcodeproj; path = "../SwiftHTTP-feature-xcode-6.1/SwiftHTTP.xcodeproj"; sourceTree = "<group>"; };
 		637279E819DBA10800721AD0 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		63B0B0D219E4C15600A281B1 /* Poster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
-		63B0B0D419E4EC4700A281B1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		63DC63F119B9416700F7981C /* wgo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wgo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DC63F519B9416700F7981C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63DC63F619B9416700F7981C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -113,7 +108,6 @@
 		B933E13B1A1AF06A0070D2B8 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		B933E13C1A1AF06A0070D2B8 /* SpashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpashViewController.swift; sourceTree = "<group>"; };
 		B950931A1A11B56B008F9312 /* AddEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
-		B95A01B01A09553F00ECDEB4 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		B9AD9F961A0862050045FDD4 /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -185,9 +179,6 @@
 				63DC63FF19B9416800F7981C /* Images.xcassets */,
 				63DC63F419B9416700F7981C /* Supporting Files */,
 				63B0B0D219E4C15600A281B1 /* Poster.swift */,
-				63B0B0D419E4EC4700A281B1 /* User.swift */,
-				3592877919EF2B0A0005719B /* User.xcdatamodeld */,
-				B95A01B01A09553F00ECDEB4 /* View.xib */,
 			);
 			path = wgo;
 			sourceTree = "<group>";
@@ -340,7 +331,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				63DC63FE19B9416800F7981C /* Main.storyboard in Resources */,
-				B95A01B11A09553F00ECDEB4 /* View.xib in Resources */,
 				63DC640019B9416800F7981C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,10 +353,8 @@
 				63B0B0D319E4C15600A281B1 /* Poster.swift in Sources */,
 				B933E13E1A1AF06A0070D2B8 /* LocksmithRequest.swift in Sources */,
 				63DC63FB19B9416700F7981C /* SecondViewController.swift in Sources */,
-				63B0B0D519E4EC4700A281B1 /* User.swift in Sources */,
 				637279E919DBA10800721AD0 /* LoginController.swift in Sources */,
 				B933E13D1A1AF06A0070D2B8 /* Locksmith.swift in Sources */,
-				3592877B19EF2B0A0005719B /* User.xcdatamodeld in Sources */,
 				B950931B1A11B56B008F9312 /* AddEventView.swift in Sources */,
 				63DC63F719B9416700F7981C /* AppDelegate.swift in Sources */,
 				63DC63F919B9416700F7981C /* FirstViewController.swift in Sources */,
@@ -599,19 +587,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		3592877919EF2B0A0005719B /* User.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				3592877A19EF2B0A0005719B /* User.xcdatamodel */,
-			);
-			currentVersion = 3592877A19EF2B0A0005719B /* User.xcdatamodel */;
-			path = User.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 63DC63E919B9416600F7981C /* Project object */;
 }
