@@ -33,7 +33,8 @@ class SettingsController: UIViewController, FBLoginViewDelegate {
     
     func logOutClick(){
         
-        Locksmith.deleteData(forKey: key, inService: service, forUserAccount: userAccount)
+        let deleteRequest = LocksmithRequest(service: self.service, userAccount: self.userAccount, key: self.key, requestType: .Delete)
+        Locksmith.performRequest(deleteRequest)
         var theFBSession = FBSession.activeSession()
         var check = FBSession.closeAndClearTokenInformation(theFBSession)
     }

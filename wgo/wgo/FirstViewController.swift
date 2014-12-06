@@ -16,10 +16,10 @@ class CustomPointAnnotation: MKPointAnnotation {
     var imageName: String!
 }
 
-class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate, MKMapViewDelegate{
+class FirstViewController: UIViewController, CLLocationManagerDelegate , UITableViewDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var minimizeButton: UIBarButtonItem!
-    @IBOutlet var mapView: MKMapView!
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var tableView: UITableView!
     var myPin:[CustomPointAnnotation] = []
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
@@ -30,6 +30,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     let userAccount = "WGOUser"
     var mapBottomBound:CGFloat = 0;
     let key = "wgoAuth"
+    var currId = ""
     let button1 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     let button2 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     @IBOutlet var tapRec: UITapGestureRecognizer!
@@ -43,61 +44,56 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         locationManager.requestAlwaysAuthorization()
 
 
-//        let (dictionary, error) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
-//       
-//        var request = HTTPTask()
-//        request.responseSerializer = JSONResponseSerializer()
-//        request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
-//        var oauthtoken = dictionary?.valueForKey(key) as String
-//        request.POST("/twitterauth", parameters: ["twittertoken": "\(oauthtoken)" ], success: {(response: HTTPResponse) -> Void in
-//            let data = response.responseObject as NSDictionary
-//            },failure: {(error: NSError) -> Void in
-//                println(dictionary)
-//        })
-//        
-//        if (CLLocationManager.locationServicesEnabled())
-//        {
-//            
-//            /*Refresh Button*/
-//            let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "update")
-//            self.navigationItem.leftBarButtonItem = button
-//            /*Go To Current Location Button*/
-//            let homeImage = UIImage(named: "Home")
-//            button1.setImage(homeImage, forState: UIControlState.Normal)
-//            mapBottomBound = mapView.frame.size.height
-//            button1.frame = CGRectMake(10, mapBottomBound - 40, 30, 30)
-//            button1.addTarget(self, action: "goToCurrentLocation", forControlEvents: UIControlEvents.TouchUpInside)
-//            /*Minimize Button*/
-//            let miniImage = UIImage(named: "Minimize")
-//            button2.setImage(miniImage, forState: UIControlState.Normal)
-//            button2.addTarget(self, action: "miniClick", forControlEvents: UIControlEvents.TouchUpInside)
-//           // button2.backgroundColor = UIColor.whiteColor()
-//            mapView.addSubview(button1)
-//            mapView.addSubview(button2)
-//            button2.hidden = true
+        let (dictionary, error) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
+        if (dictionary?.valueForKey("appId") != nil) {
+            self.currId = dictionary?.valueForKey("appId") as String!
+            println("currId in firstView: " + currId)
+        }
+        
+        
+        
+        if (CLLocationManager.locationServicesEnabled()) {
+            
+            /*Refresh Button*/
+            let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "update")
+            self.navigationItem.leftBarButtonItem = button
+            /*Go To Current Location Button*/
+            let homeImage = UIImage(named: "Home")
+            button1.setImage(homeImage, forState: UIControlState.Normal)
+            mapBottomBound = mapView.frame.size.height
+            button1.frame = CGRectMake(10, mapBottomBound - 40, 30, 30)
+            button1.addTarget(self, action: "goToCurrentLocation", forControlEvents: UIControlEvents.TouchUpInside)
+            /*Minimize Button*/
+            let miniImage = UIImage(named: "Minimize")
+            button2.setImage(miniImage, forState: UIControlState.Normal)
+            button2.addTarget(self, action: "miniClick", forControlEvents: UIControlEvents.TouchUpInside)
+           // button2.backgroundColor = UIColor.whiteColor()
+            mapView.addSubview(button1)
+            mapView.addSubview(button2)
+            button2.hidden = true
             /*Settings Button*/
             let settingsImage = UIImage(named: "Settings")
             let settingsButton = UIBarButtonItem(image: settingsImage, style: .Plain, target: self, action: "settingsHit")
             self.navigationItem.rightBarButtonItem = settingsButton
-//            /*Maximize Map On Tap*/
-//            tapRec.addTarget(self, action: "tappedView")
-//            mapView.addGestureRecognizer(tapRec)
-//            mapView.userInteractionEnabled = true
-//            /*Starts thread to call update() every 10 seconds)*/
-//            let priority = DISPATCH_QUEUE_PRIORITY_HIGH
-//            dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
-//            dispatch_async(dispatch_get_main_queue(), {
-//            var timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: Selector("update"), userInfo: nil, repeats: true)//Update is called every 10 seconds
+            /*Maximize Map On Tap*/
+            tapRec.addTarget(self, action: "tappedView")
+            mapView.addGestureRecognizer(tapRec)
+            mapView.userInteractionEnabled = true
+            /*Starts thread to call update() every 10 seconds)*/
+            let priority = DISPATCH_QUEUE_PRIORITY_HIGH
+            dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
+            dispatch_async(dispatch_get_main_queue(), {
+            var timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: Selector("update"), userInfo: nil, repeats: true)//Update is called every 10 seconds
 //           println("hello from UI thread executed as dispatch")
-//            
-//            })
-//            })
+            
+            })
+            })
 //           println("hello from UI thread")
-//            let location = locationManager.location
-//            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
-//            self.mapView.setRegion(region, animated: true)
-//        }
+            let location = locationManager.location
+            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
+            self.mapView.setRegion(region, animated: true)
+        }
         
     }
 
@@ -182,33 +178,36 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     func update(){
         self.mapView.removeAnnotations(myPin)
         myPin = []
-//        var currId:String = fetchResults[0].id
-//        var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/\(currId)/friends"))
-            /* Start Loop to Update ALL Markers */
-//        for i in 0...markersDictionary.count-1 {
-//            var lnglat:NSArray = markersDictionary[i]["loc"] as NSArray
-//            var firstname: String = markersDictionary[i]["first_name"] as String
-//            var lastname: String = markersDictionary[i]["last_name"] as String
-//            var subname:String = "subname"
-//            var lng:double_t = lnglat[0] as double_t
-//            var lat:double_t = lnglat[1] as double_t
-//            /*Making a Pin here...*/
-//            var currentLat:CLLocationDegrees = lat
-//            var currentLng:CLLocationDegrees = lng
-//            currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
-//            myPin.append(CustomPointAnnotation())
-//            myPin[i].imageName = "Marker2"
-//            myPin[i].coordinate = currLoc
-//            myPin[i].title = (firstname + " " + lastname)
-//            self.mapView.addAnnotation(myPin[i])
-//          //  mapView(mapView,viewForAnnotation: myPin[i])
-//            /* End Of Pin Code*/
-//        }
-//        }
+        let (userDictionary, userError) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
+        /*if (userDictionary?.valueForKey(userId) != nil) {
+            self.currId = userDictionary?.valueForKey(userId) as String
+            println("currId in update: " + currId)
+        }*/
+        var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(self.currId)"))
+          /* Start Loop to Update ALL Markers */
+        for i in 0...markersDictionary.count-1 {
+            var lnglat:NSArray = markersDictionary[i]["loc"] as NSArray
+            var firstname: String = markersDictionary[i]["first_name"] as String
+            var lastname: String = markersDictionary[i]["last_name"] as String
+            var subname:String = "subname"
+            var lng:double_t = lnglat[0] as double_t
+            var lat:double_t = lnglat[1] as double_t
+            /*Making a Pin here...*/
+            var currentLat:CLLocationDegrees = lat
+            var currentLng:CLLocationDegrees = lng
+            currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
+            myPin.append(CustomPointAnnotation())
+            myPin[i].imageName = "Marker2"
+            myPin[i].coordinate = currLoc
+            myPin[i].title = (firstname + " " + lastname)
+            self.mapView.addAnnotation(myPin[i])
+          //  mapView(mapView,viewForAnnotation: myPin[i])
+            /* End Of Pin Code*/
+        }
     }
     
     func refresh(){
-        update()
+//        update()
     }
    
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
