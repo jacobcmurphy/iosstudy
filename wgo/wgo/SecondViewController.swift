@@ -11,12 +11,12 @@ import CoreLocation
 import Darwin
 import SwiftHTTP
 
-class SecondViewController: UIViewController, UITableViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIActionSheetDelegate {
+class SecondViewController: UIViewController, UITableViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIActionSheetDelegate{
     
     
     var friendId:String = "0";
     var filteredNames: NSArray = []
-    
+    //var fbreq:FBRequest = FBRequest.requestForMyFriends()
     let service = "WGO"
     let userAccount = "WGOUser"
     let key = "wgoAuth"
@@ -40,8 +40,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             self.currId = dictionary?.valueForKey("appId") as String!
             println("currId in secondView: " + currId)
         }
-        updateCount()
-        
+      //  updateCount()
+        testFB()
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -51,7 +51,28 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         self.markersDictionaryCount = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(currId)"))
     }
     
-    
+    func testFB(){
+        
+        var friendsRequest : FBRequest = FBRequest.requestForMyFriends()
+        friendsRequest.startWithCompletionHandler{(connection:FBRequestConnection!, result:AnyObject!, error:NSError!) -> Void in
+            var resultdict = result as NSDictionary
+            println("Result Dict: \(resultdict)")
+            var data : NSArray = resultdict.objectForKey("data") as NSArray
+            
+            for i in 0...data.count {
+                let valueDict : NSDictionary = data[i] as NSDictionary
+                let id = valueDict.objectForKey("id") as String
+                println("the id value is \(id)")
+                println(resultdict.objectForKey("https://graph.facebook.com/100001011113497/picture"))
+            }
+            
+           
+            
+            var friends = resultdict.objectForKey("data") as NSArray
+            println("Found \(friends.count) friends")
+    }
+        
+    }
     func deleteFriend(id: String){
         var request = HTTPTask()
         request.responseSerializer = JSONResponseSerializer()
@@ -163,12 +184,13 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
                         var lastName:String = nameArray[indexPath.row]["last_name"] as String
                         name = firstName + " " + lastName
                     }else{
+                        
                         name = ""
                     }
                 }
             }
             
-            let friendsImage = UIImage(named: "Friends")
+            let friendsImage =  UIImage(data: NSData(contentsOfURL: NSURL(string:"https://graph.facebook.com/100001011113497/picture")!)!)
             cell.textLabel?.text = name
             tableView.rowHeight = 100
             cell.imageView?.image = friendsImage
@@ -183,6 +205,9 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         // cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         return cell
     }
+    
+    
+    
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {
         
