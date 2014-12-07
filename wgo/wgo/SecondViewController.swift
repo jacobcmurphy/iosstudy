@@ -21,7 +21,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     let userAccount = "WGOUser"
     let key = "wgoAuth"
     
-    
+     var finalId:String = ""
     @IBOutlet weak var tableView: UITableView!
     var searchName:String = " "
     @IBOutlet weak var newWordField: UITextField?
@@ -41,7 +41,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             println("currId in secondView: " + currId)
         }
       //  updateCount()
-        testFB()
+   
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -51,8 +51,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         self.markersDictionaryCount = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(currId)"))
     }
     
-    func testFB(){
-        
+    func testFB(name: String){
+       
         var friendsRequest : FBRequest = FBRequest.requestForMyFriends()
         friendsRequest.startWithCompletionHandler{(connection:FBRequestConnection!, result:AnyObject!, error:NSError!) -> Void in
             var resultdict = result as NSDictionary
@@ -61,9 +61,17 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             
             for i in 0...data.count {
                 let valueDict : NSDictionary = data[i] as NSDictionary
-                let id = valueDict.objectForKey("id") as String
-                println("the id value is \(id)")
-                println(resultdict.objectForKey("https://graph.facebook.com/100001011113497/picture"))
+                var id:String = valueDict.objectForKey("id") as String
+                let first_name = valueDict.objectForKey("first_name") as String
+                 println("the first name is \(first_name) and the actual name is \(name)")
+                if(first_name == name){
+                    self.finalId = id
+                    println("FOUND")
+                    println("the id value for \(first_name) is \(self.finalId)")
+                   
+                }
+              //  println("the id value for \(first_name) is \(id)")
+               
             }
             
            
@@ -71,7 +79,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             var friends = resultdict.objectForKey("data") as NSArray
             println("Found \(friends.count) friends")
     }
-        
+   
     }
     func deleteFriend(id: String){
         var request = HTTPTask()
@@ -163,6 +171,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             var firstname: String = markersDictionary[indexPath.row]["first_name"] as String
             var lastname: String = markersDictionary[indexPath.row]["last_name"] as String
             var lnglat:NSArray = markersDictionary[indexPath.row]["loc"] as NSArray
+            var fbID:String = markersDictionary[indexPath.row]["auth_id"] as String
             var lng:Double = lnglat[0] as Double
             var lat:Double = lnglat[1] as Double
             let location = locationManager.location
@@ -171,6 +180,15 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             var dist = getDistanceFromLatLonInMi(lat, lon1: lng, lat2: currentLat, lon2: currentLng)
             cell.detailTextLabel?.text = dist
             name = (firstname + " " + lastname)
+            
+            var friendsImage:UIImage = UIImage(named: "Friends")!
+            println("id" + fbID)
+            
+               friendsImage =  UIImage(data: NSData(contentsOfURL: NSURL(string:"https://graph.facebook.com/\(fbID)/picture")!)!)!
+              //  println("test1 " + self.finalId)
+                cell.imageView?.image = friendsImage
+            
+            
         }
             //NOTE TO FUTURE ME: CHECK FOR NULL STRINGS
             if(countElements(searchName) >= 2){
@@ -189,11 +207,10 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
                     }
                 }
             }
-            
-            let friendsImage =  UIImage(data: NSData(contentsOfURL: NSURL(string:"https://graph.facebook.com/100001011113497/picture")!)!)
+       
             cell.textLabel?.text = name
             tableView.rowHeight = 100
-            cell.imageView?.image = friendsImage
+        
         
             
         

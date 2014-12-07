@@ -185,24 +185,26 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         }*/
         var markersDictionary: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(self.currId)"))
           /* Start Loop to Update ALL Markers */
-        for i in 0...markersDictionary.count-1 {
-            var lnglat:NSArray = markersDictionary[i]["loc"] as NSArray
-            var firstname: String = markersDictionary[i]["first_name"] as String
-            var lastname: String = markersDictionary[i]["last_name"] as String
-            var subname:String = "subname"
-            var lng:double_t = lnglat[0] as double_t
-            var lat:double_t = lnglat[1] as double_t
-            /*Making a Pin here...*/
-            var currentLat:CLLocationDegrees = lat
-            var currentLng:CLLocationDegrees = lng
-            currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
-            myPin.append(CustomPointAnnotation())
-            myPin[i].imageName = "Marker2"
-            myPin[i].coordinate = currLoc
-            myPin[i].title = (firstname + " " + lastname)
-            self.mapView.addAnnotation(myPin[i])
-          //  mapView(mapView,viewForAnnotation: myPin[i])
-            /* End Of Pin Code*/
+        if(markersDictionary.count>0){
+            for i in 0...markersDictionary.count-1 {
+                var lnglat:NSArray = markersDictionary[i]["loc"] as NSArray
+                var firstname: String = markersDictionary[i]["first_name"] as String
+                var lastname: String = markersDictionary[i]["last_name"] as String
+                var subname:String = "subname"
+                var lng:double_t = lnglat[0] as double_t
+                var lat:double_t = lnglat[1] as double_t
+                /*Making a Pin here...*/
+                var currentLat:CLLocationDegrees = lat
+                var currentLng:CLLocationDegrees = lng
+                currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
+                myPin.append(CustomPointAnnotation())
+                myPin[i].imageName = "Marker2"
+                myPin[i].coordinate = currLoc
+                myPin[i].title = (firstname + " " + lastname)
+                self.mapView.addAnnotation(myPin[i])
+            //  mapView(mapView,viewForAnnotation: myPin[i])
+                /* End Of Pin Code*/
+            }
         }
     }
     
