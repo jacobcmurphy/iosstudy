@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         let readRequest = LocksmithRequest(service: service, userAccount: userAccount, key: key)
         let (dictionary, error) = Locksmith.performRequest(readRequest)
-        if (dictionary?.valueForKey("appId") as String != "") {
+        if (dictionary?.count > 0) {
             let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
             dispatch_async(dispatch_get_global_queue(priority, 0), { ()->() in
             dispatch_async(dispatch_get_main_queue(), {

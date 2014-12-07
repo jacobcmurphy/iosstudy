@@ -19,15 +19,7 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
     var locationManager = CLLocationManager()
     @IBOutlet weak var tableView: UITableView!
     var currId:String = ""
-//    lazy var managedObjectContext : NSManagedObjectContext? = {
-//        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-//        if let managedObjectContext = appDelegate.managedObjectContext {
-//            return managedObjectContext
-//        }
-//        else {
-//            return nil
-//        }
-//        }()
+
     
     
     override func viewDidLoad() {
@@ -37,14 +29,16 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     super.viewDidLoad()
     
+        
     
     }
     
     
     func addEvent(){
         
-        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("AddEventView") as AddEventView
-        self.navigationController?.pushViewController(secondViewController, animated: true)
+        let addEventViewController = self.storyboard?.instantiateViewControllerWithIdentifier("AddEventViewController") as AddEventViewController
+
+            self.navigationController?.pushViewController(addEventViewController, animated: true)
         
     }
 
@@ -84,7 +78,7 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
             eventsArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/events/loc/\(currLng)/\(currLat)"))
             if(eventsArray.count > 0){
                 var test:NSDictionary = eventsArray[indexPath.row-1]["obj"] as NSDictionary
-                cell.textLabel?.text =  test["title"] as String
+                cell.textLabel?.text =  test["title"] as? String
             }
         }
         

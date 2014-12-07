@@ -19,6 +19,7 @@ class SettingsController: UIViewController, FBLoginViewDelegate {
     
     @IBOutlet weak var logOutButton: UIButton!
     @IBOutlet var fbLoginView : FBLoginView!
+    
 
     override func viewDidLoad() {
       

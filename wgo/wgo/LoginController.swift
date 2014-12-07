@@ -52,7 +52,7 @@ class LoginController: UIViewController, CLLocationManagerDelegate, FBLoginViewD
     func loginViewFetchedUserInfo(loginView : FBLoginView!, user: FBGraphUser) {
 //        println("User: \(user)")
 //        println("User ID: \(user.objectID)")
-        let fbUserId = user.name as String
+        let fbUserId = user.objectID as String
 //        println("User Name: \(user.name)")
         let fullName = user.name as String
         var userEmail = user.objectForKey("email") as String
