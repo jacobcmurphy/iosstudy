@@ -34,6 +34,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     let button1 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     let button2 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     @IBOutlet var tapRec: UITapGestureRecognizer!
+    var eventsArray:NSArray = []
     
     
     override func viewDidLoad() {
@@ -42,7 +43,10 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         screenHeight = mapView.frame.size.height
         super.viewDidLoad()
         locationManager.requestAlwaysAuthorization()
-
+        
+        
+        
+         
 
         let (dictionary, error) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
         if (dictionary?.valueForKey("appId") != nil) {
@@ -176,6 +180,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
      * It then loops through all of the people and makes a pin for each one
      */
     func update(){
+         tableView.reloadData()
         self.mapView.removeAnnotations(myPin)
         myPin = []
         let (userDictionary, userError) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
@@ -221,7 +226,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        // Dispose of any ressources that can be recreated.
     }
     
     func tableView(tableView:UITableView!, numberOfRowsInSection section: Int) -> Int {
@@ -229,16 +234,36 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+        
+        eventsArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/events/user/\(currId)"))
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
-        cell.textLabel?.text = "Event #\(indexPath.row)"
-        cell.detailTextLabel?.text = "Event Description"
+        
+        
+        if(indexPath.row<eventsArray.count){
+            cell.textLabel?.text = eventsArray[indexPath.row]["title"] as String
+            cell.detailTextLabel?.text = eventsArray[indexPath.row]["description"] as String
+        }
         return cell
     }
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {
-        
+       
         var pinAction = UITableViewRowAction(style: .Default, title: "Unpin") { (action, indexPath) -> Void in
             tableView.editing = false
+            var id:String = self.eventsArray[indexPath.row]["_id"] as String
+            var request = HTTPTask()
+            request.responseSerializer = JSONResponseSerializer()
+            request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
+            request.DELETE("/events/pin/\(self.currId)/\(id)", parameters: nil, success: {(response: HTTPResponse) -> Void in
+                println("Response\(response.responseObject)")
+                tableView.beginUpdates()
+                tableView!.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
+                tableView.reloadData()
+               
+                tableView.endUpdates()
+                },failure: {(error: NSError) -> Void in
+            })
+          
             
             
         }

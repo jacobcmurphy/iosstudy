@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import CoreLocation
+import SwiftHTTP
 
 
 
@@ -19,14 +20,24 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
     var locationManager = CLLocationManager()
     @IBOutlet weak var tableView: UITableView!
     var currId:String = ""
-
+    var eventsArray:NSArray = []
+    let service = "WGO"
+    let userAccount = "WGOUser"
+    let key = "wgoAuth"
     
     
     override func viewDidLoad() {
     
     let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addEvent")
     self.navigationItem.rightBarButtonItem = button
-    
+    let readRequest = LocksmithRequest(service: service, userAccount: userAccount, key: key)
+    let (dictionary, error) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
+    if (dictionary?.valueForKey("appId") != nil) {
+        self.currId = dictionary?.valueForKey("appId") as String!
+        println("currId in eventView: " + currId)
+    }
+        
+        
     super.viewDidLoad()
     
         
@@ -59,7 +70,7 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         let calenderImage = UIImage(named: "Events")
-        var eventsArray:NSArray = []
+        
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
         if(indexPath.row==0){
             cell.imageView?.image = calenderImage
@@ -77,8 +88,8 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
             var currLng:CLLocationDegrees = location.coordinate.longitude
             eventsArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/events/loc/\(currLng)/\(currLat)"))
             if(eventsArray.count > 0){
-                var test:NSDictionary = eventsArray[indexPath.row-1]["obj"] as NSDictionary
-                cell.textLabel?.text =  test["title"] as? String
+                var eventDictionary:NSDictionary = eventsArray[indexPath.row-1]["obj"] as NSDictionary
+                cell.textLabel?.text =  eventDictionary["title"] as? String
             }
         }
         
@@ -102,6 +113,20 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
         
         var pinAction = UITableViewRowAction(style: .Default, title: "Pin") { (action, indexPath) -> Void in
             tableView.editing = false
+            
+            var eventDictionary:NSDictionary = self.eventsArray[indexPath.row-1]["obj"] as NSDictionary
+            var id:String = eventDictionary["_id"] as String
+            println("ID: " + id)
+            var request = HTTPTask()
+            request.responseSerializer = JSONResponseSerializer()
+            request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
+            request.POST("events/pin/\(self.currId)/\(id)", parameters: nil, success: {(response: HTTPResponse) -> Void in
+                println("Response\(response.responseObject)")
+                },failure: {(error: NSError) -> Void in
+            })
+         //   println(eventDictionary["title"] + "is pinned")
+
+            
          
         }
         let myRedColor = UIColor(red:0xcc/255, green:0x66/255,blue:0x00/255,alpha:1.0)

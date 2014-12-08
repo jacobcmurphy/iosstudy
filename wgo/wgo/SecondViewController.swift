@@ -31,6 +31,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     var markersDictionaryCount: NSArray = []
     var currId:String = ""
     var markersDictionary: NSArray = []
+    var finalCount:Int = 0
     
     override func viewDidLoad() {
         
@@ -46,9 +47,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    func updateCount(){
-
-        self.markersDictionaryCount = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(currId)"))
+    func updateCount(test: Int){
+        self.tableView(tableView, numberOfRowsInSection: test)
     }
     
     func testFB(name: String){
@@ -91,6 +91,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         })
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            var test:Int = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(self.currId)")).count
+            self.updateCount(test)
             self.tableView.reloadData()
         })
     }
@@ -106,8 +108,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             // self.tableView = nil
-            
-            self.updateCount()
+            var test:Int = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(self.currId)")).count
+            self.updateCount(test)
             self.tableView.reloadData()
             
         })
@@ -119,7 +121,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     }
     
     func tableView(tableView:UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return 10
+       return 10
     }
     
     func getDistanceFromLatLonInMi(lat1:Double,lon1:Double,lat2:Double,lon2:Double) -> String{
@@ -186,6 +188,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             
                friendsImage =  UIImage(data: NSData(contentsOfURL: NSURL(string:"https://graph.facebook.com/\(fbID)/picture")!)!)!
               //  println("test1 " + self.finalId)
+            
                 cell.imageView?.image = friendsImage
             
             
@@ -194,16 +197,23 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             if(countElements(searchName) >= 2){
                 var nameArray: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/search/\(searchName)"))
                  println(nameArray)
+                updateCount(nameArray.count)
                 if tableView == self.searchDisplayController!.searchResultsTableView {
                     println("here")
                     if(indexPath.row<(nameArray.count)){
                         
                         var firstName:String = nameArray[indexPath.row]["first_name"] as String
                         var lastName:String = nameArray[indexPath.row]["last_name"] as String
+                      //  var fbID:String = markersDictionary[indexPath.row]["auth_id"] as String
                         name = firstName + " " + lastName
+                        let friendsImage = UIImage(named: "Friends")
+                        cell.imageView?.image = friendsImage
+                        cell.detailTextLabel?.text = ""
                     }else{
                         
                         name = ""
+                        cell.imageView?.image = nil
+                        cell.detailTextLabel?.text = ""
                     }
                 }
             }
@@ -230,7 +240,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         
         
         
-        println("TEST")
+       // println("TEST")
         //updateCount()
         
         //  if(indexPath.row<self.markersDictionaryCount.count){
