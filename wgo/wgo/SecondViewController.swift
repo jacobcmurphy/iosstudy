@@ -28,10 +28,13 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
     var locationManager = CLLocationManager()
-    var markersDictionaryCount: NSArray = []
     var currId:String = ""
-    var markersDictionary: NSArray = []
-    var finalCount:Int = 0
+    var markersDictionary = Array<AnyObject>()
+    var friendCount:Int = 0
+    var nameArray = Array<AnyObject>()
+    var tableViewSize : Int = 0
+    
+    
     
     override func viewDidLoad() {
         
@@ -47,9 +50,17 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    func updateCount(test: Int){
-        self.tableView(tableView, numberOfRowsInSection: test)
+    override func viewWillAppear(animated: Bool) {
+        markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(self.currId)"))
+        dynamicTableSize(markersDictionary.count)
+        friendCount = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(self.currId)")).count
+        
+
     }
+    
+//    func updateCount(test: Int){
+//        self.tableView(tableView, numberOfRowsInSection: test)
+//    }
     
     func testFB(name: String){
        
@@ -68,20 +79,14 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
                     self.finalId = id
                     println("FOUND")
                     println("the id value for \(first_name) is \(self.finalId)")
-                   
                 }
-              //  println("the id value for \(first_name) is \(id)")
-               
             }
-            
-           
-            
             var friends = resultdict.objectForKey("data") as NSArray
             println("Found \(friends.count) friends")
     }
    
     }
-    func deleteFriend(id: String){
+    func deleteFriend(id: String, indexPath: NSIndexPath!){
         var request = HTTPTask()
         request.responseSerializer = JSONResponseSerializer()
         request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
@@ -90,11 +95,12 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             },failure: {(error: NSError) -> Void in
         })
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            var test:Int = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(self.currId)")).count
-            self.updateCount(test)
-            self.tableView.reloadData()
-        })
+        println("deleting \(self.markersDictionary[indexPath.row])")
+        println("Count before delete: \(self.markersDictionary.count)")
+        self.markersDictionary.removeAtIndex(indexPath.row)
+        println("Count after delete: \(self.markersDictionary.count)")
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        
     }
     
     func addFriend(id: String){
@@ -106,13 +112,11 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             },failure: {(error: NSError) -> Void in
         })
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            // self.tableView = nil
-            var test:Int = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(self.currId)")).count
-            self.updateCount(test)
-            self.tableView.reloadData()
-            
-        })
+//        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//            var test:Int = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(self.currId)")).count
+//            self.tableView.reloadData()
+//            
+//        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -121,7 +125,11 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     }
     
     func tableView(tableView:UITableView!, numberOfRowsInSection section: Int) -> Int {
-       return 10
+        if (tableViewSize == 0) {
+            return (self.tableViewSize+1)
+        } else {
+            return self.tableViewSize
+        }
     }
     
     func getDistanceFromLatLonInMi(lat1:Double,lon1:Double,lat2:Double,lon2:Double) -> String{
@@ -150,13 +158,12 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView?) -> Int {
-        // Return the number of sections.
-        return 1
+    func dynamicTableSize(arraySize: Int) -> Void {
+        self.tableViewSize = arraySize
     }
     
+    
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        
         var currLng:NSNumber = 0
         var currLat:NSNumber = 0
         locationManager = CLLocationManager()
@@ -164,11 +171,11 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
-        
-       //  println("currId: " + currId)
-        markersDictionary = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/friends/\(currId)"))
+        println("TEST")
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "MyTestCell")
         var name:String = ""
+        
+        
         if(markersDictionary.count>0 && indexPath.row < markersDictionary.count){ //Instead of doing this try to change the table size
             var firstname: String = markersDictionary[indexPath.row]["first_name"] as String
             var lastname: String = markersDictionary[indexPath.row]["last_name"] as String
@@ -191,13 +198,13 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             
                 cell.imageView?.image = friendsImage
             
-            
         }
             //NOTE TO FUTURE ME: CHECK FOR NULL STRINGS
             if(countElements(searchName) >= 2){
-                var nameArray: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/search/\(searchName)"))
+                nameArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/search/\(searchName)"))
+                self.dynamicTableSize(nameArray.count)
                  println(nameArray)
-                updateCount(nameArray.count)
+//                updateCount(nameArray.count)
                 if tableView == self.searchDisplayController!.searchResultsTableView {
                     println("here")
                     if(indexPath.row<(nameArray.count)){
@@ -221,55 +228,31 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             cell.textLabel?.text = name
             tableView.rowHeight = 100
         
-        
-            
-        
-        // cell.detailTextLabel?.numberOfLines = 3
-        //cell.imageView.image = imageView.image
-        
-        
-        
-        // cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+
         return cell
     }
-    
-    
-    
-    
+
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) ->[AnyObject]! {
         
         
-        
-       // println("TEST")
-        //updateCount()
-        
-        //  if(indexPath.row<self.markersDictionaryCount.count){
-        
-        
+
         let deleteClosure = { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
             
             tableView.editing = false
             var id: String = self.markersDictionary[indexPath.row]["_id"] as String
-            self.deleteFriend(id);
+            self.deleteFriend(id, indexPath: indexPath);
         }
         
         let deleteAction = UITableViewRowAction(style: .Default, title: "Delete", handler: deleteClosure)
         
         
-        // }
-        
-        
         return [deleteAction]
     }
-    
-    
-    
-    
+
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         
         
         if tableView == self.searchDisplayController!.searchResultsTableView {
-            var nameArray: NSArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/users/search/\(self.searchName)"))
             var id: String = nameArray[indexPath.row]["_id"] as String
             friendId = id
             var name: String = nameArray[indexPath.row]["first_name"] as String
@@ -284,8 +267,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             sheet.tag = 1                          // another new line here
             sheet.showInView(self.view)
             
-            
-            // self.addFriend(id)
         }
     }
     
@@ -293,17 +274,18 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         
         if(buttonIndex == 0){
             addFriend(friendId)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil);
+            let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FriendsNavController") as UINavigationController
+            self.showViewController(secondViewController, sender: self)
+            
         }
     }
-    
     
     func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
     }
     
-    
-    
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
-        
+
         searchName = searchString
         return true
     }
