@@ -34,8 +34,11 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     let button1 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     let button2 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     @IBOutlet var tapRec: UITapGestureRecognizer!
-    var eventsArray:NSArray = []
+    var eventsArray = Array<AnyObject>()
     
+    override func viewWillAppear(animated: Bool) {
+        eventsArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/events/user/\(currId)"))
+    }
     
     override func viewDidLoad() {
 
@@ -53,6 +56,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             self.currId = dictionary?.valueForKey("appId") as String!
             println("currId in firstView: " + currId)
         }
+
         
         
         
@@ -107,7 +111,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         }
         
         let reuseId = "test"
-        println("test")
+//        println("test")
         var anView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
         if anView == nil {
             anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
@@ -123,7 +127,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         let cpa = annotation as CustomPointAnnotation
       
         anView.image = UIImage(named: cpa.imageName)
-        println(anView.image)
+//        println(anView.image)
         return anView
     }
     
@@ -180,7 +184,6 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
      * It then loops through all of the people and makes a pin for each one
      */
     func update(){
-         tableView.reloadData()
         self.mapView.removeAnnotations(myPin)
         myPin = []
         let (userDictionary, userError) = Locksmith.loadData(forKey: key, inService: service, forUserAccount: userAccount)
@@ -229,19 +232,21 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         // Dispose of any ressources that can be recreated.
     }
     
+    
+    
     func tableView(tableView:UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        println("EventsArrayCount: \(eventsArray.count)")
+        return eventsArray.count
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
-        eventsArray = Poster.parseJSON(Poster.getJSON(Poster.getIP() + "/events/user/\(currId)"))
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
         
         
         if(indexPath.row<eventsArray.count){
-            cell.textLabel?.text = eventsArray[indexPath.row]["title"] as String
-            cell.detailTextLabel?.text = eventsArray[indexPath.row]["description"] as String
+            cell.textLabel?.text = eventsArray[indexPath.row]["title"] as? String
+            cell.detailTextLabel?.text = eventsArray[indexPath.row]["description"] as? String
         }
         return cell
     }
@@ -255,15 +260,15 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
             request.responseSerializer = JSONResponseSerializer()
             request.baseURL = "http://leiner.cs-i.brandeis.edu:6000"
             request.DELETE("/events/pin/\(self.currId)/\(id)", parameters: nil, success: {(response: HTTPResponse) -> Void in
-                println("Response\(response.responseObject)")
-                tableView.beginUpdates()
-                tableView!.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
-                tableView.reloadData()
-               
-                tableView.endUpdates()
+                println("Response for unpin: \(response.responseObject)")
                 },failure: {(error: NSError) -> Void in
             })
-          
+            
+            println("deleting \(self.eventsArray[indexPath.row])")
+            println("Count before delete: \(self.eventsArray.count)")
+            self.eventsArray.removeAtIndex(indexPath.row)
+            println("Count after delete: \(self.eventsArray.count)")
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
             
             
         }
@@ -274,6 +279,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     }
     
     func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+        
     }
     
 }
