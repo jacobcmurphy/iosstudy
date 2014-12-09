@@ -31,11 +31,11 @@
                                             <constraint firstAttribute="height" constant="340" id="0fb-WH-x0i"/>
                                         </constraints>
                                     </mapView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="27" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="F9v-3T-xFX">
-                                        <rect key="frame" x="0.0" y="339" width="600" height="199"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="27" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="F9v-3T-xFX">
+                                        <rect key="frame" x="0.0" y="339" width="600" height="250"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="199" id="PjZ-he-9jq"/>
+                                            <constraint firstAttribute="height" constant="250" id="PjZ-he-9jq"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="dataSource" destination="9pv-A4-QxB" id="auz-3w-TQH"/>
@@ -44,7 +44,7 @@
                                     </tableView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="F9v-3T-xFX" secondAttribute="bottom" constant="219" id="5h8-VU-u45"/>
+                                    <constraint firstAttribute="bottom" secondItem="F9v-3T-xFX" secondAttribute="bottom" constant="168" id="5h8-VU-u45"/>
                                     <constraint firstAttribute="trailing" secondItem="yNB-w4-tUB" secondAttribute="trailing" id="8OV-dE-RsN"/>
                                     <constraint firstItem="F9v-3T-xFX" firstAttribute="top" secondItem="9uP-lO-oij" secondAttribute="top" constant="339" id="8ey-RC-vrS"/>
                                     <constraint firstItem="F9v-3T-xFX" firstAttribute="leading" secondItem="yNB-w4-tUB" secondAttribute="leading" id="Dgt-eh-iJR"/>
@@ -199,32 +199,37 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-46-t2k">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What's Going On" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="09E-es-9LB">
-                                <rect key="frame" x="137" y="142" width="189" height="62"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vqp-rz-xur" customClass="FBLoginView">
+                                <rect key="frame" x="165" y="264" width="270" height="142"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's Going On" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="09E-es-9LB">
+                                <rect key="frame" x="206" y="136" width="189" height="62"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="189" id="2SC-0j-LET"/>
+                                    <constraint firstAttribute="height" constant="62" id="wZA-1T-QAQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vqp-rz-xur" customClass="FBLoginView">
-                                <rect key="frame" x="77" y="298" width="270" height="142"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AWa-ll-A9U" customClass="FBLoginView">
-                                        <rect key="frame" x="-14" y="0.0" width="270" height="142"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="Vqp-rz-xur" secondAttribute="centerX" id="9Qh-Gq-GgV"/>
+                            <constraint firstAttribute="width" secondItem="09E-es-9LB" secondAttribute="width" constant="411" id="UOc-OQ-mtI"/>
+                            <constraint firstItem="09E-es-9LB" firstAttribute="top" secondItem="k6B-fw-V4j" secondAttribute="bottom" constant="116" id="Vq9-6P-XuO"/>
+                            <constraint firstItem="Vqp-rz-xur" firstAttribute="width" secondItem="42P-WP-FiF" secondAttribute="width" id="a36-3t-m1k"/>
+                            <constraint firstItem="09E-es-9LB" firstAttribute="centerX" secondItem="42P-WP-FiF" secondAttribute="centerX" id="jUq-Wq-ghL"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="fbLoginView" destination="AWa-ll-A9U" id="dnt-Lp-K1o"/>
+                        <outlet property="fbLoginView" destination="Vqp-rz-xur" id="Yam-iN-OQZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a19-mN-SoZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1138" y="-2042"/>
+            <point key="canvasLocation" x="-1308" y="-2396"/>
         </scene>
         <!--SplashViewController-->
         <scene sceneID="esN-9O-ZGr">

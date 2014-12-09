@@ -72,6 +72,11 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
         let calenderImage = UIImage(named: "Events")
         
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
+        let myRed1Color = UIColor(red:0xed/255, green:0xed/255,blue:0xeb/255,alpha:0.8)
+        tableView.backgroundColor = myRed1Color
+        cell.backgroundColor = myRed1Color
+        cell.textLabel?.textColor = UIColor.darkTextColor()
+        cell.detailTextLabel?.textColor = UIColor.lightGrayColor()
         if(indexPath.row==0){
             cell.imageView?.image = calenderImage
             cell.textLabel?.text = "Brandeis Calendar"
@@ -90,6 +95,9 @@ class EventsViewController: UIViewController, CLLocationManagerDelegate, UITable
             if(eventsArray.count > 0){
                 var eventDictionary:NSDictionary = eventsArray[indexPath.row-1]["obj"] as NSDictionary
                 cell.textLabel?.text =  eventDictionary["title"] as? String
+                let description = eventDictionary["description"] as? String
+               // let startTime = eventDictionary["start_time"] as? String
+                cell.detailTextLabel?.text = description!
             }
         }
         

@@ -253,8 +253,6 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
         // Dispose of any ressources that can be recreated.
     }
     
-    
-    
     func tableView(tableView:UITableView!, numberOfRowsInSection section: Int) -> Int {
         println("EventsArrayCount: \(eventsArray.count)")
         return eventsArray.count
@@ -263,8 +261,12 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MyTestCell")
-        
-        
+        let myRed1Color = UIColor(red:0xed/255, green:0xed/255,blue:0xeb/255,alpha:0.8)
+        tableView.backgroundColor = myRed1Color
+        cell.backgroundColor = myRed1Color
+        cell.textLabel?.textColor = UIColor.darkTextColor()
+        cell.detailTextLabel?.textColor = UIColor.lightGrayColor()
+        tableView.rowHeight = 50
         if(indexPath.row<eventsArray.count){
             cell.textLabel?.text = eventsArray[indexPath.row]["title"] as? String
             cell.detailTextLabel?.text = eventsArray[indexPath.row]["description"] as? String

@@ -176,7 +176,11 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         println("TEST")
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "MyTestCell")
         var name:String = ""
-        
+        let myRed1Color = UIColor(red:0xed/255, green:0xed/255,blue:0xeb/255,alpha:0.8)
+        tableView.backgroundColor = myRed1Color
+        cell.backgroundColor = myRed1Color
+        cell.textLabel?.textColor = UIColor.darkTextColor()
+        cell.detailTextLabel?.textColor = UIColor.lightGrayColor()
         
         if(markersDictionary.count>0 && indexPath.row < markersDictionary.count){ //Instead of doing this try to change the table size
             var firstname: String = markersDictionary[indexPath.row]["first_name"] as String
