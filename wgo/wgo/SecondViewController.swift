@@ -206,6 +206,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
                 self.dynamicTableSize(nameArray.count)
                  println(nameArray)
 //                updateCount(nameArray.count)
+               // self.searchDisplayController?.scop
                 if tableView == self.searchDisplayController!.searchResultsTableView {
                     println("here")
                     if(indexPath.row<(nameArray.count)){
@@ -227,7 +228,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             }
        
             cell.textLabel?.text = name
-            tableView.rowHeight = 100
+            tableView.rowHeight = 70
+        
         
 
         return cell
