@@ -29,6 +29,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
     var data = NSMutableData()
     var locationManager = CLLocationManager()
     var currId:String = ""
+    var friendName = ""
     var markersDictionary = Array<AnyObject>()
     var friendCount:Int = 0
     var nameArray = Array<AnyObject>()
@@ -259,6 +260,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             var id: String = nameArray[indexPath.row]["_id"] as String
             friendId = id
             var name: String = nameArray[indexPath.row]["first_name"] as String
+            self.friendName = name
             var sheet: UIActionSheet = UIActionSheet()
             let title: String = "Would You Like To Add "
             let title2: String = "?"
@@ -277,6 +279,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         
         if(buttonIndex == 0){
             addFriend(friendId)
+            self.view.makeToast(message: "Request Sent to \(self.friendName)", duration: 1.5, position: "center")
             self.searchDisplayController?.setActive(false, animated: true)
         }
     }

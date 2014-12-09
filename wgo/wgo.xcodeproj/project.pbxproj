@@ -15,6 +15,7 @@
 		35A4C2471A34E4CB00AD8BA1 /* PopDateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35A4C2441A34E4CB00AD8BA1 /* PopDateViewController.xib */; };
 		35A4C2491A34E4D400AD8BA1 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A4C2481A34E4D400AD8BA1 /* DateUtils.swift */; };
 		35B44B1B1A34EAA900B98D3E /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B44B1A1A34EAA900B98D3E /* AddEventViewController.swift */; };
+		35CD73881A376340005CD37A /* HRToast+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD73871A376340005CD37A /* HRToast+UIView.swift */; };
 		637279E919DBA10800721AD0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637279E819DBA10800721AD0 /* LoginController.swift */; };
 		63B0B0D319E4C15600A281B1 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B0B0D219E4C15600A281B1 /* Poster.swift */; };
 		63DC63F719B9416700F7981C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC63F619B9416700F7981C /* AppDelegate.swift */; };
@@ -99,6 +100,7 @@
 		35A4C2441A34E4CB00AD8BA1 /* PopDateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopDateViewController.xib; sourceTree = "<group>"; };
 		35A4C2481A34E4D400AD8BA1 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		35B44B1A1A34EAA900B98D3E /* AddEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
+		35CD73871A376340005CD37A /* HRToast+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRToast+UIView.swift"; sourceTree = "<group>"; };
 		637279E819DBA10800721AD0 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		63B0B0D219E4C15600A281B1 /* Poster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
 		63DC63F119B9416700F7981C /* wgo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wgo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,6 +179,7 @@
 				35A4C2421A34E4CB00AD8BA1 /* PopDatePicker.swift */,
 				35A4C2431A34E4CB00AD8BA1 /* PopDateViewController.swift */,
 				35A4C2441A34E4CB00AD8BA1 /* PopDateViewController.xib */,
+				35CD73871A376340005CD37A /* HRToast+UIView.swift */,
 				35A4C2481A34E4D400AD8BA1 /* DateUtils.swift */,
 				35B44B1A1A34EAA900B98D3E /* AddEventViewController.swift */,
 				B933E13B1A1AF06A0070D2B8 /* SettingsController.swift */,
@@ -370,6 +373,7 @@
 				637279E919DBA10800721AD0 /* LoginController.swift in Sources */,
 				35A4C2451A34E4CB00AD8BA1 /* PopDatePicker.swift in Sources */,
 				35A4C2461A34E4CB00AD8BA1 /* PopDateViewController.swift in Sources */,
+				35CD73881A376340005CD37A /* HRToast+UIView.swift in Sources */,
 				35A4C2491A34E4D400AD8BA1 /* DateUtils.swift in Sources */,
 				B933E13D1A1AF06A0070D2B8 /* Locksmith.swift in Sources */,
 				63DC63F719B9416700F7981C /* AppDelegate.swift in Sources */,
