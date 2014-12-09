@@ -22,6 +22,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var tableView: UITableView!
     var myPin:[CustomPointAnnotation] = []
+    var myEventPin:[CustomPointAnnotation] = []
     var currLoc:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var data = NSMutableData()
     var locationManager = CLLocationManager()
@@ -225,11 +226,11 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
                 var currentLat:CLLocationDegrees = lat
                 var currentLng:CLLocationDegrees = lng
                 currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
-                myPin.append(CustomPointAnnotation())
-                myPin[i].imageName = "EventMarker"
-                myPin[i].coordinate = currLoc
-                myPin[i].title = title
-                self.mapView.addAnnotation(myPin[i])
+                myEventPin.append(CustomPointAnnotation())
+                myEventPin[i].imageName = "EventMarker"
+                myEventPin[i].coordinate = currLoc
+                myEventPin[i].title = title
+                self.mapView.addAnnotation(myEventPin[i])
                 //  mapView(mapView,viewForAnnotation: myPin[i])
                 /* End Of Pin Code*/
             }

@@ -22,7 +22,8 @@ class SettingsController: UIViewController, FBLoginViewDelegate {
     
 
     override func viewDidLoad() {
-      
+        
+        self.title = "Settings"
         logOutButton.addTarget(self, action: Selector("logOutClick"), forControlEvents: .TouchUpInside)
         var screenSize: CGRect = UIScreen.mainScreen().bounds
         let screenWidth = screenSize.width

@@ -45,7 +45,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
             self.currId = dictionary?.valueForKey("appId") as String!
             println("currId in secondView: " + currId)
         }
-      //  updateCount()
+       
    
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

@@ -32,6 +32,7 @@ class AddEventViewController: UIViewController, UITextFieldDelegate, CLLocationM
     
     override func viewDidLoad() {
         
+        self.title = "Add An Event"
         mapView.hidden = true
         mapView.delegate = self
         showMap()

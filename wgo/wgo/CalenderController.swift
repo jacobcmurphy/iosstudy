@@ -26,6 +26,7 @@ class CalenderController: UIViewController, UITableViewDelegate, NSXMLParserDele
     
     override func viewDidLoad() {
         
+        self.title = "Brandeis Calender"
         feeds = []
         var url: NSURL = NSURL(string: "http://25livepub.collegenet.com/calendars/campus.rss")!
         parser = NSXMLParser (contentsOfURL: url)!
