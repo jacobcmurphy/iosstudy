@@ -214,6 +214,26 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate , UITable
                 /* End Of Pin Code*/
             }
         }
+        
+        if(eventsArray.count>0){
+            for i in 0...eventsArray.count-1 {
+                var lnglat:NSArray = eventsArray[i]["loc"] as NSArray
+                var title: String = eventsArray[i]["title"] as String
+                var lng:double_t = lnglat[0] as double_t
+                var lat:double_t = lnglat[1] as double_t
+                /*Making a Pin here...*/
+                var currentLat:CLLocationDegrees = lat
+                var currentLng:CLLocationDegrees = lng
+                currLoc = CLLocationCoordinate2DMake(currentLat, currentLng)
+                myPin.append(CustomPointAnnotation())
+                myPin[i].imageName = "EventMarker"
+                myPin[i].coordinate = currLoc
+                myPin[i].title = title
+                self.mapView.addAnnotation(myPin[i])
+                //  mapView(mapView,viewForAnnotation: myPin[i])
+                /* End Of Pin Code*/
+            }
+        }
     }
     
     func refresh(){
