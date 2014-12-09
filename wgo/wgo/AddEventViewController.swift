@@ -155,14 +155,13 @@ class AddEventViewController: UIViewController, UITextFieldDelegate, CLLocationM
     if (textField === startTextField) {
         resign()
         let formatter = NSDateFormatter()
-        formatter.dateStyle = .MediumStyle
-        formatter.timeStyle = .NoStyle
+        formatter.dateFormat = "MMM dd 'at' h:mm a"
         let initDate = formatter.dateFromString(startTextField.text)
         
         startPopDatePicker!.pick(self, initDate:initDate, dataChanged: { (newDate : NSDate, forTextField : UITextField) -> () in
             
-            // here we don't use self (no retain cycle)
-            forTextField.text = newDate.ToDateMediumString()
+            let str = formatter.stringFromDate(newDate)
+            forTextField.text = str
             
         })
         return false
@@ -170,13 +169,12 @@ class AddEventViewController: UIViewController, UITextFieldDelegate, CLLocationM
     if (textField === endTextField) {
         resign()
         let formatter = NSDateFormatter()
-        formatter.dateStyle = .MediumStyle
-        formatter.timeStyle = .NoStyle
+        formatter.dateFormat = "MMM dd 'at' h:mm a"
         let initDate = formatter.dateFromString(endTextField.text)
         endPopDatePicker!.pick(self, initDate:initDate, dataChanged: { (newDate : NSDate, forTextField : UITextField) -> () in
             
-            // here we don't use self (no retain cycle)
-            forTextField.text = newDate.ToDateMediumString()
+            let str = formatter.stringFromDate(newDate)
+            forTextField.text = str
         })
         return false
     }

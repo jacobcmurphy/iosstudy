@@ -44,6 +44,9 @@ class LoginController: UIViewController, CLLocationManagerDelegate, FBLoginViewD
         Locksmith.saveData(["wgoAuth" : FBSession.activeSession().accessTokenData.accessToken], forKey: self.key, inService: self.service, forUserAccount: self.userAccount)
         println("Facebook auth token: \(FBSession.activeSession().accessTokenData.accessToken) -- Also saved token to Keychain")
         
+        fbLoginView.hidden = true
+        self.view.makeToastActivity()
+        
         
         
         
