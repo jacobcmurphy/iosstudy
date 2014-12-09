@@ -128,6 +128,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         if (tableViewSize == 0) {
             return (self.tableViewSize+1)
         } else {
+            self.tableViewSize = markersDictionary.count
             return self.tableViewSize
         }
     }
@@ -274,10 +275,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, CLLocationMan
         
         if(buttonIndex == 0){
             addFriend(friendId)
-            let storyboard = UIStoryboard(name: "Main", bundle: nil);
-            let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FriendsNavController") as UINavigationController
-            self.showViewController(secondViewController, sender: self)
-            
+            self.searchDisplayController?.setActive(false, animated: true)
         }
     }
     

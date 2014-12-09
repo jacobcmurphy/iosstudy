@@ -33,36 +33,14 @@ class SettingsController: UIViewController, FBLoginViewDelegate {
     }
     
     func logOutClick(){
-        
+        FBSession.activeSession().closeAndClearTokenInformation()
         let deleteRequest = LocksmithRequest(service: self.service, userAccount: self.userAccount, key: self.key, requestType: .Delete)
         Locksmith.performRequest(deleteRequest)
-        var theFBSession = FBSession.activeSession()
-        var check = FBSession.closeAndClearTokenInformation(theFBSession)
-    }
-    
-    // Facebook Delegate Methods
-    
-    func loginViewShowingLoggedInUser(loginView : FBLoginView!) {
-        println("User Logged In")
         let storyboard = UIStoryboard(name: "Main", bundle: nil);
+        let vc = storyboard.instantiateViewControllerWithIdentifier("SplashViewController") as SplashViewController;
+        self.presentViewController(vc, animated: false, completion: nil);
         
     }
     
-    func loginViewFetchedUserInfo(loginView : FBLoginView!, user: FBGraphUser) {
-        println("User: \(user)")
-        println("User ID: \(user.objectID)")
-        println("User Name: \(user.name)")
-        var userEmail = user.objectForKey("email") as String
-        println("User Email: \(userEmail)")
-    }
-    
-    func loginViewShowingLoggedOutUser(loginView : FBLoginView!) {
-        println("User Logged Out")
-    }
-    
-    func loginView(loginView : FBLoginView!, handleError:NSError) {
-        println("Error: \(handleError.localizedDescription)")
-    }
-
-    
+     
 }
